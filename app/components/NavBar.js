@@ -6,6 +6,9 @@ class NavBar extends Component {
         if(this.props.location.pathname == '/'){
             return (
                 <div style={{backgroundColor:'#88BBD6', height: 100}}>
+                    <Link to={'/test'}>
+                        Category
+                    </Link>
                     <Link to={'/'}>
                         Sign up
                     </Link>
