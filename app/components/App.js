@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
+import Router from '../config/Router'
 
 class App extends Component {
-    render(){
-        return(
-            <div style={styles.headerTab}>
-                <p>test</p>
-            </div>
+    render () {
+        return (
+            <div>
+                <Router />
+            </div>            
         )
     }
 }
