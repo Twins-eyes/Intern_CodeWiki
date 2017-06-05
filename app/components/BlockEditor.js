@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Editor, EditorState} from 'draft-js'
+import '../assets/editor.css'
 
 class BlockEditor extends Component {
     constructor(props) {
@@ -18,16 +19,17 @@ class BlockEditor extends Component {
         }
     }
 
-
-
     render() {
         return (
             <div>
-                <div style={{border: '1px solid #ddd', minHeight: 100}}>
-                    <div style={{borderBottom: '1px solid #ddd'}}>
-                        <button>BOLD</button>
-                    </div>
+                <div className={'editor'}>
                     <Editor editorState={this.state.editorState} onChange={this.onChange} />
+                </div>
+                <div>
+                    <button>BOLD</button>
+                </div>
+                <div>
+                    
                 </div>
             </div>
         )
