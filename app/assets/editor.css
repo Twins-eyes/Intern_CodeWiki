@@ -2,9 +2,17 @@
     box-sizing: border-box;
     border: 1px solid #ddd;
     cursor: text;
-    padding: 16px;
+    padding: 13px;
     border-radius: 2px;
     margin-bottom: 10px;
     box-shadow: inset 0px 1px 8px -3px #ABABAB;
     background: #fefefe;
+    min-height: 100px;
+}
+
+.bottonEditor {
+    height: 50px;
+    width: 50px;
+    border-radius: 2px;
+    border: 1px solid #ddd;
 }
