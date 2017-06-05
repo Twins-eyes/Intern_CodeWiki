@@ -5,21 +5,20 @@ class NavBar extends Component {
     render () {
         if(this.props.location.pathname == '/'){
             return (
-                <div style={{backgroundColor:'#88BBD6', height: 100}}>
-                    <Link to={'/test'}>
-                        Category
-                    </Link>
-                    <Link to={'/'}>
+                <div style={styles.navBar}>
+                    <img src='codewikiblack.pdf'/>
+                    <Link to={'/signup'}>
                         Sign up
                     </Link>
-                    <Link to={'/a'}>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <Link to={'/signin'}>
                         Sign in
                     </Link>
                 </div>
             )
         } else {
             return (
-                <div style={{backgroundColor:'#88BBD6', height: 100}}>
+                <div style={styles.navBar}>
                     <Link to={'/'}>
                         Home
                     </Link>
@@ -29,6 +28,16 @@ class NavBar extends Component {
                 </div>
             )
         }
+    }
+}
+
+const styles = {
+    navBar:{
+        textAlign: 'right', 
+        height: 75,
+        padding: 20,
+        backgroundColor: 'transparent',
+        fontFamily: 'Arial'
     }
 }
 
