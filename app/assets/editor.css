@@ -8,3 +8,45 @@
     box-shadow: inset 0px 1px 8px -3px #ABABAB;
     background: #fefefe;
 }
+.page {
+    background-color: #F5D773;
+    background-size: cover;
+    font-family: Arial;
+}
+.navBar {
+    height: 75px;
+    padding: 20px;
+    padding-bottom: 0;
+    background-color: transparent;
+    font-family: Arial;
+    flex-direction: column;
+}
+.logo {
+    align-items: left;
+    width: 130px;
+    height: 25px;
+}
+.menu {
+    background-color: transparent;
+    float: right;
+}
+.link {
+    color: white;
+    text-decoration: none;
+}
+.link:hover {
+    color: #577380;
+}
+.signinBox {
+    background-color: #F2F2F2;
+    opacity: 0.8;
+    width: 350px;
+    height: 300px;
+    border-radius: 15px;
+}
+.formInput {
+    border-radius: 5px;
+    height: 25px;
+    width: 200px;
+    padding-top: 0;
+}
