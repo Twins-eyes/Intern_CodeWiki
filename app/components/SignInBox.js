@@ -5,8 +5,8 @@ class SignInBox extends Component {
     render (){
         return(
             <div className={'signinBox'}>
-                <FormInput label={'Email or Username'}/>  
-                <FormInput label={'Password'}/>           
+                <FormInput type='text' label='Email or Username' autoFocus='true'/>  
+                <FormInput type='password' label='Password'/>     
             </div>
         )
     }
