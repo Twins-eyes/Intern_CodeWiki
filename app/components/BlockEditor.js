@@ -11,7 +11,9 @@ class BlockEditor extends Component {
         this.state = {
             editorState: EditorState.createEmpty(),
             displayEditorState: '',
-            htmlFromEditor: ''
+            htmlFromEditor: '',
+            content: {},
+            hoverSelection: false
         }
         
         this.onChange = this.onChange.bind(this)
@@ -30,25 +32,33 @@ class BlockEditor extends Component {
         var start = selectionState.getStartOffset()
         var end = selectionState.getEndOffset()
         let selectedText = currentContentBlock.getText().slice(start, end)
-        
+
         if(selectionState.getStartKey() == selectionState.getEndKey()){
             console.log(selectedText)
         }else{
             const rawData = convertToRaw(currentContent).blocks
             let indexStart = rawData.findIndex(inData => inData.key == selectionState.getStartKey())
             let indexEnd = rawData.findIndex(inData => inData.key == selectionState.getEndKey())
-
+            let selectionObj = {}
+            let changedSelectedArray = []
             let selectionArray = rawData.filter(data => {
                 let lineOfObject = rawData.findIndex(inData => inData.key == data.key)
-                if(lineOfObject === indexStart)
-                    console.log(data.text.slice(start))
-                else if(lineOfObject > indexStart & lineOfObject < indexEnd)
-                    console.log(data.text)
-                else if(lineOfObject === indexEnd)
-                    console.log(data.text.slice(0, end))
-                else
-                    console.log('---------------')
+                let dataChange = Object.assign({}, data)
+                if(lineOfObject === indexStart){
+                    dataChange.text = dataChange.text.slice(start)
+                    changedSelectedArray = [...changedSelectedArray, dataChange]
+                }else if(lineOfObject > indexStart & lineOfObject < indexEnd){
+                    changedSelectedArray = [...changedSelectedArray, dataChange]
+                }else if(lineOfObject === indexEnd){
+                    dataChange.text = dataChange.text.slice(0, end)
+                    changedSelectedArray = [...changedSelectedArray, dataChange]
+                }
             })
+            console.log(changedSelectedArray)
+            selectionObj = Object.assign(selectionObj, { key: '123' }, { massage: changedSelectedArray }, { description: '' } )
+            console.log(selectionObj)
+            this.setState({ content: selectionObj})
+            console.log(this.state.content)
         }
     }
 
@@ -85,19 +95,30 @@ class BlockEditor extends Component {
         this.setState({editorState: this.state.editorState})
     }
 
+    descriptionTextArea() {
+        if(this.state.hoverSelection){
+            return (
+                <div>
+                    <textarea></textarea>
+                </div>
+            )
+        }
+    }
+
     render() {
         return (
             <div>
                 <Grid divided='vertically'>
                     <Grid.Row columns={2}>
                         <Grid.Column>
-                            <div className={'editor'}>
+                            <div className={'editor'} onMouseDown={data => console.log(data)} onMouseUp={() => this.setState({ hoverSelection: true })}>
                                 <Editor 
                                     editorState={this.state.editorState} 
                                     onChange={this.onChange}
                                     placeholder={'Tell us something...'}
                                 />
                             </div>
+                            {this.descriptionTextArea()}
                         </Grid.Column>
                         <Grid.Column>
                             <div>
