@@ -7,16 +7,16 @@ class HomePage extends Component {
         return (
             <div className={'page'}>
                 <NavBar location={this.props.location}/>
-                <div>
+                <div className={'syno'}>
                     <h1>CodeWiki</h1>
-                    <p>The new way to express your<br/> 
+                    <span>The new way to express your<br/> 
                     code and explanation with other people<br/> 
-                    in the different ways from the traditional site.</p>
-                    <p>CodeWiki allow you to correspond between code<br/> 
+                    in the different ways from the traditional site.</span>
+                    <p><span>CodeWiki</span> allow you to correspond between code<br/> 
                     and explanation within one screen, helping developer<br/> 
                     to easily write the explanation when sharing with other people.<br/> 
                     <br/>
-                    CodeWiki not only provides the open space to share your codes<br/>
+                    <span>CodeWiki</span> not only provides the open space to share your codes<br/>
                     but also finds others' code to get more understanding<br/>
                     in coding ways.
                     </p>
