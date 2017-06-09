@@ -11,14 +11,15 @@ class SignInBox extends Component {
                     name='email_username'
                     value={this.props.value}
                     autoFocus='true'
-                    />
-                    <span>Password</span>   
+                    /><br/>
+                    <span>Password</span><br/>   
                     <input type='password'
                     className={'formInput'}
                     name='password'
                     value={this.props.value}
-                    />
-                    <center><button className={'button'}>Sign In</button></center>
+                    /><br/>
+                    <span>Forget password?</span>
+                    <center><button className={'button'}>Sign in</button></center>
                 </form>
             </div>
         )

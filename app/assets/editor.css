@@ -10,9 +10,12 @@
 }
 .page {
     background-color: #F5D773;
-    font-family: 'Hiragino Kaku Gothic Pro';
+    background-size: 100%;
+    background-position: left top;
 }
 .syno {
+    background-color: #F5D773;
+    font-size: 14px;
     float: left;
     padding-right: 100px;
     padding-left: 100px;
@@ -20,9 +23,9 @@
 .navBar {
     height: 75px;
     padding: 20px;
+    background-color: #F5D773;
     padding-bottom: 0;
-    background-color: transparent;
-    font-family: Arial;
+    font-size: 14px;
     flex-direction: column;
 }
 .logo {
@@ -43,22 +46,18 @@
 }
 .signinBox {
     background-color: #F2F2F2;
-    opacity: 0.8;
     width: 400px;
     height: 350px;
     border-radius: 15px;
-    float: left;
-    margin-top: 30px;
+    margin-left: 50px;
 }
 .formInput {
-    font-family: Arial;
     border: none;
     border-radius: 4px;
     font-size: 14px;
-    margin: 0;
     outline: 0;
     padding: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     width: 85%;
     box-sizing: border-box; 
     -webkit-box-sizing: border-box;
@@ -83,7 +82,7 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 14px;
     border-radius: 8px;
 }
 .button:hover {
@@ -94,7 +93,6 @@
 }
 h1 {
     color: white;
-    font-size: 72px;
     margin-bottom: 0px;
 }
 p {

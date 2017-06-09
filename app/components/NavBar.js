@@ -22,13 +22,16 @@ class NavBar extends Component {
         } else {
             return (
                 <div className={'navBar'}>
-                    <Link to={'/'} className={'link'}>
-                        {this.props.name}
-                    </Link>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <Link to={'/a'} className={'link'}>
-                        Sign out
-                    </Link>
+                    <Link to={'/'}><img src={require('../img/codewikiwhite.gif')} className={'logo'}/></Link>
+                    <span className={'menu'}>
+                        <Link to={'/'} className={'link'}>
+                            {this.props.name}
+                        </Link>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <Link to={'/a'} className={'link'}>
+                            Sign out
+                        </Link>
+                    </span>
                 </div>
             )
         }
