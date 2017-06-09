@@ -61,14 +61,6 @@ class BlockEditor extends Component {
             console.log(this.state.content)
         }
     }
-
-<<<<<<< HEAD
-    render() {
-        return (
-            <div>
-                <div className={'editor'}>
-                    <Editor editorState={this.state.editorState} onChange={this.onChange} />
-=======
     _onBoldClick() {
         this.onChange(RichUtils.toggleInlineStyle(
             this.state.editorState,
@@ -143,7 +135,6 @@ class BlockEditor extends Component {
                     <button onClick={this._onUnderlineClick.bind(this)}>UNDERLINE</button>
                     <button onClick={this._onCodeClick.bind(this)}>CODE</button>
                     <button onClick={this._onSelectionDescription.bind(this)}>SELECT FOR DESCRIPTION</button>
->>>>>>> 19aa532d4ad1ab287e62440f9bd1256bc43ea6fd
                 </div>
                 <div>
                     <button>BOLD</button>
