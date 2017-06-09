@@ -2,11 +2,16 @@
     box-sizing: border-box;
     border: 1px solid #ddd;
     cursor: text;
+<<<<<<< HEAD
     padding: 16px;
+=======
+    padding: 13px;
+>>>>>>> 19aa532d4ad1ab287e62440f9bd1256bc43ea6fd
     border-radius: 2px;
     margin-bottom: 10px;
     box-shadow: inset 0px 1px 8px -3px #ABABAB;
     background: #fefefe;
+<<<<<<< HEAD
 }
 .page {
     background-color: #F5D773;
@@ -103,4 +108,12 @@ p {
 }
 span {
     color: #577380;
+    min-height: 100px;
+}
+
+.bottonEditor {
+    height: 50px;
+    width: 50px;
+    border-radius: 2px;
+    border: 1px solid #ddd;
 }
