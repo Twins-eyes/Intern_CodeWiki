@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 import NavBar from '../components/NavBar'
 import SignInBox from '../components/SignInBox'
 import { Row, Col } from 'antd'
+import Parallax from 'parallax-js'
 
 class HomePage extends Component {
     render () {
         return (
-            <body className={'page'}>
+            <div className={'page'}>
                 <NavBar location={this.props.location}/><br/><br/>
                 <Row>
                     <Col span={12}>
@@ -28,7 +29,7 @@ class HomePage extends Component {
                     </Col>
                     <Col span={12}><SignInBox/></Col>
                 </Row>
-            </body>
+            </div>
         )
     }
 }

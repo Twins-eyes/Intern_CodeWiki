@@ -10,14 +10,16 @@
 }
 .page {
     background-color: #F5D773;
-    background-size: 100%;
-    background-position: left top;
+    height: 200%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .syno {
     background-color: #F5D773;
     font-size: 14px;
     float: left;
-    padding-right: 100px;
+    padding-right: 50px;
     padding-left: 100px;
 }
 .navBar {
@@ -47,9 +49,10 @@
 .signinBox {
     background-color: #F2F2F2;
     width: 400px;
-    height: 350px;
+    height: 330px;
     border-radius: 15px;
     margin-left: 50px;
+    margin-bottom: 188px;
 }
 .formInput {
     border: none;
