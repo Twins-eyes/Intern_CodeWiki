@@ -11,7 +11,7 @@ class Router extends Component{
             <HashRouter>
                 <div>
                     <Route exact path='/' component={HomePage} />
-                    <Route path='/a' component={TestPage} />
+                    <Route path='/test' component={TestPage} />
                     <Route path='/block' component={BlockEditor} />
                 </div>
             </HashRouter>

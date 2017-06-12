@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Router from '../config/Router'
+import 'antd/dist/antd.css'
 
 class App extends Component {
     render () {
