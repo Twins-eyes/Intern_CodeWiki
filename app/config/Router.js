@@ -5,6 +5,7 @@ import HomePage from '../components/HomePage'
 import BlockEditor from '../components/BlockEditor'
 import SignIn from '../components/SignInPage'
 import SignUp from '../components/SignUpPage'
+import TopicList from '../components/TopicList'
 
 class Router extends Component{
     render() {
@@ -17,6 +18,7 @@ class Router extends Component{
                     <Route path='/block' component={BlockEditor} />
                     <Route path='/signin' component={SignIn} />
                     <Route path='/signup' component={SignUp} />
+                    <Route path='/list' component={TopicList} />
                 </div>
             </HashRouter>
         )
