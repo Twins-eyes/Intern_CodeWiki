@@ -154,17 +154,17 @@ class TestPage extends Component {
         return (
             <div style={styles.root}>
                 <div style={{marginBottom: 10}}>
-                    Select some text, then use the buttons to add or remove links
+                    Select some text, then use the buttons to add or remove description
                     on the selected text.
                 </div>
                 <div style={styles.buttons}>
                     <button
                         onMouseDown={this.promptForLink}
                         style={{marginRight: 10}}>
-                        Add Link
+                        Add Description
                     </button>
                     <button onMouseDown={this.removeLink}>
-                        Remove Link
+                        Remove Description
                     </button>
                 </div>
                 {urlInput}
@@ -221,6 +221,8 @@ const styles = {
         cursor: 'text',
         minHeight: 80,
         padding: 10,
+        boxSizing: 'border-box',
+        boxShadow: 'inset 0px 1px 8px -3px #ABABAB',
     },
     button: {
         marginTop: 10,
@@ -237,7 +239,6 @@ const styles = {
 } 
 
 const mapStateToProps = state => {
-    console.log(state)
     return {editor: state.editor}
 }
 
