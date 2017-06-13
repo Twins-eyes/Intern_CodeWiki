@@ -1,0 +1,1 @@
+export const CHANGE_DESCRIPTION = 'change_description'

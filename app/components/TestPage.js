@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import * as actions from '../actions'
 import { Row, Col } from 'antd'
 import { 
     CompositeDecorator, 
@@ -17,8 +19,8 @@ class TestPage extends Component {
 
         const decorator = new CompositeDecorator([
             {
-                strategy: findLinkEntities,
-                component: Link,
+                strategy: this.findLinkEntities,
+                component: this.Link.bind(this),
             },
         ])
 
@@ -107,6 +109,29 @@ class TestPage extends Component {
         }
     }
 
+    findLinkEntities(contentBlock, callback, contentState) {
+        contentBlock.findEntityRanges(
+            (character) => {
+                const entityKey = character.getEntity() 
+                return (
+                    entityKey !== null &&
+                    contentState.getEntity(entityKey).getType() === 'LINK'
+                ) 
+            },
+            callback
+        ) 
+    }
+
+    Link(props) {
+        const {description} = props.contentState.getEntity(props.entityKey).getData() 
+        return (
+            <code style={styles.link} onMouseOver={() => this.props.changeDescription(description)}>
+                {props.children}
+            </code>
+        ) 
+    }
+
+
     render() {
         let urlInput
         if (this.state.showURLInput) {
@@ -125,7 +150,7 @@ class TestPage extends Component {
                 </button>
             </div>
         }
-
+        
         return (
             <div style={styles.root}>
                 <div style={{marginBottom: 10}}>
@@ -156,7 +181,7 @@ class TestPage extends Component {
                     </Col>
                     <Col span={12}>
                         <div style={styles.editor}>
-                            {this.state.description}
+                            {this.props.editor.description}
                         </div>
                     </Col>
                 </Row>
@@ -171,29 +196,7 @@ class TestPage extends Component {
     }
 }
 
-function findLinkEntities(contentBlock, callback, contentState) {
-    contentBlock.findEntityRanges(
-        (character) => {
-            const entityKey = character.getEntity() 
-            return (
-                entityKey !== null &&
-                contentState.getEntity(entityKey).getType() === 'LINK'
-            ) 
-        },
-        callback
-    ) 
-}
 
-const Link = (props) => {
-    const {description} = props.contentState.getEntity(props.entityKey).getData() 
-    return (
-        <code style={styles.link} onMouseOver={() => show(description)}>
-            {props.children}
-        </code>
-    ) 
-}
-
-const show = description => console.log(description)
 
 const styles = {
     root: {
@@ -233,4 +236,9 @@ const styles = {
     },
 } 
 
-export default TestPage
+const mapStateToProps = state => {
+    console.log(state)
+    return {editor: state.editor}
+}
+
+export default connect(mapStateToProps, actions)(TestPage)
