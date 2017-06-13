@@ -26,7 +26,7 @@ class TestPage extends Component {
             editorState: EditorState.createEmpty(decorator),
             showURLInput: false,
             urlValue: '',
-            descriptionAvai: false
+            description: ''
         }
 
         this.focus = () => this.refs.editor.focus()
@@ -54,16 +54,16 @@ class TestPage extends Component {
             const startOffset = editorState.getSelection().getStartOffset()
             const blockWithLinkAtBeginning = contentState.getBlockForKey(startKey)
             const linkKey = blockWithLinkAtBeginning.getEntityAt(startOffset)
-            let url = ''
+            let description = ''
             if (linkKey) {
                 const linkInstance = contentState.getEntity(linkKey)
-                url = linkInstance.getData().url
+                description = linkInstance.getData().url
             }
             this.setState({
                 showURLInput: true,
-                urlValue: url,
+                urlValue: description,
             }, () => {
-                setTimeout(() => this.refs.url.focus(), 0)
+                setTimeout(() => this.refs.description.focus(), 0)
             })
         }
     }
@@ -75,8 +75,8 @@ class TestPage extends Component {
         const contentStateWithEntity = contentState.createEntity(
             'LINK',
             'MUTABLE',
-            {url: urlValue}
-        ) 
+            {description: urlValue}
+        )
         const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
         const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity })
         this.setState({
@@ -114,9 +114,9 @@ class TestPage extends Component {
             <div style={styles.urlInputContainer}>
                 <input
                     onChange={this.onURLChange}
-                    ref="url"
+                    ref={"description"}
                     style={styles.urlInput}
-                    type="text"
+                    type={"text"}
                     value={this.state.urlValue}
                     onKeyDown={this.onLinkInputKeyDown}
                 />
@@ -143,15 +143,23 @@ class TestPage extends Component {
                     </button>
                 </div>
                 {urlInput}
-                <div style={styles.editor} onClick={this.focus}>
-                    <Editor
-                        editorState={this.state.editorState}
-                        onChange={this.onChange}
-                        placeholder={"Enter some text..."}
-                        ref={"editor"}
-                    />
-                </div>
-                
+                <Row gutter={8}>
+                    <Col span={12}>
+                        <div style={styles.editor} onClick={this.focus}>
+                            <Editor
+                                editorState={this.state.editorState}
+                                onChange={this.onChange}
+                                placeholder={"Enter some text..."}
+                                ref={"editor"}
+                            />
+                        </div>
+                    </Col>
+                    <Col span={12}>
+                        <div style={styles.editor}>
+                            {this.state.description}
+                        </div>
+                    </Col>
+                </Row>
                 <input
                     onClick={this.logState}
                     style={styles.button}
@@ -166,32 +174,32 @@ class TestPage extends Component {
 function findLinkEntities(contentBlock, callback, contentState) {
     contentBlock.findEntityRanges(
         (character) => {
-        const entityKey = character.getEntity() 
-        return (
-            entityKey !== null &&
-            contentState.getEntity(entityKey).getType() === 'LINK'
-        ) 
+            const entityKey = character.getEntity() 
+            return (
+                entityKey !== null &&
+                contentState.getEntity(entityKey).getType() === 'LINK'
+            ) 
         },
         callback
     ) 
 }
 
 const Link = (props) => {
-    const {url} = props.contentState.getEntity(props.entityKey).getData() 
+    const {description} = props.contentState.getEntity(props.entityKey).getData() 
     return (
-        <a href={url} style={styles.link} onMouseOver={show}>
+        <code style={styles.link} onMouseOver={() => show(description)}>
             {props.children}
-        </a>
+        </code>
     ) 
 }
 
-const show = () => console.log('sun')
+const show = description => console.log(description)
 
 const styles = {
     root: {
         fontFamily: '\'Georgia\', serif',
         padding: 20,
-        width: 600,
+        // width: 600,
     },
     buttons: {
         marginBottom: 10,
@@ -205,7 +213,8 @@ const styles = {
         padding: 3,
     },
     editor: {
-        border: '1px solid #ccc',
+        borderRadius: 2,
+        border: '1px solid #ddd',
         cursor: 'text',
         minHeight: 80,
         padding: 10,
@@ -216,7 +225,10 @@ const styles = {
     },
     link: {
         color: 'black',
-        backgroundColor: '#ddd'
+        backgroundColor: '#ddd',
+        padding: 2,
+        marginBottom: 3,
+        borderRadius: 2
         // +Math.floor(Math.random()*16777215).toString(16)
     },
 } 
