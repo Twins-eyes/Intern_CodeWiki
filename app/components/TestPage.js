@@ -59,7 +59,7 @@ class TestPage extends Component {
             let description = ''
             if (linkKey) {
                 const linkInstance = contentState.getEntity(linkKey)
-                description = linkInstance.getData().url
+                description = linkInstance.getData().description
             }
             this.setState({
                 showURLInput: true,
