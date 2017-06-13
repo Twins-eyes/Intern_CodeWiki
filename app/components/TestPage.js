@@ -15,10 +15,18 @@ class TestPage extends Component {
     constructor(props) {
         super(props)
 
+        const decorator = new CompositeDecorator([
+            {
+                strategy: findLinkEntities,
+                component: Link,
+            },
+        ])
+
         this.state = {
             editorState: EditorState.createEmpty(decorator),
             showURLInput: false,
             urlValue: '',
+            descriptionAvai: false
         }
 
         this.focus = () => this.refs.editor.focus()
@@ -34,13 +42,6 @@ class TestPage extends Component {
         this.onLinkInputKeyDown = this._onLinkInputKeyDown.bind(this)
         this.removeLink = this._removeLink.bind(this)
 
-        const decorator = new CompositeDecorator([
-            {
-                strategy: findLinkEntities,
-                component: Link,
-            },
-        ])
-
     }
 
     _promptForLink(e) {
@@ -48,22 +49,22 @@ class TestPage extends Component {
         const {editorState} = this.state
         const selection = editorState.getSelection()
         if (!selection.isCollapsed()) {
-        const contentState = editorState.getCurrentContent()
-        const startKey = editorState.getSelection().getStartKey()
-        const startOffset = editorState.getSelection().getStartOffset()
-        const blockWithLinkAtBeginning = contentState.getBlockForKey(startKey)
-        const linkKey = blockWithLinkAtBeginning.getEntityAt(startOffset)
-        let url = ''
-        if (linkKey) {
-            const linkInstance = contentState.getEntity(linkKey)
-            url = linkInstance.getData().url
-        }
-        this.setState({
-            showURLInput: true,
-            urlValue: url,
-        }, () => {
-            setTimeout(() => this.refs.url.focus(), 0)
-        })
+            const contentState = editorState.getCurrentContent()
+            const startKey = editorState.getSelection().getStartKey()
+            const startOffset = editorState.getSelection().getStartOffset()
+            const blockWithLinkAtBeginning = contentState.getBlockForKey(startKey)
+            const linkKey = blockWithLinkAtBeginning.getEntityAt(startOffset)
+            let url = ''
+            if (linkKey) {
+                const linkInstance = contentState.getEntity(linkKey)
+                url = linkInstance.getData().url
+            }
+            this.setState({
+                showURLInput: true,
+                urlValue: url,
+            }, () => {
+                setTimeout(() => this.refs.url.focus(), 0)
+            })
         }
     }
 
@@ -72,9 +73,9 @@ class TestPage extends Component {
         const {editorState, urlValue} = this.state
         const contentState = editorState.getCurrentContent()
         const contentStateWithEntity = contentState.createEntity(
-        'LINK',
-        'MUTABLE',
-        {url: urlValue}
+            'LINK',
+            'MUTABLE',
+            {url: urlValue}
         ) 
         const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
         const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity })
@@ -87,7 +88,7 @@ class TestPage extends Component {
         showURLInput: false,
         urlValue: '',
         }, () => {
-        setTimeout(() => this.refs.editor.focus(), 0)
+            setTimeout(() => this.refs.editor.focus(), 0)
         })
     }
     _onLinkInputKeyDown(e) {
@@ -124,6 +125,7 @@ class TestPage extends Component {
                 </button>
             </div>
         }
+
         return (
             <div style={styles.root}>
                 <div style={{marginBottom: 10}}>
@@ -145,15 +147,16 @@ class TestPage extends Component {
                     <Editor
                         editorState={this.state.editorState}
                         onChange={this.onChange}
-                        placeholder="Enter some text..."
-                        ref="editor"
+                        placeholder={"Enter some text..."}
+                        ref={"editor"}
                     />
                 </div>
+                
                 <input
-                onClick={this.logState}
-                style={styles.button}
-                type="button"
-                value="Log State"
+                    onClick={this.logState}
+                    style={styles.button}
+                    type={"button"}
+                    value={"Log State"}
                 />
             </div>
         )
@@ -176,11 +179,13 @@ function findLinkEntities(contentBlock, callback, contentState) {
 const Link = (props) => {
     const {url} = props.contentState.getEntity(props.entityKey).getData() 
     return (
-        <a href={url} style={styles.link}>
+        <a href={url} style={styles.link} onMouseOver={show}>
             {props.children}
         </a>
     ) 
-} 
+}
+
+const show = () => console.log('sun')
 
 const styles = {
     root: {
@@ -210,9 +215,9 @@ const styles = {
         textAlign: 'center',
     },
     link: {
-        color: '#3b5998',
-        textDecoration: 'underline',
-        backgroundColor: 'red'
+        color: 'black',
+        backgroundColor: '#ddd'
+        // +Math.floor(Math.random()*16777215).toString(16)
     },
 } 
 
