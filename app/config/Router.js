@@ -3,6 +3,7 @@ import { HashRouter, Switch, Route } from 'react-router-dom'
 import TestPage from '../components/TestPage'
 import HomePage from '../components/HomePage'
 import BlockEditor from '../components/BlockEditor'
+import AddBlogPage from '../components/AddBlogPage'
 
 class Router extends Component{
     render() {
@@ -13,6 +14,7 @@ class Router extends Component{
                     <Route exact path='/' component={HomePage} />
                     <Route path='/test' component={TestPage} />
                     <Route path='/block' component={BlockEditor} />
+                    <Route path='/createBlog' component={AddBlogPage} />
                 </div>
             </HashRouter>
         )

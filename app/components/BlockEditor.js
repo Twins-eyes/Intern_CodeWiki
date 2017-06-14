@@ -196,6 +196,8 @@ class BlockEditor extends Component {
                             Remove Description
                         </Button>
                     </Button.Group>
+
+                    <Button icon={'info'}/>
                 </div>
                 {urlInput}
                 <Row gutter={8}>
