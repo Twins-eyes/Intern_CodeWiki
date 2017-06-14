@@ -23,3 +23,12 @@
     border-radius: 2px;
     border: 1px solid #ddd;
 }
+
+.example-appear {
+  opacity: 0.01;
+}
+
+.example-appear.example-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
