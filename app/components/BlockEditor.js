@@ -10,7 +10,16 @@ import {
     RichUtils, 
     ContentState 
 } from 'draft-js'
-import { FaBold, FaItalic, FaUnderline, FaCode } from 'react-icons/lib/fa'
+import Immutable from 'immutable'
+import { 
+    FaBold, 
+    FaItalic, 
+    FaUnderline, 
+    FaCode, 
+    FaStrikethrough,
+    FaListOl,
+    FaListUl
+} from 'react-icons/lib/fa'
 import '../assets/editor.css'
 
 class BlockEditor extends Component {
@@ -43,6 +52,8 @@ class BlockEditor extends Component {
         this.confirmLink = this._confirmLink.bind(this)
         this.onLinkInputKeyDown = this._onLinkInputKeyDown.bind(this)
         this.removeLink = this._removeLink.bind(this)
+        this._onClickInlineStyle = this._onClickInlineStyle.bind(this)
+        this._onClickBlogType = this._onClickBlogType.bind(this)
 
     }
 
@@ -109,20 +120,12 @@ class BlockEditor extends Component {
         }
     }
 
-    _onBoldClick() {
-        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'))
+    _onClickInlineStyle(event) {
+        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, event))
     }
 
-    _onItalicClick() {
-        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC'))
-    }
-
-    _onCodeClick() {
-        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'CODE'))
-    }
-
-    _onUnderlineClick() {
-        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'UNDERLINE'))
+    _onClickBlogType(event) {
+        this.onChange(RichUtils.toggleBlockType(this.state.editorState, event))
     }
 
     findLinkEntities(contentBlock, callback, contentState) {
@@ -182,10 +185,23 @@ class BlockEditor extends Component {
                 </div>
                 <div style={styles.buttons}>
                     <Button.Group style={{marginRight: 10}}>
-                        <Button onClick={this._onBoldClick.bind(this)}><FaBold size={12} /></Button>
-                        <Button onClick={this._onItalicClick.bind(this)}><FaItalic size={11} /></Button>
-                        <Button onClick={this._onUnderlineClick.bind(this)}><FaUnderline size={12} /></Button>
-                        <Button onClick={this._onCodeClick.bind(this)}><FaCode size={15} /></Button>
+                        <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.h1)}>h1</Button>
+                        <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.h2)}>h2</Button>
+                        <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.h3)}>h3</Button>
+                        <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.default)}>default</Button>
+                    </Button.Group>
+
+                    <Button.Group style={{marginRight: 10}}>
+                        <Button onClick={() => this._onClickInlineStyle(changeInlineElement.bold)}><FaBold size={12} /></Button>
+                        <Button onClick={() => this._onClickInlineStyle(changeInlineElement.italic)}><FaItalic size={11} /></Button>
+                        <Button onClick={() => this._onClickInlineStyle(changeInlineElement.underline)}><FaUnderline size={12} /></Button>
+                        <Button onClick={() => this._onClickInlineStyle(changeInlineElement.code)}><FaCode size={15} /></Button>
+                        <Button onClick={() => this._onClickInlineStyle(changeInlineElement.strikethrough)}><FaStrikethrough size={13} /></Button>
+                    </Button.Group>
+
+                    <Button.Group style={{marginRight: 10}}>
+                        <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.ol)}><FaListOl size={12} /></Button>
+                        <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.ul)}><FaListUl size={12} /></Button>
                     </Button.Group>
 
                     <Button.Group style={{marginRight: 10}}>
@@ -267,6 +283,25 @@ const styles = {
         // +Math.floor(Math.random()*16777215).toString(16)
     },
 } 
+
+const changeInlineElement = {
+    bold: 'BOLD',
+    italic: 'ITALIC',
+    code: 'CODE',
+    underline: 'UNDERLINE',
+    strikethrough: 'STRIKETHROUGH'
+}
+
+const changeBlogTypeElement = {
+    h1: 'header-one',
+    h2: 'header-two',
+    h3: 'header-three',
+    blockquote: 'blockquote',
+    codeBlock: 'code-block',
+    ul: 'unordered-list-item',
+    ol: 'ordered-list-item',
+    default: 'unstyled'
+}
 
 const mapStateToProps = state => {
     return { editor: state.editor }

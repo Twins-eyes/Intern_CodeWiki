@@ -32,6 +32,7 @@
     "draft-js-export-html": "^0.5.4",
     "draft-js-plugins-editor": "^2.0.0-rc2",
     "draft-js-undo-plugin": "^2.0.0-rc2",
+    "immutable": "^3.8.1",
     "react": "^15.5.4",
     "react-addons-css-transition-group": "^15.5.2",
     "react-dom": "^15.5.4",

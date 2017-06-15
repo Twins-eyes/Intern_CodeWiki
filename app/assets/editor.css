@@ -24,11 +24,29 @@
     border: 1px solid #ddd;
 }
 
-.example-appear {
+.page-appear {
   opacity: 0.01;
 }
 
-.example-appear.example-appear-active {
+.page-appear.page-appear-active {
   opacity: 1;
   transition: opacity .5s ease-in;
+}
+
+.editorPreview-enter {
+  opacity: 0.01;
+}
+
+.editorPreview-enter.editorPreview-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.editorPreview-leave {
+  opacity: 1;
+}
+
+.editorPreview-leave.editorPreview-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
 }
