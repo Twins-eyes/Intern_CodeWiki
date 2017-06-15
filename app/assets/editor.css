@@ -137,4 +137,14 @@ span {
     height: 72px;
     border: 0.5px solid white;
     padding: 10px 0px 0px 30px;
+    margin-left: 10%;
+}
+.author {
+    float: right;
+    color: #577380;
+    margin-right: 10px;
+}
+.lang {
+    width: 150px;
+    margin-left: 20px;
 }

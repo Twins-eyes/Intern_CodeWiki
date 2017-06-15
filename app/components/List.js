@@ -4,7 +4,7 @@ import { Row, Col, Select, Tag } from 'antd'
 class List extends Component {
     tagsList(tags){
         const tagList = tags.map((tag, index) => 
-            <Tag color='cyan' style={{marginButtom:20}}>
+            <Tag key={index} color='cyan' style={{marginButtom:20}}>
                 #{tag}
             </Tag>
         )
@@ -18,7 +18,7 @@ class List extends Component {
                 <h2>{topicName}</h2>
                 <span>{language}</span>
                 {this.tagsList(tags)}
-                <span>{author}</span>
+                <p className={'author'}>{author}</p>
             </div>
         )
     }

@@ -20,13 +20,15 @@ class TopicList extends Component {
                     tags:['sci','int'],
                     author:'sun' 
                 }
-            ]
+            ],
+            languages:[]
         }
     }
 
     topicsList(topics){
         const topicList = this.state.topics.map((topic, index)=>
-            <List 
+            <List
+                key={index}
                 topicName={topic.topicName}
                 language={topic.language}
                 tags={topic.tags}
@@ -34,6 +36,13 @@ class TopicList extends Component {
             />
         )
         return topicList
+    }
+
+    langOptions(languages){
+        const langOption = this.state.languages.map((lang, index)=>
+            <Option value={lang}>{lang}</Option>
+        )
+        return langOption
     }
 
     render(){
@@ -57,17 +66,17 @@ class TopicList extends Component {
                 />
                 <Select 
                     showSearch
-                    style={{ width: 200 }}
+                    className={'lang'}
                     placeholder="Select language"
                     optionFilterProp="children"
                     //onChange={handleChange}
                     //filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}                >
                 >  
-                    <Option value='javascript'>javascript</Option>
-                    <Option value='java'>java</Option>
-                    <Option value='C'>C</Option>
+                    {this.langOptions(this.state.languages)}
                 </Select>
-                {this.topicsList(this.state.topics)}
+                <div style={{marginTop:'20px'}}>
+                    {this.topicsList(this.state.topics)}
+                </div>
             </div>
         )
     }
