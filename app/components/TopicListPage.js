@@ -26,7 +26,12 @@ class TopicList extends Component {
 
     topicsList(topics){
         const topicList = this.state.topics.map((topic, index)=>
-            <List key={index} data={topic} />
+            <List 
+                topicName={topic.topicName}
+                language={topic.language}
+                tags={topic.tags}
+                author={topic.author}
+            />
         )
         return topicList
     }
