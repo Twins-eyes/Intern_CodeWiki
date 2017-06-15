@@ -4,6 +4,33 @@ import NavBar from '../components/NavBar'
 import List from '../components/List'
 
 class TopicList extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            topics: [
+                {
+                    topicName:'1',
+                    language:'C',
+                    tags:['abc','cba'],
+                    author:'sun'
+                },
+                {
+                    topicName:'2',
+                    language:'java',
+                    tags:['sci','int'],
+                    author:'sun' 
+                }
+            ]
+        }
+    }
+
+    topicsList(topics){
+        const topicList = this.state.topics.map((topic, index)=>
+            <List key={index} data={topic} />
+        )
+        return topicList
+    }
+
     render(){
         const Option = Select.Option
         return(
@@ -25,7 +52,7 @@ class TopicList extends Component {
                 />
                 <Select 
                     showSearch
-                    style={{ width: 200, height: 32 }}
+                    style={{ width: 200 }}
                     placeholder="Select language"
                     optionFilterProp="children"
                     //onChange={handleChange}
@@ -35,7 +62,7 @@ class TopicList extends Component {
                     <Option value='java'>java</Option>
                     <Option value='C'>C</Option>
                 </Select>
-                <List/>
+                {this.topicsList(this.state.topics)}
             </div>
         )
     }
