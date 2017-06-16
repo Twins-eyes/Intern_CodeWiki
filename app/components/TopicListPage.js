@@ -9,16 +9,18 @@ class TopicList extends Component {
         this.state = {
             topics: [
                 {
-                    topicName:'1',
+                    topicName:'topic',
                     language:'C',
                     tags:['abc','cba'],
-                    author:'sun'
+                    author:'sun',
+                    date: '16/8/2016'
                 },
                 {
                     topicName:'2',
                     language:'java',
                     tags:['sci','int'],
-                    author:'sun' 
+                    author:'sun',
+                    date: '16/8/2016' 
                 }
             ],
             languages:[]
@@ -33,6 +35,7 @@ class TopicList extends Component {
                 language={topic.language}
                 tags={topic.tags}
                 author={topic.author}
+                date={topic.date}
             />
         )
         return topicList
@@ -69,12 +72,11 @@ class TopicList extends Component {
                     className={'lang'}
                     placeholder="Select language"
                     optionFilterProp="children"
-                    //onChange={handleChange}
                     //filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}                >
                 >  
                     {this.langOptions(this.state.languages)}
                 </Select>
-                <div style={{marginTop:'20px'}}>
+                <div style={{marginTop:'20px', opacity:'0.9'}}>
                     {this.topicsList(this.state.topics)}
                 </div>
             </div>

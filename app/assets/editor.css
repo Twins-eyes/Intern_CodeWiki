@@ -10,7 +10,6 @@
 }
 .page {
     background-color: #F5D773;
-    height: 200%; 
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -24,9 +23,9 @@
 }
 .navBar {
     height: 75px;
+    width: 100%;
     padding: 20px;
     background-color: #F5D773;
-    padding-bottom: 0;
     font-size: 14px;
     flex-direction: column;
 }
@@ -48,19 +47,18 @@
 }
 .signinBox {
     background-color: #F2F2F2;
-    width: 400px;
-    height: 330px;
+    width: 75%;
+    height: 60%;
     border-radius: 15px;
     margin-left: 50px;
     margin-bottom: 220px;
 }
 .signupBox {
     background-color: #F2F2F2;
-    width: 800px;
-    height: 330px;
+    width: 75%;
+    height: 60%;
     border-radius: 15px;
     margin-top: 100px;
-    margin-left: 250px;
     margin-bottom: 120px;
 }
 .formInput {
@@ -74,12 +72,9 @@
     box-sizing: border-box; 
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box; 
-    background-color: #d2d9dd;
+    background-color: white;
     -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
     box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-}
-.formInput:focus {
-    background: white;
 }
 .form {
     padding-top: 40px;
@@ -87,6 +82,7 @@
 }
 .button {
     margin-top: 20px;
+    margin-bottom: 20px;
     background-color: #F5D773;
     border: none;
     color: white;

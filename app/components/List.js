@@ -12,12 +12,13 @@ class List extends Component {
     }
     
     render(){
-        const { topicName, language, tags, author} = this.props
+        const { topicName, language, tags, author, date} = this.props
         return(
             <div className={'tpList'}>
                 <h2>{topicName}</h2>
                 <span>{language}</span>
                 {this.tagsList(tags)}
+                <p className={'author'}>{date}</p>
                 <p className={'author'}>{author}</p>
             </div>
         )
