@@ -53,29 +53,35 @@ class TopicList extends Component {
         return(
             <div className={'page'}>
                 <NavBar location={this.props.location} />
-                <input 
-                    type='text'
-                    className={'formInput'}
-                    value={this.props.value}
-                    style={
-                        {
-                            width:'300px',
-                            height:'32px',
-                            float:'right'
-                        }
-                    }
-                    placeholder={'search'}
-                    autoFocus
-                />
-                <Select 
-                    showSearch
-                    className={'lang'}
-                    placeholder="Select language"
-                    optionFilterProp="children"
-                    //filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}                >
-                >  
-                    {this.langOptions(this.state.languages)}
-                </Select>
+                <Row>
+                    <Col md={12} sm={8}>
+                        <Select 
+                            showSearch
+                            className={'lang'}
+                            placeholder="Select language"
+                            optionFilterProp="children"
+                            //filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}                >
+                        >  
+                            {this.langOptions(this.state.languages)}
+                        </Select>
+                    </Col>
+                    <Col md={12} sm={16}> 
+                        <input 
+                            type='text'
+                            className={'formInput'}
+                            value={this.props.value}
+                            style={
+                                {
+                                    width:'300px',
+                                    height:'32px',
+                                    float:'right'
+                                }
+                            }
+                            placeholder={'search'}
+                            autoFocus
+                        />
+                    </Col>
+                </Row>
                 <div style={{marginTop:'20px', opacity:'0.9'}}>
                     {this.topicsList(this.state.topics)}
                 </div>

@@ -60,6 +60,7 @@
     border-radius: 15px;
     margin-top: 100px;
     margin-bottom: 120px;
+    float: right;
 }
 .formInput {
     border: none;

@@ -7,9 +7,9 @@ import Parallax from 'parallax-js'
 class HomePage extends Component {
     render () {
         return (
-            <div className={'page'}>
+            <div>
                 <NavBar location={this.props.location}/>
-                <Row>
+                <Row className={'page'}>
                     <Col xs={12} md={12}>
                         <div className={'syno'}>
                             <h1>CodeWiki</h1><br/>

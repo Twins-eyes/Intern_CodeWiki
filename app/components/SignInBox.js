@@ -6,28 +6,29 @@ class SignInBox extends Component {
         return(
             <div className={'signinBox'}>
                 <form className={'form'}>
-                    <Col>
-                            <Row>
-                                <span>Email or Username</span>   
-                                 <input type='text'
-                                    className={'formInput'}
-                                    name='email_username'
-                                    value={this.props.value}
-                                    autoFocus='true'
-                                    required
-                                />  
-                            </Row>
-                            <Row>
-                                <span>Password</span><br/>   
-                                <input type='password'
-                                    className={'formInput'}
-                                    name='password'
-                                    value={this.props.value}
-                                    required
-                                />
-                            </Row>
-                        </Col>  
-                    <span>Forget password?</span>
+                    <Row align='middle'>
+                        <Col>
+                            <span>Email or Username</span><br/>   
+                            <input type='text'
+                                className={'formInput'}
+                                name='email_username'
+                                value={this.props.value}
+                                autoFocus='true'
+                                required
+                            />  
+                        </Col>
+                    </Row>
+                    <Row align='middle'>
+                        <Col>
+                            <span>Password</span><br/>                                   
+                            <input type='password'
+                                className={'formInput'}
+                                name='password'
+                                value={this.props.value}
+                                required
+                            />
+                        </Col>
+                    </Row>
                     <center>
                         <button className={'button'}>Sign in</button>
                     </center>
