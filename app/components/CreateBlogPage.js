@@ -3,10 +3,11 @@ import { connect } from 'react-redux'
 import * as actions from '../actions'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { Col, Row, Button, Radio } from 'antd'
-import BlockEditor from './BlockEditor'
+import BlogEditor from './BlogEditor'
+import BlogPreview from './BlogPreview'
 import '../assets/editor.css'
 
-class AddBlogPage extends Component {
+class CreateBlogPage extends Component {
     constructor(props) {
         super(props)
 
@@ -20,13 +21,11 @@ class AddBlogPage extends Component {
     pageDisplay() {
         if(this.state.pageDisplay === page.write){
             return (
-                <BlockEditor />
+                <BlogEditor />
             )
         }else{
             return (
-                <div>
-                    Preview Page
-                </div>
+                <BlogPreview />
             )
         }
     }
@@ -52,8 +51,8 @@ class AddBlogPage extends Component {
                             </Radio.Group>
                         </Col>
                     </Row>
-                    <Row style={{paddingLeft: 10}}>
-                        <Col style={{backgroundColor: '#eee'}} span={24}>
+                    <Row style={{paddingLeft: 10, paddingRight: 10}}>
+                        <Col style={{border: '1px solid #ddd'}} span={24}>
                             <ReactCSSTransitionGroup
                                 transitionName="editorPreview"
                                 transitionEnterTimeout={500}
@@ -74,4 +73,4 @@ const page = {
     preview: 'preview'
 }
 
-export default AddBlogPage
+export default CreateBlogPage

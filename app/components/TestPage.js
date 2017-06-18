@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import * as actions from '../actions'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { Select } from 'antd'
-import BlockEditor from './BlockEditor'
 import '../assets/editor.css'
 
 class TestPage extends Component {

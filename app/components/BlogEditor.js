@@ -8,7 +8,8 @@ import {
     Editor, 
     EditorState, 
     RichUtils, 
-    ContentState 
+    ContentState,
+    convertFromRaw
 } from 'draft-js'
 import Immutable from 'immutable'
 import { 
@@ -21,8 +22,9 @@ import {
     FaListUl
 } from 'react-icons/lib/fa'
 import '../assets/editor.css'
+import {stateToHTML} from 'draft-js-export-html'
 
-class BlockEditor extends Component {
+class BlogEditor extends Component {
     constructor(props) {
         super(props)
 
@@ -35,13 +37,23 @@ class BlockEditor extends Component {
 
         this.state = {
             editorState: EditorState.createEmpty(decorator),
+            decorator,
             showURLInput: false,
             urlValue: '',
             description: ''
         }
 
+        this.props.storeEditorState(EditorState.createEmpty(decorator))
+        this.props.storeDecorator(decorator)
+
         this.focus = () => this.refs.editor.focus()
-        this.onChange = (editorState) => this.setState({editorState})
+        this.onChange = (editorState) => {
+            this.setState({editorState})
+            
+            this.props.storeEditorState(convertToRaw(editorState.getCurrentContent()))
+
+            console.log(EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.decorator), 'entity')
+        }
         this.logState = () => {
             const content = this.state.editorState.getCurrentContent()
             console.log(convertToRaw(content))
@@ -56,6 +68,10 @@ class BlockEditor extends Component {
         this._onClickBlogType = this._onClickBlogType.bind(this)
 
     }
+
+    // componentWillReceiveProps(nextProps) {
+    //     this.props.storeEditorState(convertToRaw(editorState.getCurrentContent()))
+    // }
 
     _promptForLink(e) {
         e.preventDefault()
@@ -152,6 +168,7 @@ class BlockEditor extends Component {
 
 
     render() {
+        //console.log(EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.state.decorator))
         let urlInput
         if (this.state.showURLInput) {
         urlInput =
@@ -196,7 +213,7 @@ class BlockEditor extends Component {
                         <Button onClick={() => this._onClickInlineStyle(changeInlineElement.italic)}><FaItalic size={11} /></Button>
                         <Button onClick={() => this._onClickInlineStyle(changeInlineElement.underline)}><FaUnderline size={12} /></Button>
                         <Button onClick={() => this._onClickInlineStyle(changeInlineElement.code)}><FaCode size={15} /></Button>
-                        <Button onClick={() => this._onClickInlineStyle(changeInlineElement.strikethrough)}><FaStrikethrough size={13} /></Button>
+                        <Button onClick={() => this._onClickInlineStyle(changeInlineElement.strikethrough)}><FaStrikethrough size={12} /></Button>
                     </Button.Group>
 
                     <Button.Group style={{marginRight: 10}}>
@@ -205,7 +222,7 @@ class BlockEditor extends Component {
                     </Button.Group>
 
                     <Button.Group style={{marginRight: 10}}>
-                        <Button onMouseDown={this.promptForLink} type={'primary'}>
+                        <Button onMouseDown={this.promptForLink}>
                             Add Description
                         </Button>
                         <Button onMouseDown={this.removeLink}>
@@ -220,6 +237,7 @@ class BlockEditor extends Component {
                     <Col span={12}>
                         <div style={styles.editor} onClick={this.focus}>
                             <Editor
+                                decorator={this.decorator}
                                 editorState={this.state.editorState}
                                 onChange={this.onChange}
                                 placeholder={"Enter some text..."}
@@ -229,7 +247,12 @@ class BlockEditor extends Component {
                     </Col>
                     <Col span={12}>
                         <div style={styles.editor}>
-                            {this.props.editor.description}
+                            {/*{this.props.editor.description}*/}
+                            { this.checkEditorState() }
+                            {/*<Editor
+                                editorState={EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.state.decorator)}
+                                readOnly
+                            />*/}
                         </div>
                     </Col>
                 </Row>
@@ -240,6 +263,18 @@ class BlockEditor extends Component {
             </div>
         )
     }
+
+    checkEditorState() {
+        if(this.props.editor.editorState){
+            return (
+                <Editor
+                    editorState={EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.state.decorator)}
+                    readOnly
+                />
+            )
+        }
+    }
+
 }
 
 
@@ -307,4 +342,4 @@ const mapStateToProps = state => {
     return { editor: state.editor }
 }
 
-export default connect(mapStateToProps, actions)(BlockEditor)
+export default connect(mapStateToProps, actions)(BlogEditor)
