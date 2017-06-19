@@ -11,7 +11,6 @@ import {
     ContentState,
     convertFromRaw
 } from 'draft-js'
-import Immutable from 'immutable'
 import { 
     FaBold, 
     FaItalic, 
@@ -22,7 +21,6 @@ import {
     FaListUl
 } from 'react-icons/lib/fa'
 import '../assets/editor.css'
-import {stateToHTML} from 'draft-js-export-html'
 
 class BlogEditor extends Component {
     constructor(props) {
@@ -158,26 +156,26 @@ class BlogEditor extends Component {
         let desInput
         if (this.state.showDesInput) {
             desInput =
-                <div className={'desInputContainer'}>
-                    <Row>
-                        <Col span={20}>
-                            <Input
-                                onChange={this.onDesChange}
-                                ref={"description"}
-                                className={'desInput'}
-                                type={"textarea"}
-                                placeholder={'Please enter your description'}
-                                value={this.state.desValue}
-                                onKeyDown={this.onDescriptionInputKeyDown}
-                            />
-                        </Col>
-                        <Col span={4}>
-                            <Button onMouseDown={this.confirmDescription}>
-                                Confirm
-                            </Button>
-                        </Col>
-                    </Row>
-                </div>
+                <Col span={12}>
+                    <div className={'desInputContainer'}>
+                            <Col span={20}>
+                                <Input
+                                    onChange={this.onDesChange}
+                                    ref={"description"}
+                                    className={'desInput'}
+                                    type={"textarea"}
+                                    placeholder={'Please enter your description'}
+                                    value={this.state.desValue}
+                                    onKeyDown={this.onDescriptionInputKeyDown}
+                                />
+                            </Col>
+                            <Col span={4}>
+                                <Button onMouseDown={this.confirmDescription}>
+                                    Confirm
+                                </Button>
+                            </Col>
+                    </div>
+                </Col>
         }
     
         return (
@@ -218,9 +216,9 @@ class BlogEditor extends Component {
 
                     <Button icon={'info'}/>
                 </div>
-                {desInput}
+                
                 <Row gutter={8}>
-                    <Col span={12}>
+                    <Col span={this.state.showDesInput?12:24}>
                         <div className={'editor'} onClick={this.focus}>
                             <Editor
                                 editorState={this.state.editorState}
@@ -230,14 +228,7 @@ class BlogEditor extends Component {
                             />
                         </div>
                     </Col>
-                    <Col span={12}>
-                        <div className={'editor'}>
-                            <Editor
-                                editorState={editorStateFromRedux}
-                                readOnly
-                            />
-                        </div>
-                    </Col>
+                    {desInput}
                 </Row>
             </div>
         )
