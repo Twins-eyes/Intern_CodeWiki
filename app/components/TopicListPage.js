@@ -54,7 +54,7 @@ class TopicList extends Component {
             <div className={'page'}>
                 <NavBar location={this.props.location} />
                 <Row>
-                    <Col md={12} sm={8}>
+                    <Col md={6}>
                         <Select 
                             showSearch
                             className={'lang'}
@@ -65,7 +65,7 @@ class TopicList extends Component {
                             {this.langOptions(this.state.languages)}
                         </Select>
                     </Col>
-                    <Col md={12} sm={16}> 
+                    <Col md={6}> 
                         <input 
                             type='text'
                             className={'formInput'}
@@ -74,7 +74,6 @@ class TopicList extends Component {
                                 {
                                     width:'300px',
                                     height:'32px',
-                                    float:'right'
                                 }
                             }
                             placeholder={'search'}
