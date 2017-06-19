@@ -30,16 +30,16 @@ class BlogEditor extends Component {
 
         const decorator = new CompositeDecorator([
             {
-                strategy: this.findLinkEntities,
-                component: this.Link.bind(this),
+                strategy: this.findDescriptionEntities,
+                component: this.Description.bind(this),
             },
         ])
 
         this.state = {
             editorState: EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), decorator),
             decorator,
-            showURLInput: false,
-            urlValue: '',
+            showDesInput: false,
+            desValue: '',
             description: ''
         }
 
@@ -53,22 +53,16 @@ class BlogEditor extends Component {
             this.props.storeEditorState(convertToRaw(editorState.getCurrentContent()))
 
         }
-        this.logState = () => {
-            const content = this.state.editorState.getCurrentContent()
-            console.log(this.props.editor.editorState)
-        }
 
-        this.promptForLink = this._promptForLink.bind(this)
-        this.onURLChange = (e) => this.setState({urlValue: e.target.value})
-        this.confirmLink = this._confirmLink.bind(this)
-        this.onLinkInputKeyDown = this._onLinkInputKeyDown.bind(this)
-        this.removeLink = this._removeLink.bind(this)
-        this._onClickInlineStyle = this._onClickInlineStyle.bind(this)
-        this._onClickBlogType = this._onClickBlogType.bind(this)
+        this.promptForDescription = this._promptForDescription.bind(this)
+        this.onDesChange = (e) => this.setState({desValue: e.target.value})
+        this.confirmDescription = this._confirmDescription.bind(this)
+        this.onDescriptionInputKeyDown = this._onDescriptionInputKeyDown.bind(this)
+        this.removeDescription = this._removeDescription.bind(this)
 
     }
 
-    _promptForLink(e) {
+    _promptForDescription(e) {
         e.preventDefault()
         const {editorState} = this.state
         const selection = editorState.getSelection()
@@ -76,51 +70,53 @@ class BlogEditor extends Component {
             const contentState = editorState.getCurrentContent()
             const startKey = editorState.getSelection().getStartKey()
             const startOffset = editorState.getSelection().getStartOffset()
-            const blockWithLinkAtBeginning = contentState.getBlockForKey(startKey)
-            const linkKey = blockWithLinkAtBeginning.getEntityAt(startOffset)
+            const blockWithDescriptionAtBeginning = contentState.getBlockForKey(startKey)
+            const descriptionKey = blockWithDescriptionAtBeginning.getEntityAt(startOffset)
             let description = ''
-            if (linkKey) {
-                const linkInstance = contentState.getEntity(linkKey)
-                description = linkInstance.getData().description
+            if (descriptionKey) {
+                const descriptionInstance = contentState.getEntity(descriptionKey)
+                description = descriptionInstance.getData().description
             }
             this.setState({
-                showURLInput: true,
-                urlValue: description,
+                showDesInput: true,
+                desValue: description,
             }, () => {
                 setTimeout(() => this.refs.description.focus(), 0)
             })
         }
     }
 
-    _confirmLink(e) {
+    _confirmDescription(e) {
         e.preventDefault()
-        const {editorState, urlValue} = this.state
+        const {editorState, desValue} = this.state
         const contentState = editorState.getCurrentContent()
         const contentStateWithEntity = contentState.createEntity(
-            'LINK',
+            'DESCRIPTION',
             'MUTABLE',
-            {description: urlValue}
+            {description: desValue}
         )
         const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
         const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity })
         this.setState({
-        editorState: RichUtils.toggleLink(
-            newEditorState,
-            newEditorState.getSelection(),
-            entityKey
-        ),
-        showURLInput: false,
-        urlValue: '',
+            editorState: RichUtils.toggleLink(
+                newEditorState,
+                newEditorState.getSelection(),
+                entityKey
+            ),
+            showDesInput: false,
+            desValue: '',
         }, () => {
             setTimeout(() => this.refs.editor.focus(), 0)
         })
     }
-    _onLinkInputKeyDown(e) {
+
+    _onDescriptionInputKeyDown(e) {
         if (e.which === 13) {
-            this._confirmLink(e)
+            this._confirmDescription(e)
         }
     }
-    _removeLink(e) {
+    
+    _removeDescription(e) {
         e.preventDefault()
         const {editorState} = this.state
         const selection = editorState.getSelection()
@@ -131,69 +127,66 @@ class BlogEditor extends Component {
         }
     }
 
-    _onClickInlineStyle(event) {
-        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, event))
-    }
+    _onClickInlineStyle = event =>  this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, event))
 
-    _onClickBlogType(event) {
-        this.onChange(RichUtils.toggleBlockType(this.state.editorState, event))
-    }
+    _onClickBlogType = event => this.onChange(RichUtils.toggleBlockType(this.state.editorState, event))
 
-    findLinkEntities(contentBlock, callback, contentState) {
+    findDescriptionEntities(contentBlock, callback, contentState) {
         contentBlock.findEntityRanges(
             (character) => {
                 const entityKey = character.getEntity() 
                 return (
                     entityKey !== null &&
-                    contentState.getEntity(entityKey).getType() === 'LINK'
+                    contentState.getEntity(entityKey).getType() === 'DESCRIPTION'
                 ) 
             },
             callback
         ) 
     }
 
-    Link(props) {
+    Description(props) {
         const {description} = props.contentState.getEntity(props.entityKey).getData() 
         return (
-            <code style={styles.link} onMouseOver={() => this.props.changeDescription(description)}>
+            <code className={'description'} onMouseOver={() => this.props.changeDescription(description)}>
                 {props.children}
             </code>
         ) 
     }
 
     render() {
-        let urlInput
-        if (this.state.showURLInput) {
-        urlInput =
-            <div style={styles.urlInputContainer}>
-                <Row>
-                    <Col span={20}>
-                        <Input
-                            onChange={this.onURLChange}
-                            ref={"description"}
-                            style={styles.urlInput}
-                            type={"textarea"}
-                            placeholder={'Please enter your description'}
-                            value={this.state.urlValue}
-                            onKeyDown={this.onLinkInputKeyDown}
-                        />
-                    </Col>
-                    <Col span={4}>
-                        <Button onMouseDown={this.confirmLink}>
-                            Confirm
-                        </Button>
-                    </Col>
-                </Row>
-            </div>
+        let editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.state.decorator)
+        let desInput
+        if (this.state.showDesInput) {
+            desInput =
+                <div className={'desInputContainer'}>
+                    <Row>
+                        <Col span={20}>
+                            <Input
+                                onChange={this.onDesChange}
+                                ref={"description"}
+                                className={'desInput'}
+                                type={"textarea"}
+                                placeholder={'Please enter your description'}
+                                value={this.state.desValue}
+                                onKeyDown={this.onDescriptionInputKeyDown}
+                            />
+                        </Col>
+                        <Col span={4}>
+                            <Button onMouseDown={this.confirmDescription}>
+                                Confirm
+                            </Button>
+                        </Col>
+                    </Row>
+                </div>
         }
     
         return (
-            <div style={styles.root}>
+            <div className={'root'}>
                 <div style={{marginBottom: 10}}>
                     Select some text, then use the buttons to add or remove description
                     on the selected text.
                 </div>
-                <div style={styles.buttons}>
+                <div className={'buttons'}>
                     <Button.Group style={{marginRight: 10}}>
                         <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.h1)}>h1</Button>
                         <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.h2)}>h2</Button>
@@ -215,20 +208,20 @@ class BlogEditor extends Component {
                     </Button.Group>
 
                     <Button.Group style={{marginRight: 10}}>
-                        <Button onMouseDown={this.promptForLink}>
+                        <Button onMouseDown={this.promptForDescription}>
                             Add Description
                         </Button>
-                        <Button onMouseDown={this.removeLink}>
+                        <Button onMouseDown={this.removeDescription}>
                             Remove Description
                         </Button>
                     </Button.Group>
 
                     <Button icon={'info'}/>
                 </div>
-                {urlInput}
+                {desInput}
                 <Row gutter={8}>
                     <Col span={12}>
-                        <div style={styles.editor} onClick={this.focus}>
+                        <div className={'editor'} onClick={this.focus}>
                             <Editor
                                 editorState={this.state.editorState}
                                 onChange={this.onChange}
@@ -238,68 +231,19 @@ class BlogEditor extends Component {
                         </div>
                     </Col>
                     <Col span={12}>
-                        <div style={styles.editor}>
-                            { this.checkEditorState() }
+                        <div className={'editor'}>
+                            <Editor
+                                editorState={editorStateFromRedux}
+                                readOnly
+                            />
                         </div>
                     </Col>
                 </Row>
-                <Button
-                    onClick={this.logState}
-                    style={{marginTop: 10}}
-                >Log State</Button>
             </div>
         )
     }
 
-    checkEditorState() {
-        if(this.props.editor.editorState){
-            return (
-                <Editor
-                    editorState={EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.state.decorator)}
-                    readOnly
-                />
-            )
-        }
-    }
-
 }
-
-
-const styles = {
-    root: {
-        padding: 20,
-    },
-    buttons: {
-        marginBottom: 10,
-    },
-    urlInputContainer: {
-        marginBottom: 10,
-    },
-    urlInput: {
-        marginRight: 10,
-        padding: 3,
-    },
-    editor: {
-        borderRadius: 2,
-        border: '1px solid #ddd',
-        cursor: 'text',
-        minHeight: 80,
-        padding: 10,
-        boxSizing: 'border-box',
-        boxShadow: 'inset 0px 1px 8px -3px #ABABAB',
-    },
-    button: {
-        marginTop: 10,
-        textAlign: 'center',
-    },
-    link: {
-        color: 'black',
-        backgroundColor: '#ddd',
-        padding: 2,
-        marginBottom: 3,
-        borderRadius: 2
-    },
-} 
 
 const changeInlineElement = {
     bold: 'BOLD',
