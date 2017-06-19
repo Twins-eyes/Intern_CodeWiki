@@ -1,9 +1,9 @@
 import { CHANGE_DESCRIPTION, STORE_EDITOR_STATE, STORE_DECORATOR } from '../actions/types'
-import { EditorState } from 'draft-js'
+import { EditorState, convertToRaw } from 'draft-js'
 
 const INITIAL_STATE = {
     description: '',
-    editorState: undefined,
+    editorState: convertToRaw(EditorState.createEmpty().getCurrentContent()),
     decorator: undefined
 }
 

@@ -19,14 +19,10 @@ class CreateBlogPage extends Component {
     }
 
     pageDisplay() {
-        if(this.state.pageDisplay === page.write){
-            return (
-                <BlogEditor />
-            )
-        }else{
-            return (
-                <BlogPreview />
-            )
+        switch (this.state.pageDisplay) {
+            case page.write: return <BlogEditor />
+            case page.preview: return <BlogPreview />
+            default: <BlogEditor />
         }
     }
 

@@ -36,27 +36,26 @@ class BlogEditor extends Component {
         ])
 
         this.state = {
-            editorState: EditorState.createEmpty(decorator),
+            editorState: EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), decorator),
             decorator,
             showURLInput: false,
             urlValue: '',
             description: ''
         }
 
-        this.props.storeEditorState(EditorState.createEmpty(decorator))
         this.props.storeDecorator(decorator)
 
         this.focus = () => this.refs.editor.focus()
+        
         this.onChange = (editorState) => {
             this.setState({editorState})
             
             this.props.storeEditorState(convertToRaw(editorState.getCurrentContent()))
 
-            console.log(EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.decorator), 'entity')
         }
         this.logState = () => {
             const content = this.state.editorState.getCurrentContent()
-            console.log(convertToRaw(content))
+            console.log(this.props.editor.editorState)
         }
 
         this.promptForLink = this._promptForLink.bind(this)
@@ -68,10 +67,6 @@ class BlogEditor extends Component {
         this._onClickBlogType = this._onClickBlogType.bind(this)
 
     }
-
-    // componentWillReceiveProps(nextProps) {
-    //     this.props.storeEditorState(convertToRaw(editorState.getCurrentContent()))
-    // }
 
     _promptForLink(e) {
         e.preventDefault()
@@ -166,9 +161,7 @@ class BlogEditor extends Component {
         ) 
     }
 
-
     render() {
-        //console.log(EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.state.decorator))
         let urlInput
         if (this.state.showURLInput) {
         urlInput =
@@ -193,7 +186,7 @@ class BlogEditor extends Component {
                 </Row>
             </div>
         }
-        
+    
         return (
             <div style={styles.root}>
                 <div style={{marginBottom: 10}}>
@@ -237,7 +230,6 @@ class BlogEditor extends Component {
                     <Col span={12}>
                         <div style={styles.editor} onClick={this.focus}>
                             <Editor
-                                decorator={this.decorator}
                                 editorState={this.state.editorState}
                                 onChange={this.onChange}
                                 placeholder={"Enter some text..."}
@@ -247,12 +239,7 @@ class BlogEditor extends Component {
                     </Col>
                     <Col span={12}>
                         <div style={styles.editor}>
-                            {/*{this.props.editor.description}*/}
                             { this.checkEditorState() }
-                            {/*<Editor
-                                editorState={EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.state.decorator)}
-                                readOnly
-                            />*/}
                         </div>
                     </Col>
                 </Row>
@@ -278,12 +265,9 @@ class BlogEditor extends Component {
 }
 
 
-
 const styles = {
     root: {
-        //fontFamily: '\'Georgia\', serif',
         padding: 20,
-        // width: 600,
     },
     buttons: {
         marginBottom: 10,
@@ -292,7 +276,6 @@ const styles = {
         marginBottom: 10,
     },
     urlInput: {
-        //fontFamily: '\'Georgia\', serif',
         marginRight: 10,
         padding: 3,
     },
@@ -315,7 +298,6 @@ const styles = {
         padding: 2,
         marginBottom: 3,
         borderRadius: 2
-        // +Math.floor(Math.random()*16777215).toString(16)
     },
 } 
 
