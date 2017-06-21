@@ -9,7 +9,8 @@ import {
     EditorState, 
     RichUtils, 
     ContentState,
-    convertFromRaw
+    convertFromRaw,
+    DefaultDraftBlockRenderMap
 } from 'draft-js'
 import { 
     FaBold, 
@@ -20,6 +21,7 @@ import {
     FaListOl,
     FaListUl
 } from 'react-icons/lib/fa'
+import Immutable from 'immutable'
 import '../assets/editor.css'
 
 class BlogEditor extends Component {
@@ -30,7 +32,7 @@ class BlogEditor extends Component {
             {
                 strategy: this.findDescriptionEntities,
                 component: this.Description.bind(this),
-            },
+            }
         ])
 
         this.state = {
@@ -145,7 +147,10 @@ class BlogEditor extends Component {
     Description(props) {
         const {description} = props.contentState.getEntity(props.entityKey).getData() 
         return (
-            <code className={'description'} onMouseOver={() => this.props.changeDescription(description)}>
+            <code className={'description'} 
+                onMouseOver={() => this.props.changeDescription(description)}
+                onMouseOut={() => this.props.changeDescription('')}
+            >
                 {props.children}
             </code>
         ) 
@@ -196,7 +201,7 @@ class BlogEditor extends Component {
                         <Button onClick={() => this._onClickInlineStyle(changeInlineElement.bold)}><FaBold size={12} /></Button>
                         <Button onClick={() => this._onClickInlineStyle(changeInlineElement.italic)}><FaItalic size={11} /></Button>
                         <Button onClick={() => this._onClickInlineStyle(changeInlineElement.underline)}><FaUnderline size={12} /></Button>
-                        <Button onClick={() => this._onClickInlineStyle(changeInlineElement.code)}><FaCode size={15} /></Button>
+                        <Button onClick={() => this._onClickInlineStyle(changeInlineElement.codeBlock)}><FaCode size={15} /></Button>
                         <Button onClick={() => this._onClickInlineStyle(changeInlineElement.strikethrough)}><FaStrikethrough size={12} /></Button>
                     </Button.Group>
 
@@ -218,13 +223,14 @@ class BlogEditor extends Component {
                 </div>
                 
                 <Row gutter={8}>
-                    <Col span={this.state.showDesInput?12:24}>
+                    <Col span={ this.state.showDesInput?12:24 }>
                         <div className={'editor'} onClick={this.focus}>
                             <Editor
                                 editorState={this.state.editorState}
                                 onChange={this.onChange}
                                 placeholder={"Enter some text..."}
                                 ref={"editor"}
+                                customStyleMap={colorStyleMap}
                             />
                         </div>
                     </Col>
@@ -241,7 +247,8 @@ const changeInlineElement = {
     italic: 'ITALIC',
     code: 'CODE',
     underline: 'UNDERLINE',
-    strikethrough: 'STRIKETHROUGH'
+    strikethrough: 'STRIKETHROUGH',
+    codeBlock: 'CODEBLOCK'
 }
 
 const changeBlogTypeElement = {
@@ -252,7 +259,18 @@ const changeBlogTypeElement = {
     codeBlock: 'code-block',
     ul: 'unordered-list-item',
     ol: 'ordered-list-item',
-    default: 'unstyled'
+    default: 'unstyled',
+    hr: 'hr'
+}
+
+const colorStyleMap = {
+    CODEBLOCK: {
+        padding: 16,
+        overflow: 'auto',
+        lineHeight: 1.45,
+        backgroundColor: '#f6f8fa',
+        borderRadius: 3
+    }
 }
 
 const mapStateToProps = state => {

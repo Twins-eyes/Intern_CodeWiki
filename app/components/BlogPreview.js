@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
+import { Row, Col, Button, Input } from 'antd'
 import { 
     CompositeDecorator, 
     convertToRaw, 
@@ -14,24 +15,27 @@ import {stateToHTML} from 'draft-js-export-html'
 
 class  BlogPreview extends Component {
     constructor(props) {
-        super(props)
-
-        
+        super(props)        
     }
 
     render() {
-        //const { blocks, entityMap } = this.props.editorState 
-        //const preEditorState = EditorState.createWithContent((this.props.editorState))
+        let editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.props.editor.decorator)
         return (
-            <div className={'editor'}>
-                <Editor
-                    editorState={EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.props.editor.decorator)}
-                    readOnly
-                />
-                <div>
-                    {this.props.editor.description}
-                </div>
-            </div>
+            <Row gutter={8}>
+                <Col span={12}>
+                    <div className={'editor'}>
+                        <Editor
+                            editorState={editorStateFromRedux}
+                            readOnly
+                        />
+                    </div>
+                </Col>
+                <Col span={12}>
+                    <div className="editor">
+                        {this.props.editor.description}
+                    </div>
+                </Col>
+            </Row>
         )
     }
 }
