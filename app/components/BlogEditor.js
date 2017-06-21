@@ -147,12 +147,20 @@ class BlogEditor extends Component {
     Description(props) {
         const {description} = props.contentState.getEntity(props.entityKey).getData() 
         return (
-            <code className={'description'} 
-                onMouseOver={() => this.props.changeDescription(description)}
-                onMouseOut={() => this.props.changeDescription('')}
-            >
-                {props.children}
-            </code>
+            <Row gutter={8}>
+                <Col span={!!description?12:24} style={{backgroundColor: '#ddd', padding: 16}}>
+                    <code className={'description'} 
+                        onMouseOver={() => this.props.changeDescription(description)}
+                        onMouseOut={() => this.props.changeDescription('')}
+                    >
+                        {props.children}
+                    </code>
+                </Col>
+                {console.log(!!description?12:0)}
+                <Col span={!!description?12:0} style={{border: '1px solid #ddd', padding: 15}}>
+                    {description}
+                </Col>
+            </Row>
         ) 
     }
 
@@ -232,7 +240,7 @@ class BlogEditor extends Component {
                     </Col>
                     {desInput}
                 </Row>
-                <Button icon={'save'}>
+                <Button type={'primary'} icon={'check'}>
                     Save
                 </Button>
             </div>
