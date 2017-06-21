@@ -4,7 +4,7 @@ import { Row, Col } from 'antd'
 class SignInBox extends Component {
     render (){
         return(
-            <center><div className={'signinBox'}>
+            <div className={'signinBox'}>
                 <form className={'form'}>
                     <Row>
                         <Col md={24}>
@@ -33,7 +33,7 @@ class SignInBox extends Component {
                         <button className={'button'}>Sign in</button>
                     </center>
                 </form>
-            </div></center>
+            </div>
         )
     }
 }

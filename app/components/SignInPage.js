@@ -8,7 +8,7 @@ class SignInPage extends Component {
              <div className={'page'}>
                 <NavBar location={this.props.location}/>
                 <div>
-                    <SignInBox/>
+                    <center><SignInBox/></center>
                 </div>
             </div>
 

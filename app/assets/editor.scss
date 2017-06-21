@@ -12,14 +12,16 @@
 $bg-color: #F5D773;
 
 .page {
-    background-color: $bg-color;
+    background: url('../assets/bg_baseColour.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 .syno {
-    background-color: $bg-color;
     font-size: 14px;
     float: left;
     padding-right: 50px;
-    padding-left: 100px;
 }
 .navBar {
     height: 75px;
@@ -47,17 +49,18 @@ $bg-color: #F5D773;
 }
 .box {
     background-color: #F2F2F2;
-    width: 60%;
-    height: 60%;
+    height: 300px;
     border-radius: 15px;
 }
 .signinBox {
     @extend .box;
-    margin-bottom: 220px;
+    width: 400px;
+    align-items: left;
     //float: right;
 }
 .signupBox {
     @extend .box;
+    width: 800px;
     margin-top: 50px;
     margin-bottom: 500px;
     //float: right;

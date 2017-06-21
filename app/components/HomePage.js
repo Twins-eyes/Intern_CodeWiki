@@ -10,7 +10,7 @@ class HomePage extends Component {
             <div className={'page'}>
                 <NavBar location={this.props.location}/>
                 <Row>
-                    <Col xs={12} md={11} offset={1}>
+                    <Col xs={{span:20, offset:4}} md={{span:10, offset:2}}>
                         <div className={'syno'}>
                             <h1 className={'h1'}>CodeWiki</h1><br/>
                             <span>The new way to express your
@@ -27,7 +27,7 @@ class HomePage extends Component {
                             </p>
                         </div>
                     </Col>
-                    <Col xs={12} md={11} offset={1}><SignInBox/></Col>
+                    <Col xs={{span:20, offset:4}} md={{span:10, offset:2}}><br/><SignInBox/></Col>
                 </Row>
             </div>
         )
