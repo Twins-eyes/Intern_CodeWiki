@@ -20,6 +20,7 @@ class  BlogPreview extends Component {
 
     render() {
         let editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.props.editor.decorator)
+        console.log(this.props.editor.editorState)
         return (
             <Row gutter={8}>
                 <Col span={12}>

@@ -29,6 +29,8 @@
   },
   "dependencies": {
     "antd": "^2.10.4",
+    "axios": "^0.16.2",
+    "classnames": "^2.2.5",
     "draft-js": "^0.10.1",
     "draft-js-export-html": "^0.5.4",
     "draft-js-plugins-editor": "^2.0.0-rc2",

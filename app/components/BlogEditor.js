@@ -185,10 +185,6 @@ class BlogEditor extends Component {
     
         return (
             <div className={'root'}>
-                <div style={{marginBottom: 10}}>
-                    Select some text, then use the buttons to add or remove description
-                    on the selected text.
-                </div>
                 <div className={'buttons'}>
                     <Button.Group style={{marginRight: 10}}>
                         <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.h1)}>h1</Button>
@@ -236,6 +232,9 @@ class BlogEditor extends Component {
                     </Col>
                     {desInput}
                 </Row>
+                <Button icon={'save'}>
+                    Save
+                </Button>
             </div>
         )
     }
