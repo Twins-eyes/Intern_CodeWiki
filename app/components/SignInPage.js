@@ -7,7 +7,7 @@ class SignInPage extends Component {
         return(
              <div className={'page'}>
                 <NavBar location={this.props.location}/>
-                <div >
+                <div>
                     <SignInBox/>
                 </div>
             </div>

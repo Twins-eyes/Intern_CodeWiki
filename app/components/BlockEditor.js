@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {Editor, EditorState, RichUtils, convertToRaw} from 'draft-js'
 import {stateToHTML} from 'draft-js-export-html'
 import { Row, Col } from 'antd'
-import '../assets/editor.css'
+import '../assets/editor.scss'
 //import 'semantic-ui-css/semantic.min.css'
 
 class BlockEditor extends Component {

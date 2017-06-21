@@ -7,7 +7,7 @@ class SignUpPage extends Component {
         return(
             <div className={'page'}>
                 <NavBar location={this.props.location}/>
-                <div className={'signupBox'}>
+                <center><div className={'signupBox'}>
                     <form className={'form'}>
                         <Row>
                             <Col md={12}>
@@ -52,7 +52,7 @@ class SignUpPage extends Component {
                         </Row>  
                         <center><button className={'button'}>Sign up</button></center>
                     </form>
-                </div> 
+                </div></center> 
             </div>
         )
     }

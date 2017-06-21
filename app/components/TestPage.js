@@ -9,7 +9,7 @@ import {
     ContentState 
 } from 'draft-js'
 import NavBar from '../components/NavBar'
-import '../assets/editor.css'
+import '../assets/editor.scss'
 
 class TestPage extends Component {
     constructor(props) {
