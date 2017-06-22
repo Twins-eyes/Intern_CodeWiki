@@ -72,6 +72,7 @@ class TopicList extends Component {
                                 {
                                     width:'250px',
                                     height:'32px',
+                                    float: 'right'
                                 }
                             }
                             placeholder='search'
@@ -79,7 +80,7 @@ class TopicList extends Component {
                         />
                     </Col>
                 </Row>
-                <div style={{marginTop:'20px', opacity:'0.9'}}>
+                <div style={{marginTop:'20px', opacity:'0.98'}}>
                     {this.topicsList(this.state.topics)}
                 </div>
             </div>
