@@ -145,23 +145,37 @@ class BlogEditor extends Component {
     }
 
     Description(props) {
-        const {description} = props.contentState.getEntity(props.entityKey).getData() 
-        return (
-            <Row gutter={8}>
-                <Col span={!!description?12:24} style={{backgroundColor: '#ddd', padding: 16}}>
-                    <code className={'description'} 
-                        onMouseOver={() => this.props.changeDescription(description)}
-                        onMouseOut={() => this.props.changeDescription('')}
-                    >
-                        {props.children}
-                    </code>
-                </Col>
-                {console.log(!!description?12:0)}
-                <Col span={!!description?12:0} style={{border: '1px solid #ddd', padding: 15}}>
-                    {description}
-                </Col>
-            </Row>
-        ) 
+        const {description} = props.contentState.getEntity(props.entityKey).getData()
+        const first_key = props.contentState.getFirstBlock().getKey()
+        const last_key = props.contentState.getLastBlock().getKey()
+        const current_key = props.children[0].props.block.getKey()
+        let code_dis = <code className={'description'} 
+                            onMouseOver={() => this.props.changeDescription(description)}
+                            onMouseOut={() => this.props.changeDescription('')}
+                        >
+                            {props.children}
+                        </code>
+        if(current_key === first_key){
+            return (
+                <div style={{backgroundColor: '#ddd', paddingTop: 16, paddingLeft: 16, borderRadius: '3px 3px 0px 0px'}}>
+                    { code_dis }
+                </div>
+            )
+        }
+        else if(current_key === last_key){
+            return (
+                <div style={{backgroundColor: '#ddd', paddingBottom: 16, paddingLeft: 16, borderRadius: '0px 0px 3px 3px'}}>
+                    { code_dis }
+                </div>
+            )
+        }
+        else{
+            return (
+                <div style={{backgroundColor: '#ddd', paddingLeft: 16}}>
+                    { code_dis }
+                </div>
+            )
+        }
     }
 
     render() {
