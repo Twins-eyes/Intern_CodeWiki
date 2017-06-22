@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row, Col, Select } from 'antd'
+import { Row, Col } from 'antd'
 import NavBar from '../components/NavBar'
 import List from '../components/List'
 
@@ -23,7 +23,7 @@ class TopicList extends Component {
                     date: '16/8/2016' 
                 }
             ],
-            languages:[]
+            languages:['java','javascript','angular']
         }
     }
 
@@ -43,27 +43,25 @@ class TopicList extends Component {
 
     langOptions(languages){
         const langOption = this.state.languages.map((lang, index)=>
-            <Option value={lang}>{lang}</Option>
+            <option value={lang}>{lang}</option>
         )
         return langOption
     }
 
     render(){
-        const Option = Select.Option
         return(
             <div className={'page'}>
                 <NavBar location={this.props.location} />
                 <Row>
                     <Col md={6}>
-                        <Select 
-                            showSearch
+                        <select 
                             className={'lang'}
-                            placeholder="Select language"
-                            optionFilterProp="children"
+                            //optionFilterProp="children"
                             //filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}                >
                         >  
+                            <option selected disabled>Choose language</option>
                             {this.langOptions(this.state.languages)}
-                        </Select>
+                        </select>
                     </Col>
                     <Col md={6}> 
                         <input 
@@ -72,11 +70,11 @@ class TopicList extends Component {
                             value={this.props.value}
                             style={
                                 {
-                                    width:'300px',
+                                    width:'250px',
                                     height:'32px',
                                 }
                             }
-                            placeholder={'search'}
+                            placeholder='search'
                             autoFocus
                         />
                     </Col>

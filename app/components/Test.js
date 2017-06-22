@@ -5,10 +5,8 @@ class Test extends Component {
     render () {
         return (
             <Select
-                showSearch
                 style={{ width: 200 }}
                 placeholder="Select a person"
-                optionFilterProp="children"
             >
                 <Option value="jack">Jack</Option>
                 <Option value="lucy">Lucy</Option>

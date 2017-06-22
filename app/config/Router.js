@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { HashRouter, Switch, Route } from 'react-router-dom'
-import TestPage from '../components/TestPage'
+//import TestPage from '../components/TestPage'
 import HomePage from '../components/HomePage'
 import BlockEditor from '../components/BlockEditor'
 import SignIn from '../components/SignInPage'
 import SignUp from '../components/SignUpPage'
 import TopicList from '../components/TopicListPage'
-//import Test from '../components/Test'
+import Test from '../components/Test'
 
 class Router extends Component{
     render() {
@@ -15,11 +15,12 @@ class Router extends Component{
             <HashRouter>
                 <div>
                     <Route exact path='/' component={HomePage} />
-                    <Route path='/test' component={TestPage} />
+                    {/*<Route path='/test' component={TestPage} />*/}
                     <Route path='/block' component={BlockEditor} />
                     <Route path='/signin' component={SignIn} />
                     <Route path='/signup' component={SignUp} />
                     <Route path='/list' component={TopicList} />
+                    <Route path='/test' component={Test} />
                 </div>
             </HashRouter>
         )

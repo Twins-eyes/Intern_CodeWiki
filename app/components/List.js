@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { Row, Col, Select, Tag } from 'antd'
 
 class List extends Component {
@@ -15,11 +16,19 @@ class List extends Component {
         const { topicName, language, tags, author, date} = this.props
         return(
             <div className={'tpList'}>
-                <h2>{topicName}</h2>
-                <span>{language}</span>
-                {this.tagsList(tags)}
-                <p className={'author'}>{date}</p>
-                <p className={'author'}>{author}</p>
+                <ReactCSSTransitionGroup
+                    transitionName='synopsis'
+                    transitionAppear={true}
+                    transitionAppearTimeout={700}
+                    transitionEnter={false}
+                    transitionLeave={false}
+                >
+                    <h2>{topicName}</h2>
+                    <span>{language}</span>
+                    {this.tagsList(tags)}
+                    <p className={'author'}>{date}</p>
+                    <p className={'author'}>{author}</p>
+                </ReactCSSTransitionGroup>
             </div>
         )
     }

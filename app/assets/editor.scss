@@ -12,10 +12,17 @@
 .synopsis-appear {
   opacity: 0.01;
 }
-
 .synopsis-appear.synopsis-appear-active {
   opacity: 1;
   transition: opacity 500ms ease-in;
+}
+
+.sgnBox-appear {
+  opacity: 0.1;
+}
+.sgnBox-appear.sgnBox-appear-active {
+  opacity: 1;
+  transition: opacity 700ms ease-in;
 }
 
 $bg-color: #F5D773;
@@ -79,11 +86,10 @@ $bg-color: #F5D773;
 .formInput {
     border: none;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 12px;
     outline: 0;
     padding: 10px;
     margin-bottom: 20px;
-    width: 85%;
     box-sizing: border-box; 
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box; 
@@ -94,7 +100,9 @@ $bg-color: #F5D773;
 }
 .form {
     padding-top: 40px;
-    padding-left: 25px;
+    span {
+        padding-left: 25px;
+    }
 }
 .button {
     margin-top: 20px;
@@ -145,9 +153,9 @@ span {
     background-color: #F2F2F2;
     opacity: 80%;
     width: 80%;
-    height: 72px;
+    height: 80px;
     border: 0.5px solid #ddd;
-    padding: 10px 0px 0px 30px;
+    padding: 0px 0px 0px 30px;
     margin-left: 10%;
 }
 .author {
@@ -156,7 +164,10 @@ span {
     margin-right: 10px;
 }
 .lang {
-    width: 150px;
+    @extend .formInput;
+    width: 175px;
+    height: 32px;
+    font-size: 12px;
     margin-left: 20px;
 }
 .h1 {
