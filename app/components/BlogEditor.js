@@ -21,6 +21,7 @@ import {
     FaListOl,
     FaListUl
 } from 'react-icons/lib/fa'
+import { TopDescription, BottomDescription, MiddleDescription } from './decorator/DescriptionComponent'
 import Immutable from 'immutable'
 import '../assets/editor.css'
 
@@ -145,65 +146,57 @@ class BlogEditor extends Component {
     }
 
     Description(props) {
-        const {description} = props.contentState.getEntity(props.entityKey).getData()
         const first_key = props.contentState.getFirstBlock().getKey()
         const last_key = props.contentState.getLastBlock().getKey()
         const current_key = props.children[0].props.block.getKey()
-        let code_dis = <code className={'description'} 
-                            onMouseOver={() => this.props.changeDescription(description)}
-                            onMouseOut={() => this.props.changeDescription('')}
-                        >
-                            {props.children}
-                        </code>
-        if(current_key === first_key){
-            return (
-                <div style={{backgroundColor: '#ddd', paddingTop: 16, paddingLeft: 16, borderRadius: '3px 3px 0px 0px'}}>
-                    { code_dis }
-                </div>
-            )
+        switch (current_key) {
+            case first_key : return <TopDescription>{this.codeDescription(props)}</TopDescription>
+            case last_key : return <BottomDescription>{this.codeDescription(props)}</BottomDescription>
+            default : return <MiddleDescription>{this.codeDescription(props)}</MiddleDescription>
         }
-        else if(current_key === last_key){
+    }
+
+    codeDescription = (props) => {
+        const { description } = props.contentState.getEntity(props.entityKey).getData()
+        return (
+            <code className={'description'} 
+                onMouseOver={() => this.props.changeDescription(description)}
+                onMouseOut={() => this.props.changeDescription('')}
+            >
+                {props.children}
+            </code>
+        )
+    }
+
+    descriptionInput = () => {
+        if (this.state.showDesInput) {
             return (
-                <div style={{backgroundColor: '#ddd', paddingBottom: 16, paddingLeft: 16, borderRadius: '0px 0px 3px 3px'}}>
-                    { code_dis }
-                </div>
-            )
-        }
-        else{
-            return (
-                <div style={{backgroundColor: '#ddd', paddingLeft: 16}}>
-                    { code_dis }
-                </div>
+                <Col span={12}>
+                    <div className={'desInputContainer'}>
+                        <Col span={20}>
+                            <Input
+                                onChange={this.onDesChange}
+                                ref={"description"}
+                                className={'desInput'}
+                                type={"textarea"}
+                                placeholder={'Please enter your description'}
+                                value={this.state.desValue}
+                                onKeyDown={this.onDescriptionInputKeyDown}
+                            />
+                        </Col>
+                        <Col span={4}>
+                            <Button onMouseDown={this.confirmDescription}>
+                                Confirm
+                            </Button>
+                        </Col>
+                    </div>
+                </Col>
             )
         }
     }
 
     render() {
         let editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.state.decorator)
-        let desInput
-        if (this.state.showDesInput) {
-            desInput =
-                <Col span={12}>
-                    <div className={'desInputContainer'}>
-                            <Col span={20}>
-                                <Input
-                                    onChange={this.onDesChange}
-                                    ref={"description"}
-                                    className={'desInput'}
-                                    type={"textarea"}
-                                    placeholder={'Please enter your description'}
-                                    value={this.state.desValue}
-                                    onKeyDown={this.onDescriptionInputKeyDown}
-                                />
-                            </Col>
-                            <Col span={4}>
-                                <Button onMouseDown={this.confirmDescription}>
-                                    Confirm
-                                </Button>
-                            </Col>
-                    </div>
-                </Col>
-        }
     
         return (
             <div className={'root'}>
@@ -252,7 +245,7 @@ class BlogEditor extends Component {
                             />
                         </div>
                     </Col>
-                    {desInput}
+                    {this.descriptionInput()}
                 </Row>
                 <Button type={'primary'} icon={'check'}>
                     Save

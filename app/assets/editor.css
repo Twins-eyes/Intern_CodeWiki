@@ -84,3 +84,23 @@
 .description-active {
   color: 'white'
 }
+
+
+.top-description {
+  background-color: '#ddd';
+  padding-top: 16;
+  padding-left: 16; 
+  border-radius: 3px 3px 0px 0px;
+}
+
+.bottom-description {
+  background-color: '#ddd';
+  padding-bottom: 16;
+  padding-left: 16; 
+  border-radius: 0px 0px 3px 3px;
+}
+
+.middle-description {
+  background-color: '#ddd';
+  padding-left: 16; 
+}
