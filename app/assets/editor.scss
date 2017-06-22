@@ -9,6 +9,15 @@
     background: #fefefe;
 }
 
+.synopsis-appear {
+  opacity: 0.01;
+}
+
+.synopsis-appear.synopsis-appear-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
 $bg-color: #F5D773;
 
 .page {
@@ -17,6 +26,8 @@ $bg-color: #F5D773;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    min-width: 100%;
+    min-height: 100%;
 }
 .syno {
     font-size: 14px;
