@@ -39,7 +39,12 @@ const styles = {
     },
     middle_des: {
         backgroundColor: '#ddd', 
-        paddingLeft: 16, 
+        paddingLeft: 16,
+        paddingTop: 4,
+        paddingBottom: 4,
+        borderLeftStyle: 'solid',
+        borderLeftWidth: 'thick',
+        borderLeftColor: '#f5d773'
     }
 }
 

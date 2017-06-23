@@ -149,9 +149,15 @@ class BlogEditor extends Component {
         const first_key = props.contentState.getFirstBlock().getKey()
         const last_key = props.contentState.getLastBlock().getKey()
         const current_key = props.children[0].props.block.getKey()
+        console.warn('-------')
+        console.log(first_key, 'first')
+        console.log(last_key, 'last')
+        console.log(current_key, 'current')
+        console.log(convertToRaw(props.contentState))
+        console.log(props.children[0].props.block.getCharacterList())
         switch (current_key) {
-            case first_key : return <TopDescription>{this.codeDescription(props)}</TopDescription>
-            case last_key : return <BottomDescription>{this.codeDescription(props)}</BottomDescription>
+            // case first_key : return <TopDescription>{this.codeDescription(props)}</TopDescription>
+            // case last_key : return <BottomDescription>{this.codeDescription(props)}</BottomDescription>
             default : return <MiddleDescription>{this.codeDescription(props)}</MiddleDescription>
         }
     }
