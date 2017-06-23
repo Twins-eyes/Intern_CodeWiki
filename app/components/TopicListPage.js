@@ -10,9 +10,9 @@ class TopicList extends Component {
         this.state = {
             topics: [
                 {
-                    topicName:'topic',
+                    topicName:'This is the topic name for testing codewiki',
                     language:'C',
-                    tags:['abc','cba'],
+                    tags:['abc','cba','java','javascript','hello','world'],
                     author:'sun',
                     date: '16/8/2016'
                 },
@@ -25,7 +25,7 @@ class TopicList extends Component {
                 }
             ],
             languages:['java','javascript','angular'],
-            value:''
+            value:'all'
         }
         this.onChange = this.onChange.bind(this)
     }
@@ -44,13 +44,8 @@ class TopicList extends Component {
         return topicList
     }
 
-<<<<<<< HEAD
     onChange(v){
-        return this.setState({value: v})
-=======
-    onChange(value){
-        return this.setState(this.state.value: value)
->>>>>>> 9375832b82a25d909ce44afccb828994542875c0
+        return this.setState({value: v.value})
     }
 
     langOptions(languages){
@@ -65,7 +60,7 @@ class TopicList extends Component {
             <div className={'page'}>
                 <NavBar location={this.props.location} />
                 <Row>
-                    <Col md={{span:10, offset:2}}> 
+                    <Col xs={{span:20, offset:4}} md={{span:20, offset:4}}> 
                         <input 
                             type='text'
                             className={'formInput'}
@@ -84,7 +79,7 @@ class TopicList extends Component {
                             autoFocus
                         />
                     </Col>
-                    <Col md={{span:10, offset:2}}>
+                    <Col xs={{span:10, offset:2}} md={{span:10, offset:2}}>
                         <select 
                             className={'lang'}
                             defaultValue={this.state.value} 
@@ -100,6 +95,7 @@ class TopicList extends Component {
                 <div style={{marginTop:'20px', opacity:'0.98'}}>
                     {this.topicsList(this.state.topics)}
                 </div>
+                <div className={'footer'}/>
             </div>
         )
     }

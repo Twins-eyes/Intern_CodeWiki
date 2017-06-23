@@ -152,7 +152,7 @@ span {
 }
 .tpList {
     background-color: #F2F2F2;
-    opacity: 80%;
+    opacity: 0.95;
     width: 80%;
     height: 80px;
     margin-bottom: 0px;
@@ -161,9 +161,7 @@ span {
     margin-left: 10%;
 }
 .author {
-    float: right;
     color: #577380;
-    margin-right: 10px;
 }
 .lang {
     @extend .formInput;
@@ -177,4 +175,7 @@ span {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 72px;
     margin-bottom: 0;
+}
+.footer {
+    height: 20px;
 }

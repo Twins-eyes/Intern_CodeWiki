@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import { Row, Col, Select, Tag } from 'antd'
+import { Row, Col, Tag } from 'antd'
 
 class List extends Component {
     tagsList(tags){
@@ -13,7 +13,7 @@ class List extends Component {
     }
     
     render(){
-        const { topicName, language, tags, author, date} = this.props
+        const { topicName, language, tags, author, date } = this.props
         return(
             <div className={'tpList'}>
                 <ReactCSSTransitionGroup
@@ -23,11 +23,23 @@ class List extends Component {
                     transitionEnterTimeout={500}
                     transitionLeaveTimeout={500}
                 >
-                    <h2>{topicName}</h2>
-                    <span>{language}</span>
-                    {this.tagsList(tags)}
-                    <p className={'author'}>{date}</p>
-                    <p className={'author'}>{author}</p>
+                    <Row type='flex'>
+                        <Col md={16}>
+                            <h2>{ topicName }</h2>
+                        </Col>
+                        <Col md={{span:4, push:4}}>
+                            <span className={'author'}>{ date }</span>
+                            <span className={'author'}>{ author }</span>
+                        </Col>
+                    </Row>
+                    <Row type='flex'>
+                        <Col md={2}>
+                            <span>{ language }</span>
+                        </Col>
+                        <Col md={22}>
+                            {this.tagsList(tags)}
+                        </Col>
+                    </Row>
                 </ReactCSSTransitionGroup>
             </div>
         )
