@@ -44,8 +44,13 @@ class TopicList extends Component {
         return topicList
     }
 
+<<<<<<< HEAD
     onChange(v){
         return this.setState({value: v})
+=======
+    onChange(value){
+        return this.setState(this.state.value: value)
+>>>>>>> 9375832b82a25d909ce44afccb828994542875c0
     }
 
     langOptions(languages){
