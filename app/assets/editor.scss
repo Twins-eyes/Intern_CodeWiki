@@ -67,21 +67,18 @@ $bg-color: #F5D773;
 }
 .box {
     background-color: #F2F2F2;
-    height: 300px;
+    height: 60%;
+    width: 70%;
     border-radius: 15px;
 }
 .signinBox {
     @extend .box;
-    width: 400px;
     align-items: left;
-    //float: right;
 }
 .signupBox {
     @extend .box;
-    width: 800px;
     margin-top: 50px;
     margin-bottom: 500px;
-    //float: right;
 }
 .formInput {
     border: none;

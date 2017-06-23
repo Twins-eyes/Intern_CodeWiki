@@ -45,7 +45,8 @@ class TopicList extends Component {
     }
 
     onChange(v){
-        return this.setState({value: v.value})
+        console.log(v)
+        return this.setState({value: v})
     }
 
     langOptions(languages){
@@ -70,9 +71,7 @@ class TopicList extends Component {
                                     width:'250px',
                                     height:'32px',
                                     float:'right',
-                                    marginRight: '45px',
-                                    marginBottom: '5px',
-                                    marginTop: '0px'
+                                    margin: '0px 45px 5px 0px',
                                 }
                             }
                             placeholder='search'
@@ -84,8 +83,6 @@ class TopicList extends Component {
                             className={'lang'}
                             defaultValue={this.state.value} 
                             onChange={this.onChange}
-                            //optionFilterProp="children"
-                            //filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}                >
                         >  
                             <option value='all' disabled>Choose language</option>
                             {this.langOptions(this.state.languages)}
