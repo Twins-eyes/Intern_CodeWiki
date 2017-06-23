@@ -21,7 +21,7 @@ import {
     FaListOl,
     FaListUl
 } from 'react-icons/lib/fa'
-import { TopDescription, BottomDescription, MiddleDescription } from './decorator/DescriptionComponent'
+import { AlreadyDescription, MiddleDescription } from './decorator/DescriptionComponent'
 import Immutable from 'immutable'
 import '../assets/editor.css'
 
@@ -41,7 +41,8 @@ class BlogEditor extends Component {
             decorator,
             showDesInput: false,
             desValue: '',
-            description: ''
+            description: '',
+            alreadyDes: false
         }
 
         this.props.storeDecorator(decorator)
@@ -75,6 +76,7 @@ class BlogEditor extends Component {
             const descriptionKey = blockWithDescriptionAtBeginning.getEntityAt(startOffset)
             let description = ''
             if (descriptionKey) {
+                this.setState({ alreadyDes: true })
                 const descriptionInstance = contentState.getEntity(descriptionKey)
                 description = descriptionInstance.getData().description
             }
@@ -94,7 +96,7 @@ class BlogEditor extends Component {
         const contentStateWithEntity = contentState.createEntity(
             'DESCRIPTION',
             'MUTABLE',
-            {description: desValue}
+            {description: desValue, alreadyDes: this.state.alreadyDes}
         )
         const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
         const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity })
@@ -106,6 +108,7 @@ class BlogEditor extends Component {
             ),
             showDesInput: false,
             desValue: '',
+            alreadyDes: false
         }, () => {
             setTimeout(() => this.refs.editor.focus(), 0)
         })
@@ -146,29 +149,21 @@ class BlogEditor extends Component {
     }
 
     Description(props) {
-        const first_key = props.contentState.getFirstBlock().getKey()
-        const last_key = props.contentState.getLastBlock().getKey()
-        const current_key = props.children[0].props.block.getKey()
-        console.warn('-------')
-        console.log(first_key, 'first')
-        console.log(last_key, 'last')
-        console.log(current_key, 'current')
-        console.log(convertToRaw(props.contentState))
-        console.log(props.children[0].props.block.getCharacterList())
-        switch (current_key) {
-            // case first_key : return <TopDescription>{this.codeDescription(props)}</TopDescription>
-            // case last_key : return <BottomDescription>{this.codeDescription(props)}</BottomDescription>
-            default : return <MiddleDescription>{this.codeDescription(props)}</MiddleDescription>
+        const { description } = props.contentState.getEntity(props.entityKey).getData()
+        switch (props.contentState.getEntity(props.entityKey).getData().alreadyDes) {
+            case true : return <div onMouseOver={() => this.props.changeDescription(description)} onMouseOut={() => this.props.changeDescription('')}>
+                                    <AlreadyDescription>{this.codeDescription(props)}</AlreadyDescription>
+                                </div>
+            default : return <div onMouseOver={() => this.props.changeDescription(description)} onMouseOut={() => this.props.changeDescription('')}>
+                                    <MiddleDescription>{this.codeDescription(props)}</MiddleDescription>
+                                </div>
         }
     }
 
     codeDescription = (props) => {
         const { description } = props.contentState.getEntity(props.entityKey).getData()
         return (
-            <code className={'description'} 
-                onMouseOver={() => this.props.changeDescription(description)}
-                onMouseOut={() => this.props.changeDescription('')}
-            >
+            <code className={'description'} >
                 {props.children}
             </code>
         )
@@ -285,11 +280,13 @@ const changeBlogTypeElement = {
 
 const colorStyleMap = {
     CODEBLOCK: {
-        padding: 16,
-        overflow: 'auto',
-        lineHeight: 1.45,
-        backgroundColor: '#f6f8fa',
-        borderRadius: 3
+        backgroundColor: '#f2f2f2', 
+        paddingLeft: 16,
+        paddingTop: 4,
+        paddingBottom: 4,
+        borderLeftStyle: 'solid',
+        borderLeftWidth: 'thick',
+        borderLeftColor: '#f5d773'
     }
 }
 

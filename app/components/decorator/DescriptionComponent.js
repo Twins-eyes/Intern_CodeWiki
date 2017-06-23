@@ -1,16 +1,8 @@
 import React from 'react'
 
-const TopDescription = (props) => {
+const AlreadyDescription = (props) => {
     return (
-        <div style={styles.top_des}>
-            {props.children}
-        </div>
-    )
-}
-
-const BottomDescription = (props) => {
-    return (
-        <div style={styles.bottom_des}>
+        <div style={styles.already_des}>
             {props.children}
         </div>
     )
@@ -25,23 +17,18 @@ const MiddleDescription = (props) => {
 }
 
 const styles = {
-    top_des: {
-        backgroundColor: '#ddd', 
-        paddingTop: 16, 
-        paddingLeft: 16, 
-        borderRadius: '3px 3px 0px 0px'
-    },
-    bottom_des: {
-        backgroundColor: '#ddd', 
-        paddingBottom: 16, 
-        paddingLeft: 16, 
-        borderRadius: '0px 0px 3px 3px'
+    already_des: {
+        backgroundColor: '#f2f2f2', 
+        paddingLeft: 16,
+        borderLeftStyle: 'solid',
+        borderLeftWidth: 'thick',
+        borderLeftColor: '#577380'
     },
     middle_des: {
-        backgroundColor: '#ddd', 
+        backgroundColor: '#f2f2f2', 
         paddingLeft: 16,
-        paddingTop: 4,
-        paddingBottom: 4,
+        paddingTop: 5,
+        paddingBottom: 5,
         borderLeftStyle: 'solid',
         borderLeftWidth: 'thick',
         borderLeftColor: '#f5d773'
@@ -49,7 +36,6 @@ const styles = {
 }
 
 export {
-    TopDescription,
-    BottomDescription,
+    AlreadyDescription,
     MiddleDescription
 }
