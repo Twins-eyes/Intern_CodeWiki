@@ -20,8 +20,8 @@ class List extends Component {
                     transitionName='synopsis'
                     transitionAppear={true}
                     transitionAppearTimeout={700}
-                    transitionEnter={false}
-                    transitionLeave={false}
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={500}
                 >
                     <h2>{topicName}</h2>
                     <span>{language}</span>

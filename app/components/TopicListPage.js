@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Row, Col } from 'antd'
 import NavBar from '../components/NavBar'
 import List from '../components/List'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 class TopicList extends Component {
     constructor(props){
@@ -23,8 +24,10 @@ class TopicList extends Component {
                     date: '16/8/2016' 
                 }
             ],
-            languages:['java','javascript','angular']
+            languages:['java','javascript','angular'],
+            value:''
         }
+        this.onChange = this.onChange.bind(this)
     }
 
     topicsList(topics){
@@ -41,9 +44,13 @@ class TopicList extends Component {
         return topicList
     }
 
+    onChange(v){
+        return this.setState({value: v})
+    }
+
     langOptions(languages){
         const langOption = this.state.languages.map((lang, index)=>
-            <option value={lang}>{lang}</option>
+            <option value={lang} key={index}>{lang}</option>
         )
         return langOption
     }
@@ -53,17 +60,7 @@ class TopicList extends Component {
             <div className={'page'}>
                 <NavBar location={this.props.location} />
                 <Row>
-                    <Col md={6}>
-                        <select 
-                            className={'lang'}
-                            //optionFilterProp="children"
-                            //filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}                >
-                        >  
-                            <option selected disabled>Choose language</option>
-                            {this.langOptions(this.state.languages)}
-                        </select>
-                    </Col>
-                    <Col md={6}> 
+                    <Col md={{span:10, offset:2}}> 
                         <input 
                             type='text'
                             className={'formInput'}
@@ -72,12 +69,27 @@ class TopicList extends Component {
                                 {
                                     width:'250px',
                                     height:'32px',
-                                    float: 'right'
+                                    float:'right',
+                                    marginRight: '45px',
+                                    marginBottom: '5px',
+                                    marginTop: '0px'
                                 }
                             }
                             placeholder='search'
                             autoFocus
                         />
+                    </Col>
+                    <Col md={{span:10, offset:2}}>
+                        <select 
+                            className={'lang'}
+                            defaultValue={this.state.value} 
+                            onChange={this.onChange}
+                            //optionFilterProp="children"
+                            //filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}                >
+                        >  
+                            <option value='all' disabled>Choose language</option>
+                            {this.langOptions(this.state.languages)}
+                        </select>
                     </Col>
                 </Row>
                 <div style={{marginTop:'20px', opacity:'0.98'}}>
