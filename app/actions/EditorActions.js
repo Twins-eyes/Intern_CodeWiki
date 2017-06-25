@@ -1,4 +1,11 @@
-import { CHANGE_DESCRIPTION, STORE_EDITOR_STATE, STORE_DECORATOR } from './types'
+import axios from 'axios'
+import {
+    CHANGE_DESCRIPTION, 
+    STORE_EDITOR_STATE, 
+    STORE_DECORATOR, 
+    SAVE_DATA_EDITOR 
+} from './types'
+import { POST_DATA_EDITOR } from '../api'
 
 export const changeDescription = description => {
     return {
@@ -18,5 +25,21 @@ export const storeDecorator = decorator => {
     return {
         type: STORE_DECORATOR,
         payload: decorator
+    }
+}
+
+export const saveDataFromEditor = editorSate => {
+    return function(dispatch) {
+        return axios.post(POST_DATA_EDITOR, {
+            "data": editorSate, 
+        }).then(response => {
+            console.log(response.config.data)
+            // return {
+            //     type: SAVE_DATA_EDITOR,
+            //     payload: data
+            // }
+        }).catch(error => {
+            console.log(error)
+        })
     }
 }

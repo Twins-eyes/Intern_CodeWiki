@@ -196,6 +196,8 @@ class BlogEditor extends Component {
         }
     }
 
+    saveEditorData = () => this.props.saveDataFromEditor(this.state.editorState)
+
     render() {
         let editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.state.decorator)
     
@@ -248,7 +250,7 @@ class BlogEditor extends Component {
                     </Col>
                     {this.descriptionInput()}
                 </Row>
-                <Button type={'primary'} icon={'check'}>
+                <Button type={'primary'} icon={'check'} onClick={this.saveEditorData}>
                     Save
                 </Button>
             </div>
