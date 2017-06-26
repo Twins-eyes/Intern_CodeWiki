@@ -20,7 +20,7 @@ class SignUpPage extends Component {
                             <Row>
                                 <Col md={12}>
                                     <span>Email Address</span><br/>   
-                                    <input type='text'
+                                    <input type='email'
                                         className={'formInput'}
                                         name='email'
                                         value={this.props.value}

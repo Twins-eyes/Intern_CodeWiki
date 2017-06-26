@@ -17,7 +17,7 @@ class SignInBox extends Component {
                         <Row>
                             <Col md={24}>
                                 <span>Email or Username</span><br/>   
-                                <center><input type='text'
+                                <center><input type='email'
                                     className={'formInput'}
                                     name='email_username'
                                     value={this.props.value}
