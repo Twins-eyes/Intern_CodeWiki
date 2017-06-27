@@ -2,7 +2,8 @@ import {
     CHANGE_DESCRIPTION, 
     STORE_EDITOR_STATE, 
     STORE_DECORATOR, 
-    SAVE_DATA_EDITOR 
+    SAVE_DATA_EDITOR,
+    STORE_BLOCK_RENDER
 } from '../actions/types'
 import { EditorState, convertToRaw } from 'draft-js'
 
@@ -10,7 +11,8 @@ const INITIAL_STATE = {
     description: '',
     editorState: convertToRaw(EditorState.createEmpty().getCurrentContent()),
     decorator: undefined,
-    editorData: {}
+    editorData: {},
+    blockRender: undefined
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -23,6 +25,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, decorator: action.payload }
         case SAVE_DATA_EDITOR:
             return { ...state, editorData: action.payload }
+        case STORE_BLOCK_RENDER:
+            return { ...state, blockRender: action.payload }
         default:
             return state
     }

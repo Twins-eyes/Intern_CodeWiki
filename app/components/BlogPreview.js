@@ -26,6 +26,7 @@ class  BlogPreview extends Component {
                     <div className={'editor'}>
                         <Editor
                             editorState={editorStateFromRedux}
+                            blockRenderMap={this.props.editor.blockRender}
                             readOnly
                         />
                     </div>

@@ -21,8 +21,9 @@ import {
     FaListOl,
     FaListUl
 } from 'react-icons/lib/fa'
-import { AlreadyDescription, MiddleDescription } from './decorator/DescriptionComponent'
+import { AlreadyDescription, MiddleDescription } from './editor/decorator/DescriptionComponent'
 import Immutable from 'immutable'
+import CustomCodeBlock from './editor/blockRender/CustomCodeBlock'
 import '../assets/editor.css'
 
 class BlogEditor extends Component {
@@ -46,6 +47,7 @@ class BlogEditor extends Component {
         }
 
         this.props.storeDecorator(decorator)
+        this.props.customBlockRender(DefaultDraftBlockRenderMap.merge(blockRenderMap))
 
         this.focus = () => this.refs.editor.focus()
         
@@ -61,7 +63,6 @@ class BlogEditor extends Component {
         this.confirmDescription = this._confirmDescription.bind(this)
         this.onDescriptionInputKeyDown = this._onDescriptionInputKeyDown.bind(this)
         this.removeDescription = this._removeDescription.bind(this)
-        this.extendedBlockRenderMap = DefaultDraftBlockRenderMap.merge(blockRenderMap)
 
     }
 
@@ -111,7 +112,7 @@ class BlogEditor extends Component {
             desValue: '',
             alreadyDes: false
         }, () => {
-            this._onClickBlogType(changeBlogTypeElement.wd)
+            this._onClickBlogType(changeBlogTypeElement.cb)
             setTimeout(() => this.refs.editor.focus(), 0)
         })
     }
@@ -226,7 +227,6 @@ class BlogEditor extends Component {
                     <Button.Group style={{marginRight: 10}}>
                         <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.ol)}><FaListOl size={12} /></Button>
                         <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.ul)}><FaListUl size={12} /></Button>
-                        <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.wd)}>wd</Button>
                     </Button.Group>
 
                     <Button.Group style={{marginRight: 10}}>
@@ -250,7 +250,7 @@ class BlogEditor extends Component {
                                 placeholder={"Enter some text..."}
                                 ref={"editor"}
                                 customStyleMap={colorStyleMap}
-                                blockRenderMap={this.extendedBlockRenderMap}
+                                blockRenderMap={this.props.editor.blockRender}
                             />
                         </div>
                     </Col>
@@ -265,24 +265,10 @@ class BlogEditor extends Component {
 
 }
 
-class MyCustomBlock extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-  render() {
-    return (
-      <div className={'wrap-description'}>
-        {this.props.children}
-      </div>
-    )
-  }
-}
-
 const blockRenderMap = Immutable.Map({
-  'MyCustomBlock': {
+  'CustomCodeBlock': {
     element: 'section',
-    wrapper: <MyCustomBlock />
+    wrapper: <CustomCodeBlock />
   }
 })
 
@@ -305,7 +291,7 @@ const changeBlogTypeElement = {
     ol: 'ordered-list-item',
     default: 'unstyled',
     hr: 'hr',
-    wd: 'MyCustomBlock'
+    cb: 'CustomCodeBlock'
 }
 
 const colorStyleMap = {

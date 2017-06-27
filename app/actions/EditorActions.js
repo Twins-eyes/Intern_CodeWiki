@@ -3,7 +3,8 @@ import {
     CHANGE_DESCRIPTION, 
     STORE_EDITOR_STATE, 
     STORE_DECORATOR, 
-    SAVE_DATA_EDITOR 
+    SAVE_DATA_EDITOR,
+    STORE_BLOCK_RENDER
 } from './types'
 import { POST_DATA_EDITOR } from '../api'
 
@@ -41,5 +42,12 @@ export const saveDataFromEditor = editorSate => {
         }).catch(error => {
             console.log(error)
         })
+    }
+}
+
+export const customBlockRender = blockRenderMap => {
+    return {
+        type: STORE_BLOCK_RENDER,
+        payload: blockRenderMap
     }
 }
