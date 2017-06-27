@@ -95,11 +95,10 @@ $bg-color: #F5D773;
     clear: left;
     -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
     box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-    &:invalid {
-        //background-color: #e58787;
-        -webkit-box-shadow: 1px 1px 0 #e2c666;
-        box-shadow: 1px 1px 0 #e2c666;
-    }
+    // &:invalid {
+    //     background-color: #e58787;
+    //     border: 1px #c16666 solid;
+    // }
 }
 .form {
     padding-top: 40px;

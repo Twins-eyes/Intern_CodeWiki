@@ -14,6 +14,26 @@ class SignUpPage extends Component {
         }
     }
 
+    handleCFPassword(e){
+        if(this.state.password == e.target.value) {
+            console.log(e.target.value)
+            console.log('match!')
+            this.setState({
+                cfPassword: e.target.value
+            })
+        }
+        else {
+            console.log('yoyoyoyo')
+        }
+    }
+
+    handlePassword(e){
+        console.log(e.target.value)
+        this.setState({
+            password: e.target.value
+        })
+    }
+
     render() {
         return(
             <div className={'page'}>
@@ -33,7 +53,7 @@ class SignUpPage extends Component {
                                     <input type='email'
                                         className={'formInput'}
                                         name='email'
-                                        value={this.props.value}
+                                        value={this.props.email}
                                         autoFocus='true'
                                         required
                                     />
@@ -43,7 +63,7 @@ class SignUpPage extends Component {
                                     <input type='text'
                                         className={'formInput'}
                                         name='username'
-                                        value={this.props.value}
+                                        value={this.props.username}
                                         required
                                     />
                                 </Col>
@@ -54,7 +74,8 @@ class SignUpPage extends Component {
                                     <input type='password'
                                         className={'formInput'}
                                         name='password'
-                                        value={this.props.value}
+                                        value={this.props.password}
+                                        onChange={this.handlePassword.bind(this)}
                                         required
                                     />
                                 </Col>
@@ -63,7 +84,8 @@ class SignUpPage extends Component {
                                     <input type='password'
                                         className={'formInput'}
                                         name='confirmPassword'
-                                        value={this.props.value}
+                                        onChange={this.handleCFPassword.bind(this)}
+                                        value={this.props.cfPassword}
                                         required
                                     />
                                 </Col>
