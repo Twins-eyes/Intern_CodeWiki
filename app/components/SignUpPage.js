@@ -4,6 +4,16 @@ import { Col, Row } from 'antd'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 class SignUpPage extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            email: '',
+            username: '',
+            password: '',
+            cfPassword: ''
+        }
+    }
+
     render() {
         return(
             <div className={'page'}>
