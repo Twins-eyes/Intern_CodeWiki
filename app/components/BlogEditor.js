@@ -61,6 +61,7 @@ class BlogEditor extends Component {
         this.confirmDescription = this._confirmDescription.bind(this)
         this.onDescriptionInputKeyDown = this._onDescriptionInputKeyDown.bind(this)
         this.removeDescription = this._removeDescription.bind(this)
+        this.extendedBlockRenderMap = DefaultDraftBlockRenderMap.merge(blockRenderMap)
 
     }
 
@@ -110,6 +111,7 @@ class BlogEditor extends Component {
             desValue: '',
             alreadyDes: false
         }, () => {
+            this._onClickBlogType(changeBlogTypeElement.wd)
             setTimeout(() => this.refs.editor.focus(), 0)
         })
     }
@@ -150,17 +152,19 @@ class BlogEditor extends Component {
 
     Description(props) {
         const { description } = props.contentState.getEntity(props.entityKey).getData()
+        let htmlComp = ''
         switch (props.contentState.getEntity(props.entityKey).getData().alreadyDes) {
-            case true : return <div onMouseOver={() => this.props.changeDescription(description)} onMouseOut={() => this.props.changeDescription('')}>
+            case true : htmlComp = <div onMouseOver={() => this.props.changeDescription(description)}>
                                     <AlreadyDescription>{this.codeDescription(props)}</AlreadyDescription>
-                                </div>
-            default : return <div onMouseOver={() => this.props.changeDescription(description)} onMouseOut={() => this.props.changeDescription('')}>
+                              </div>
+            default : htmlComp = <div onMouseOver={() => this.props.changeDescription(description)}>
                                     <MiddleDescription>{this.codeDescription(props)}</MiddleDescription>
-                                </div>
+                            </div>
         }
+        return htmlComp
     }
 
-    codeDescription = (props) => {
+    codeDescription = props => {
         const { description } = props.contentState.getEntity(props.entityKey).getData()
         return (
             <code className={'description'} >
@@ -196,7 +200,7 @@ class BlogEditor extends Component {
         }
     }
 
-    saveEditorData = () => this.props.saveDataFromEditor(this.state.editorState)
+    saveEditorData = () => this.props.saveDataFromEditor(convertToRaw(this.state.editorState.getCurrentContent()))
 
     render() {
         let editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.state.decorator)
@@ -222,6 +226,7 @@ class BlogEditor extends Component {
                     <Button.Group style={{marginRight: 10}}>
                         <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.ol)}><FaListOl size={12} /></Button>
                         <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.ul)}><FaListUl size={12} /></Button>
+                        <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.wd)}>wd</Button>
                     </Button.Group>
 
                     <Button.Group style={{marginRight: 10}}>
@@ -245,6 +250,7 @@ class BlogEditor extends Component {
                                 placeholder={"Enter some text..."}
                                 ref={"editor"}
                                 customStyleMap={colorStyleMap}
+                                blockRenderMap={this.extendedBlockRenderMap}
                             />
                         </div>
                     </Col>
@@ -258,6 +264,27 @@ class BlogEditor extends Component {
     }
 
 }
+
+class MyCustomBlock extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  render() {
+    return (
+      <div className={'wrap-description'}>
+        {this.props.children}
+      </div>
+    )
+  }
+}
+
+const blockRenderMap = Immutable.Map({
+  'MyCustomBlock': {
+    element: 'section',
+    wrapper: <MyCustomBlock />
+  }
+})
 
 const changeInlineElement = {
     bold: 'BOLD',
@@ -277,7 +304,8 @@ const changeBlogTypeElement = {
     ul: 'unordered-list-item',
     ol: 'ordered-list-item',
     default: 'unstyled',
-    hr: 'hr'
+    hr: 'hr',
+    wd: 'MyCustomBlock'
 }
 
 const colorStyleMap = {

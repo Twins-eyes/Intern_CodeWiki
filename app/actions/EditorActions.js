@@ -31,9 +31,9 @@ export const storeDecorator = decorator => {
 export const saveDataFromEditor = editorSate => {
     return function(dispatch) {
         return axios.post(POST_DATA_EDITOR, {
-            "data": editorSate, 
+            "editorRaw": editorSate, 
         }).then(response => {
-            console.log(response.config.data)
+            console.log(response.data)
             // return {
             //     type: SAVE_DATA_EDITOR,
             //     payload: data
