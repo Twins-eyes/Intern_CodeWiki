@@ -10,7 +10,8 @@ import {
     RichUtils, 
     ContentState,
     convertFromRaw,
-    DefaultDraftBlockRenderMap
+    DefaultDraftBlockRenderMap,
+    Modifier
 } from 'draft-js'
 import { 
     FaBold, 
@@ -53,9 +54,7 @@ class BlogEditor extends Component {
         
         this.onChange = (editorState) => {
             this.setState({editorState})
-            
             this.props.storeEditorState(convertToRaw(editorState.getCurrentContent()))
-
         }
 
         this.promptForDescription = this._promptForDescription.bind(this)
@@ -78,6 +77,8 @@ class BlogEditor extends Component {
             const descriptionKey = blockWithDescriptionAtBeginning.getEntityAt(startOffset)
             let description = ''
             if (descriptionKey) {
+                this.clear()
+                this._onClickBlogType(changeBlogTypeElement.cb)
                 this.setState({ alreadyDes: true })
                 const descriptionInstance = contentState.getEntity(descriptionKey)
                 description = descriptionInstance.getData().description
@@ -112,8 +113,25 @@ class BlogEditor extends Component {
             desValue: '',
             alreadyDes: false
         }, () => {
+            this.clear()
             this._onClickBlogType(changeBlogTypeElement.cb)
             setTimeout(() => this.refs.editor.focus(), 0)
+        })
+    }
+
+    clear = () => {
+        const {editorState} = this.state
+        const selection = editorState.getSelection()
+        const contentState = editorState.getCurrentContent()
+        const styles = editorState.getCurrentInlineStyle()
+
+        const removeBlock = Modifier.setBlockType(contentState, selection, 'unstyled')
+
+        this.setState({
+            editorState: EditorState.push(
+            editorState,
+            removeBlock
+            )
         })
     }
 
