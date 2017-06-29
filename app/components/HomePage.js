@@ -8,7 +8,7 @@ import Parallax from 'parallax-js'
 class HomePage extends Component {
     render () {
         return (
-            <div className={'page'}>
+            <div>
                 <NavBar location={this.props.location}/>
                 <Row>
                     <Col xs={{span:20, offset:4}} sm={{span:8, offset:2}} md={{span:10, offset:2}}>

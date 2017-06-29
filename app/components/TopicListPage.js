@@ -58,7 +58,7 @@ class TopicList extends Component {
 
     render(){
         return(
-            <div className={'page'}>
+            <div>
                 <NavBar location={this.props.location} />
                 <Row>
                     <Col xs={{span:20, offset:4}} md={{span:20, offset:4}}> 

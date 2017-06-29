@@ -6,7 +6,7 @@ import { Row, Col } from 'antd'
 class SignInPage extends Component {
     render() {
         return(
-             <div className={'page'}>
+             <div>
                 <NavBar location={this.props.location}/>
                 <center><div style={{width:'550px'}}>
                     <SignInBox/>

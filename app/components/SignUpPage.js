@@ -29,7 +29,7 @@ class SignUpPage extends Component {
     }
 
     handleUsername(e) {
-        const usernameRegex = new RegExp('[a-zA-Z0-9]{3,12}')
+        const usernameRegex = new RegExp('[a-zA-Z_0-9]{3,12}')
         const valid = usernameRegex.test(e.target.value)
         console.log(valid)
         if(valid) {
@@ -44,7 +44,7 @@ class SignUpPage extends Component {
 
     render() {
         return(
-            <div className={'page'}>
+            <div>
                 <NavBar location={this.props.location}/>
                 <ReactCSSTransitionGroup
                     transitionName='sgnBox'
