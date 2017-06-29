@@ -26,6 +26,7 @@ import { AlreadyDescription, MiddleDescription } from './editor/decorator/Descri
 import Immutable from 'immutable'
 import createBlockBreakoutPlugin from 'draft-js-block-breakout-plugin'
 import CustomCodeBlock from './editor/blockRender/CustomCodeBlock'
+import { DescriptionInput } from './editor/DescriptionInput'
 import '../assets/editor.css'
 
 class BlogEditor extends Component {
@@ -62,18 +63,13 @@ class BlogEditor extends Component {
             breakoutBlocks: ['CustomCodeBlock']
         }
         const blockBreakoutPlugin = createBlockBreakoutPlugin(options)
-    
         this.plugins = [blockBreakoutPlugin]
 
-        this.promptForDescription = this._promptForDescription.bind(this)
         this.onDesChange = (e) => this.setState({desValue: e.target.value})
-        this.confirmDescription = this._confirmDescription.bind(this)
-        this.onDescriptionInputKeyDown = this._onDescriptionInputKeyDown.bind(this)
-        this.removeDescription = this._removeDescription.bind(this)
 
     }
 
-    _promptForDescription(e) {
+    _promptForDescription = e => {
         e.preventDefault()
         const {editorState} = this.state
         const selection = editorState.getSelection()
@@ -95,10 +91,11 @@ class BlogEditor extends Component {
             }, () => {
                 setTimeout(() => this.refs.description.focus(), 0)
             })
+            this._onClickBlogType(changeBlogTypeElement.default)
         }
     }
 
-    _confirmDescription(e) {
+    _confirmDescription = e => {
         e.preventDefault()
         const {editorState, desValue} = this.state
         const contentState = editorState.getCurrentContent()
@@ -124,13 +121,13 @@ class BlogEditor extends Component {
         })
     }
 
-    _onDescriptionInputKeyDown(e) {
+    _onDescriptionInputKeyDown = e => {
         if (e.which === 13) {
             this._confirmDescription(e)
         }
     }
     
-    _removeDescription(e) {
+    _removeDescription = e => {
         e.preventDefault()
         const {editorState} = this.state
         const selection = editorState.getSelection()
@@ -168,63 +165,30 @@ class BlogEditor extends Component {
         )
     }
 
-    descriptionInput = () => {
-        if (this.state.showDesInput) {
-            return (
-                <Col span={12}>
-                    <div className={'desInputContainer'}>
-                        <Col span={20}>
-                            <Input
-                                onChange={this.onDesChange}
-                                ref={"description"}
-                                className={'desInput'}
-                                type={"textarea"}
-                                placeholder={'Please enter your description'}
-                                value={this.state.desValue}
-                                onKeyDown={this.onDescriptionInputKeyDown}
-                            />
-                        </Col>
-                        <Col span={4}>
-                            <Button onMouseDown={this.confirmDescription}>
-                                Confirm
-                            </Button>
-                        </Col>
-                    </div>
-                </Col>
-            )
-        }
-    }
-
     saveEditorData = () => this.props.saveDataFromEditor(convertToRaw(this.state.editorState.getCurrentContent()))
 
     render() {
         let editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.state.decorator)
+        const { showDesInput, editorState, desValue } = this.state
 
         return (
             <div className={'root'}>
                 <div className={'buttons'}>
                     <Button.Group style={{marginRight: 10}}>
-                        <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.h1)}>h1</Button>
-                        <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.h2)}>h2</Button>
-                        <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.h3)}>h3</Button>
+                        { blockTypeText.map((data, index) => <Button key={index} onClick={() => this._onClickBlogType(data.value)}>{data.text}</Button>) }
                         <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.default)}>default</Button>
                     </Button.Group>
 
                     <Button.Group style={{marginRight: 10}}>
-                        <Button onClick={() => this._onClickInlineStyle(changeInlineElement.bold)}><FaBold size={12} /></Button>
-                        <Button onClick={() => this._onClickInlineStyle(changeInlineElement.italic)}><FaItalic size={11} /></Button>
-                        <Button onClick={() => this._onClickInlineStyle(changeInlineElement.underline)}><FaUnderline size={12} /></Button>
-                        <Button onClick={() => this._onClickInlineStyle(changeInlineElement.codeBlock)}><FaCode size={15} /></Button>
-                        <Button onClick={() => this._onClickInlineStyle(changeInlineElement.strikethrough)}><FaStrikethrough size={12} /></Button>
+                        { changeInlineElement.map((data, index) => <Button key={index} onClick={() => this._onClickInlineStyle(data.value)}>{data.icon}</Button>) }
                     </Button.Group>
 
                     <Button.Group style={{marginRight: 10}}>
-                        <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.ol)}><FaListOl size={12} /></Button>
-                        <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.ul)}><FaListUl size={12} /></Button>
+                        { blockTypeOrder.map((data, index) => <Button key={index} onClick={() => this._onClickBlogType(data.value)}>{data.icon}</Button>) }
                     </Button.Group>
 
                     <Button.Group style={{marginRight: 10}}>
-                        <Button onMouseDown={this.promptForDescription}>
+                        <Button onMouseDown={this._promptForDescription}>
                             Add Description
                         </Button>
                         <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.default)} onMouseDown={this.removeDescription}>
@@ -236,10 +200,10 @@ class BlogEditor extends Component {
                 </div>
                 
                 <Row gutter={8}>
-                    <Col span={ this.state.showDesInput?12:24 }>
+                    <Col span={ showDesInput?12:24 }>
                         <div className={'editor'} onClick={this.focus}>
                             <Editor
-                                editorState={this.state.editorState}
+                                editorState={editorState}
                                 onChange={this.onChange}
                                 placeholder={"Enter some text..."}
                                 ref={"editor"}
@@ -249,7 +213,19 @@ class BlogEditor extends Component {
                             />
                         </div>
                     </Col>
-                    {this.descriptionInput()}
+                    <Col span={ showDesInput?12:0 }>
+                        <DescriptionInput _confirmDescription={this._confirmDescription}>
+                            <Input
+                                onChange={this.onDesChange}
+                                ref={"description"}
+                                className={'desInput'}
+                                type={"textarea"}
+                                placeholder={'Please enter your description'}
+                                value={desValue}
+                                onKeyDown={this._onDescriptionInputKeyDown}
+                            />
+                        </DescriptionInput>
+                    </Col>
                 </Row>
                 <Button type={'primary'} icon={'check'} onClick={this.saveEditorData}>
                     Save
@@ -267,24 +243,29 @@ const blockRenderMap = Immutable.Map({
   }
 })
 
-const changeInlineElement = {
-    bold: 'BOLD',
-    italic: 'ITALIC',
-    code: 'CODE',
-    underline: 'UNDERLINE',
-    strikethrough: 'STRIKETHROUGH',
-    codeBlock: 'CODEBLOCK'
-}
+const changeInlineElement = [
+    { value: 'BOLD', icon: <FaBold size={12} /> },
+    { value: 'ITALIC', icon: <FaItalic size={11} /> },
+    { value: 'UNDERLINE', icon: <FaUnderline size={12} /> },
+    { value: 'CODEBLOCK', icon: <FaCode size={15} /> },
+    { value: 'STRIKETHROUGH', icon: <FaStrikethrough size={12} /> }
+]
+
+const blockTypeText = [
+    { value: 'header-one', text: 'h1' },
+    { value: 'header-two', text: 'h2' },
+    { value: 'header-three', text: 'h3' }
+]
+
+const blockTypeOrder = [
+    { value: 'ordered-list-item', icon: <FaListOl size={12} /> },
+    { value: 'unordered-list-item', icon: <FaListUl size={12} /> }
+]
 
 const changeBlogTypeElement = {
-    h1: 'header-one',
-    h2: 'header-two',
-    h3: 'header-three',
+    default: 'unstyled',
     blockquote: 'blockquote',
     codeBlock: 'code-block',
-    ul: 'unordered-list-item',
-    ol: 'ordered-list-item',
-    default: 'unstyled',
     hr: 'hr',
     cb: 'CustomCodeBlock'
 }
