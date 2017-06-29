@@ -71,7 +71,7 @@ class BlogEditor extends Component {
 
     _promptForDescription = e => {
         e.preventDefault()
-        const {editorState} = this.state
+        const { editorState } = this.state
         const selection = editorState.getSelection()
         if (!selection.isCollapsed()) {
             const contentState = editorState.getCurrentContent()
