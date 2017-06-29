@@ -2,34 +2,39 @@ import React, { Component } from 'react'
 import { Row, Col } from 'antd'
 
 class CustomCodeBlock extends Component {
-  constructor(props) {
-    super(props)
-  }
 
-  getDescription = (props) => {
+  render() {
     const { selection, contentState } = this.props.children[0].props.children.props
-    const startKey = selection.getStartKey()
+    const startKey = this.props.children[0].key
     const startOffset = selection.getStartOffset()
     const blockWithDescriptionAtBeginning = contentState.getBlockForKey(startKey)
     const descriptionKey = blockWithDescriptionAtBeginning.getEntityAt(startOffset)
+    let description = ''
     if(descriptionKey){
-        let description = contentState.getEntity(descriptionKey).getData().description
-        return description
+        description = contentState.getEntity(descriptionKey).getData().description
     }
-    return 'sun'
-  }
 
-  render() {
     return (
       <div className={'wrap-code-des'}>
         <Row>
-            <Col span={12}>{this.props.children}</Col>
-            <Col span={12}>{this.getDescription()}</Col>
+            <Col span={description?12:24} style={styles.code}>{this.props.children}</Col>
+            <Col span={description?12:0}>{description}</Col>
         </Row>
       </div>
     )
   }
 }
 
+const styles = {
+    code: {
+        backgroundColor: '#f2f2f2', 
+        paddingLeft: 16,
+        paddingTop: 5,
+        paddingBottom: 5,
+        borderLeftStyle: 'solid',
+        borderLeftWidth: 'thick',
+        borderLeftColor: '#f5d773'
+    }
+}
 
 export default CustomCodeBlock

@@ -5,7 +5,6 @@ import { Row, Col, Button, Input } from 'antd'
 import { 
     CompositeDecorator, 
     convertToRaw, 
-    Editor, 
     EditorState, 
     RichUtils, 
     ContentState,
@@ -13,6 +12,7 @@ import {
     DefaultDraftBlockRenderMap,
     Modifier
 } from 'draft-js'
+import Editor from 'draft-js-plugins-editor'
 import { 
     FaBold, 
     FaItalic, 
@@ -24,6 +24,7 @@ import {
 } from 'react-icons/lib/fa'
 import { AlreadyDescription, MiddleDescription } from './editor/decorator/DescriptionComponent'
 import Immutable from 'immutable'
+import createBlockBreakoutPlugin from 'draft-js-block-breakout-plugin'
 import CustomCodeBlock from './editor/blockRender/CustomCodeBlock'
 import '../assets/editor.css'
 
@@ -57,6 +58,13 @@ class BlogEditor extends Component {
             this.props.storeEditorState(convertToRaw(editorState.getCurrentContent()))
         }
 
+        const options = {
+            breakoutBlocks: ['CustomCodeBlock']
+        }
+        const blockBreakoutPlugin = createBlockBreakoutPlugin(options)
+    
+        this.plugins = [blockBreakoutPlugin]
+
         this.promptForDescription = this._promptForDescription.bind(this)
         this.onDesChange = (e) => this.setState({desValue: e.target.value})
         this.confirmDescription = this._confirmDescription.bind(this)
@@ -78,7 +86,6 @@ class BlogEditor extends Component {
             let description = ''
             if (descriptionKey) {
                 this.clear()
-                this._onClickBlogType(changeBlogTypeElement.cb)
                 this.setState({ alreadyDes: true })
                 const descriptionInstance = contentState.getEntity(descriptionKey)
                 description = descriptionInstance.getData().description
@@ -170,9 +177,10 @@ class BlogEditor extends Component {
     }
 
     Description(props) {
-        const { description } = props.contentState.getEntity(props.entityKey).getData()
+        const { description,alreadyDes } = props.contentState.getEntity(props.entityKey).getData()
         let htmlComp = ''
-        switch (props.contentState.getEntity(props.entityKey).getData().alreadyDes) {
+        console.log(alreadyDes)
+        switch (alreadyDes) {
             case true : htmlComp = <div onMouseOver={() => this.props.changeDescription(description)}>
                                     <AlreadyDescription>{this.codeDescription(props)}</AlreadyDescription>
                               </div>
@@ -223,7 +231,7 @@ class BlogEditor extends Component {
 
     render() {
         let editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.state.decorator)
-    
+
         return (
             <div className={'root'}>
                 <div className={'buttons'}>
@@ -269,6 +277,7 @@ class BlogEditor extends Component {
                                 ref={"editor"}
                                 customStyleMap={colorStyleMap}
                                 blockRenderMap={this.props.editor.blockRender}
+                                plugins={this.plugins}
                             />
                         </div>
                     </Col>
