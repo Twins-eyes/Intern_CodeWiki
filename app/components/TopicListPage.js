@@ -13,7 +13,7 @@ class TopicList extends Component {
                     topicName:'This is the topic name for testing codewiki',
                     language:'C',
                     tags:['abc','cba','java','javascript','hello','world'],
-                    author:'sun',
+                    author:'authorizeby',
                     date: '16/8/2016'
                 },
                 {

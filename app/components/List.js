@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom'
 class List extends Component {
     tagsList(tags){
         const tagList = tags.map((tag, index) => 
-            <Link to={'/tag'}>
-                <Tag key={index} color='cyan'>
+            <Link to={'/tag'} key={index}>
+                <Tag key={index} color='cyan' style={{marginBottom:'5px'}}>
                     #{tag}
                 </Tag>
             </Link>
@@ -33,17 +33,17 @@ class List extends Component {
                             </Link>
                         </Col>
                         <Col md={{span:4, push:4}}>
-                            <span className={'topicDetail'}>{ date }</span>
+                            <span style={{color: '#577380'}}>{ date }</span>
                             <Link to={'/author'} className={'topicDetail'}>{ author }</Link>
                         </Col>
                     </Row>
                     <Row type='flex'>
                         <Col md={2}>
                             <Link to={'/lang'}>
-                                <Tag color='red'>{ language }</Tag>
+                                <Tag color='red' style={{marginBottom:'5px'}}>{ language }</Tag>
                             </Link>
                         </Col>
-                        <Col md={22}>
+                        <Col md={{span:21, offset: 1}}>
                             {this.tagsList(tags)}
                         </Col>
                     </Row>
