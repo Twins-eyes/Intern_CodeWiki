@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Row, Col } from 'antd'
 import NavBar from '../components/NavBar'
 import List from '../components/List'
-import { Link } from 'react-router-dom'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 class TopicList extends Component {
@@ -33,14 +32,14 @@ class TopicList extends Component {
 
     topicsList(topics){
         const topicList = this.state.topics.map((topic, index)=>
-            <Link to={'/id'} key={index}><List
+            <List
                 key={index}
                 topicName={topic.topicName}
                 language={topic.language}
                 tags={topic.tags}
                 author={topic.author}
                 date={topic.date}
-            /></Link>
+            />
         )
         return topicList
     }

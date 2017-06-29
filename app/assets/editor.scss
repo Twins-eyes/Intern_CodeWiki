@@ -93,6 +93,9 @@ body {
     clear: left;
     -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
     box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+     @media screen and (min-width: 320px) and (max-width: 480px) {
+        margin-left: 80%;
+    }
 }
 .invalidForm { 
     @extend .formInput; 
@@ -117,7 +120,7 @@ body {
     font-size: 14px;
     border-radius: 8px;
     &:hover {
-        background-color: #577380;;
+        background-color: #577380;
         -webkit-transition-duration: 0.4s; /* Safari */
         transition-duration: 0.4s;
     }
@@ -145,7 +148,6 @@ span {
     border-radius: 2px;
     border: 1px solid #ddd;
 }
-
 .tpList {
     background-color: #F2F2F2;
     opacity: 0.95;
@@ -153,12 +155,13 @@ span {
     border: 0.5px solid #ddd;
     padding: 0px 0px 0px 30px;
     margin-left: 10%;
-    height: 100%;
     width: 80%;
 }
-
-.author {
+.topicDetail {
     color: #577380;
+    &:hover {
+        color: #ddd;
+    }
 }
 .lang {
     @extend .formInput;
@@ -167,6 +170,9 @@ span {
     font-size: 12px;
     margin-bottom: 5px;
     margin-left: 20px;
+    @media screen and (min-width: 320px) and (max-width: 480px) {
+        margin-left: 85%;
+    }
 }
 .h1 {
     color: white;

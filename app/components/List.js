@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { Row, Col, Tag } from 'antd'
+import { Link } from 'react-router-dom'
 
 class List extends Component {
     tagsList(tags){
         const tagList = tags.map((tag, index) => 
-            <Tag key={index} color='cyan'>
-                #{tag}
-            </Tag>
+            <Link to={'/tag'}>
+                <Tag key={index} color='cyan'>
+                    #{tag}
+                </Tag>
+            </Link>
         )
         return tagList
     }
@@ -25,16 +28,20 @@ class List extends Component {
                 >
                     <Row type='flex'>
                         <Col md={16}>
-                            <h2>{ topicName }</h2>
+                            <Link to={'/id'} className={'topicDetail'}>
+                                <h2>{ topicName }</h2>
+                            </Link>
                         </Col>
                         <Col md={{span:4, push:4}}>
-                            <span className={'author'}>{ date }</span>
-                            <span className={'author'}>{ author }</span>
+                            <span className={'topicDetail'}>{ date }</span>
+                            <Link to={'/author'} className={'topicDetail'}>{ author }</Link>
                         </Col>
                     </Row>
                     <Row type='flex'>
                         <Col md={2}>
-                            <Tag color='red'>{ language }</Tag>
+                            <Link to={'/lang'}>
+                                <Tag color='red'>{ language }</Tag>
+                            </Link>
                         </Col>
                         <Col md={22}>
                             {this.tagsList(tags)}
