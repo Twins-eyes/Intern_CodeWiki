@@ -227,7 +227,7 @@ class BlogEditor extends Component {
                         <Button onMouseDown={this.promptForDescription}>
                             Add Description
                         </Button>
-                        <Button onMouseDown={this.removeDescription}>
+                        <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.default)} onMouseDown={this.removeDescription}>
                             Remove Description
                         </Button>
                     </Button.Group>
