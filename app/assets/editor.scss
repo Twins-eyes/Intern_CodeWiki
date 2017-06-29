@@ -73,12 +73,12 @@ $bg-color: #F5D773;
 }
 .signinBox {
     @extend .box;
+    margin-top: 50px;
     align-items: left;
 }
 .signupBox {
     @extend .box;
     margin-top: 50px;
-    margin-bottom: 500px;
 }
 .formInput {
     border: none;
@@ -95,10 +95,10 @@ $bg-color: #F5D773;
     clear: left;
     -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
     box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-    // &:invalid {
-    //     background-color: #e58787;
-    //     border: 1px #c16666 solid;
-    // }
+}
+.invalidForm { 
+    @extend .formInput; 
+    border: 1px solid #c4766f;
 }
 .form {
     padding-top: 40px;

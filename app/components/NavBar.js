@@ -5,7 +5,8 @@ class NavBar extends Component {
     render () {
         if(this.props.location.pathname == '/' || 
             this.props.location.pathname == '/signin' ||
-            this.props.location.pathname == '/signup'){
+            this.props.location.pathname == '/signup'
+        ){
             return (
                 <div className={'navBar'}>
                     <Link to={'/'}><img src={require('../img/codewikiwhite.gif')} className={'logo'}/></Link>

@@ -14,24 +14,32 @@ class SignUpPage extends Component {
         }
     }
 
-    handleCFPassword(e){
+    handleCFPassword(e) {
         if(this.state.password == e.target.value) {
-            console.log(e.target.value)
-            console.log('match!')
             this.setState({
                 cfPassword: e.target.value
             })
         }
-        else {
-            console.log('yoyoyoyo')
-        }
     }
 
-    handlePassword(e){
-        console.log(e.target.value)
+    handlePassword(e) {
         this.setState({
             password: e.target.value
         })
+    }
+
+    handleUsername(e) {
+        const usernameRegex = new RegExp('[a-zA-Z0-9]{3,12}')
+        const valid = usernameRegex.test(e.target.value)
+        console.log(valid)
+        if(valid) {
+            this.setState({
+                username: e.target.value
+            })
+        }
+        else {
+            console.log('mai match')
+        }
     }
 
     render() {
@@ -61,10 +69,13 @@ class SignUpPage extends Component {
                                 <Col md={12}>
                                     <span>Username</span><br/>   
                                     <input type='text'
-                                        className={'formInput'}
+                                        className={ 'formInput' }
                                         name='username'
                                         value={this.props.username}
                                         required
+                                        onChange={this.handleUsername.bind(this)}
+                                        size={12}
+                                        pattern={'[A-Za-z\d]{3,12}'}
                                     />
                                 </Col>
                             </Row>  
