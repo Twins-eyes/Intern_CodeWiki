@@ -85,7 +85,6 @@ class BlogEditor extends Component {
             const descriptionKey = blockWithDescriptionAtBeginning.getEntityAt(startOffset)
             let description = ''
             if (descriptionKey) {
-                this.clear()
                 this.setState({ alreadyDes: true })
                 const descriptionInstance = contentState.getEntity(descriptionKey)
                 description = descriptionInstance.getData().description
@@ -120,25 +119,8 @@ class BlogEditor extends Component {
             desValue: '',
             alreadyDes: false
         }, () => {
-            this.clear()
             this._onClickBlogType(changeBlogTypeElement.cb)
             setTimeout(() => this.refs.editor.focus(), 0)
-        })
-    }
-
-    clear = () => {
-        const {editorState} = this.state
-        const selection = editorState.getSelection()
-        const contentState = editorState.getCurrentContent()
-        const styles = editorState.getCurrentInlineStyle()
-
-        const removeBlock = Modifier.setBlockType(contentState, selection, 'unstyled')
-
-        this.setState({
-            editorState: EditorState.push(
-            editorState,
-            removeBlock
-            )
         })
     }
 
@@ -178,21 +160,7 @@ class BlogEditor extends Component {
 
     Description(props) {
         const { description,alreadyDes } = props.contentState.getEntity(props.entityKey).getData()
-        let htmlComp = ''
-        console.log(alreadyDes)
-        switch (alreadyDes) {
-            case true : htmlComp = <div onMouseOver={() => this.props.changeDescription(description)}>
-                                    <AlreadyDescription>{this.codeDescription(props)}</AlreadyDescription>
-                              </div>
-            default : htmlComp = <div onMouseOver={() => this.props.changeDescription(description)}>
-                                    <MiddleDescription>{this.codeDescription(props)}</MiddleDescription>
-                            </div>
-        }
-        return htmlComp
-    }
-
-    codeDescription = props => {
-        const { description } = props.contentState.getEntity(props.entityKey).getData()
+        
         return (
             <code className={'description'} >
                 {props.children}
@@ -338,3 +306,27 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, actions)(BlogEditor)
+
+// Description(props) {
+//         const { description,alreadyDes } = props.contentState.getEntity(props.entityKey).getData()
+//         let htmlComp = ''
+//         console.log(alreadyDes)
+//         switch (alreadyDes) {
+//             case true : htmlComp = <div onMouseOver={() => this.props.changeDescription(description)}>
+//                                     <AlreadyDescription>{this.codeDescription(props)}</AlreadyDescription>
+//                               </div>
+//             default : htmlComp = <div onMouseOver={() => this.props.changeDescription(description)}>
+//                                     <MiddleDescription>{this.codeDescription(props)}</MiddleDescription>
+//                             </div>
+//         }
+//         return htmlComp
+//     }
+
+//     codeDescription = props => {
+//         const { description } = props.contentState.getEntity(props.entityKey).getData()
+//         return (
+//             <code className={'description'} >
+//                 {props.children}
+//             </code>
+//         )
+//     }

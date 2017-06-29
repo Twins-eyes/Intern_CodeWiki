@@ -1,28 +1,42 @@
 import React, { Component } from 'react'
 import { Row, Col } from 'antd'
+import '../../../assets/editor.css'
 
 class CustomCodeBlock extends Component {
 
-  render() {
-    const { selection, contentState } = this.props.children[0].props.children.props
-    const startKey = this.props.children[0].key
-    const startOffset = selection.getStartOffset()
-    const blockWithDescriptionAtBeginning = contentState.getBlockForKey(startKey)
-    const descriptionKey = blockWithDescriptionAtBeginning.getEntityAt(startOffset)
-    let description = ''
-    if(descriptionKey){
-        description = contentState.getEntity(descriptionKey).getData().description
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            description: ''
+        }
     }
 
-    return (
-      <div className={'wrap-code-des'}>
-        <Row>
-            <Col span={description?12:24} style={styles.code}>{this.props.children}</Col>
-            <Col span={description?12:0}>{description}</Col>
-        </Row>
-      </div>
-    )
-  }
+    componentWillMount(){ 
+        const { selection, contentState } = this.props.children[0].props.children.props
+        const startKey = this.props.children[0].key
+        const startOffset = selection.getStartOffset()
+        const blockWithDescriptionAtBeginning = contentState.getBlockForKey(startKey)
+        const descriptionKey = blockWithDescriptionAtBeginning.getEntityAt(startOffset)
+        if(descriptionKey){
+            this.setState({
+                description: contentState.getEntity(descriptionKey).getData().description
+            })
+        }
+    }
+
+    render() {
+        const { description } = this.state
+
+        return (
+        <div className={'wrap-code-des'}>
+            <Row gutter={8}>
+                <Col span={description?12:24} style={styles.code}>{this.props.children}</Col>
+                <Col span={description?12:0}>{description}</Col>
+            </Row>
+        </div>
+        )
+    }
 }
 
 const styles = {

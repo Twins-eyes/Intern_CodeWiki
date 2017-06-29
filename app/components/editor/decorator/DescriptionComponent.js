@@ -2,7 +2,7 @@ import React from 'react'
 
 const AlreadyDescription = (props) => {
     return (
-        <div style={styles.already_des}>
+        <div>
             {props.children}
         </div>
     )
@@ -10,7 +10,7 @@ const AlreadyDescription = (props) => {
 
 const MiddleDescription = (props) => {
     return (
-        <div style={styles.middle_des}>
+        <div >
             {props.children}
         </div>
     )
@@ -31,7 +31,7 @@ const styles = {
         paddingBottom: 5,
         borderLeftStyle: 'solid',
         borderLeftWidth: 'thick',
-        borderLeftColor: '#f5d773'
+        borderLeftColor: 'red'
     }
 }
 

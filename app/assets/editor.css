@@ -102,3 +102,7 @@
   background-color: '#ddd';
   padding-left: 16; 
 }
+
+.ant-row:before {
+  display: none;
+}
