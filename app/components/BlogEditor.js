@@ -27,6 +27,7 @@ import Immutable from 'immutable'
 import createBlockBreakoutPlugin from 'draft-js-block-breakout-plugin'
 import CustomCodeBlock from './editor/blockRender/CustomCodeBlock'
 import { DescriptionInput } from './editor/DescriptionInput'
+import { Description, findDescriptionEntities, SubDescription, findSubDescriptionEntities } from './editor/decorator/DescriptionDecorator'
 import '../assets/editor.css'
 
 class BlogEditor extends Component {
@@ -35,8 +36,12 @@ class BlogEditor extends Component {
 
         const decorator = new CompositeDecorator([
             {
-                strategy: this.findDescriptionEntities,
-                component: this.Description.bind(this),
+                strategy: findDescriptionEntities,
+                component: Description,
+            },
+            {
+                strategy: findSubDescriptionEntities,
+                component: (props) => SubDescription(props, this.props.changeDescription),
             }
         ])
 
@@ -95,6 +100,32 @@ class BlogEditor extends Component {
         }
     }
 
+    _comfirmSubDescription = e => {
+        e.preventDefault()
+        const {editorState, desValue} = this.state
+        const contentState = editorState.getCurrentContent()
+        const contentStateWithEntity = contentState.createEntity(
+            'SUB_DESCRIPTION',
+            'MUTABLE',
+            {description: desValue}
+        )
+        const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
+        const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity })
+        this.setState({
+            editorState: RichUtils.toggleLink(
+                newEditorState,
+                newEditorState.getSelection(),
+                entityKey
+            ),
+            showDesInput: false,
+            desValue: '',
+            alreadyDes: false
+        }, () => {
+            this._onClickBlogType(changeBlogTypeElement.cb)
+            setTimeout(() => this.refs.editor.focus(), 0)
+        })
+    }
+
     _confirmDescription = e => {
         e.preventDefault()
         const {editorState, desValue} = this.state
@@ -142,35 +173,12 @@ class BlogEditor extends Component {
 
     _onClickBlogType = event => this.onChange(RichUtils.toggleBlockType(this.state.editorState, event))
 
-    findDescriptionEntities(contentBlock, callback, contentState) {
-        contentBlock.findEntityRanges(
-            (character) => {
-                const entityKey = character.getEntity() 
-                return (
-                    entityKey !== null &&
-                    contentState.getEntity(entityKey).getType() === 'DESCRIPTION'
-                ) 
-            },
-            callback
-        ) 
-    }
-
-    Description(props) {
-        const { description,alreadyDes } = props.contentState.getEntity(props.entityKey).getData()
-        
-        return (
-            <code className={'description'} >
-                {props.children}
-            </code>
-        )
-    }
-
     saveEditorData = () => this.props.saveDataFromEditor(convertToRaw(this.state.editorState.getCurrentContent()))
 
     render() {
         let editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.state.decorator)
         const { showDesInput, editorState, desValue } = this.state
-
+        
         return (
             <div className={'root'}>
                 <div className={'buttons'}>
@@ -224,6 +232,7 @@ class BlogEditor extends Component {
                                 value={desValue}
                                 onKeyDown={this._onDescriptionInputKeyDown}
                             />
+                            <Button onMouseDown={this._comfirmSubDescription}>Sub Des</Button>
                         </DescriptionInput>
                     </Col>
                 </Row>
