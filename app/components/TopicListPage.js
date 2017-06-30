@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Row, Col } from 'antd'
 import NavBar from '../components/NavBar'
 import List from '../components/List'
+import { MdKeyboardArrowDown } from 'react-icons/lib/md'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 class TopicList extends Component {
@@ -11,7 +12,7 @@ class TopicList extends Component {
             topics: [
                 {
                     topicName:'This is the topic name for testing codewiki',
-                    language:'C',
+                    language:'javascript',
                     tags:['abc','cba','java','javascript','hello','world'],
                     author:'authorizeby',
                     date: '16/8/2016'
@@ -24,7 +25,7 @@ class TopicList extends Component {
                     date: '16/8/2016' 
                 }
             ],
-            languages:['java','javascript','angular'],
+            languages:['java','javascript','angular','C','C++','C#','php'],
             value:'all'
         }
         this.onChange = this.onChange.bind(this)
@@ -51,7 +52,7 @@ class TopicList extends Component {
 
     langOptions(languages){
         const langOption = this.state.languages.map((lang, index)=>
-            <option value={lang} key={index}>{lang}</option>
+            <p key={index}>{ lang }</p>
         )
         return langOption
     }
@@ -79,14 +80,15 @@ class TopicList extends Component {
                         />
                     </Col>
                     <Col xs={{span:10, offset:2}} md={{span:10, offset:2}}>
-                        <select 
-                            className={'lang'}
-                            defaultValue={this.state.value} 
-                            onChange={this.onChange}
-                        >  
-                            <option value='all' disabled>Choose language</option>
-                            {this.langOptions(this.state.languages)}
-                        </select>
+                        <div className="dropdown">
+                            <button className="dropbtn">
+                                Languages
+                                <MdKeyboardArrowDown/>
+                            </button>
+                            <div className="dropdown-content">
+                                { this.langOptions(this.state.languages) } 
+                            </div>
+                        </div>
                     </Col>
                 </Row>
                 <div style={{marginTop:'20px', opacity:'0.98'}}>

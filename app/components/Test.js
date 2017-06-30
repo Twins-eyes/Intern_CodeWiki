@@ -5,6 +5,7 @@ class Test extends Component {
     render () {
         return (
             <Select
+                showSearch
                 style={{ width: 200 }}
                 placeholder="Select a person"
             >

@@ -38,6 +38,7 @@
     "parallax-js": "https://github.com/wagerfield/parallax",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-icons": "^2.2.5",
     "react-parallax": "^1.4.2",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
