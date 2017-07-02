@@ -35,7 +35,7 @@ class BlogEditor extends Component {
     constructor(props) {
         super(props)
 
-        const decorator = new CompositeDecorator([
+        const decorators = [
             {
                 strategy: findDescriptionEntities,
                 component: Description,
@@ -44,11 +44,12 @@ class BlogEditor extends Component {
                 strategy: findSubDescriptionEntities,
                 component: (props) => SubDescription(props, this.props.changeDescription),
             }
-        ])
+        ]
+        const decorator = new CompositeDecorator(decorators)
 
         this.state = {
             editorState: EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), decorator),
-            decorator,
+            decorators,
             showDesInput: false,
             desValue: '',
             description: ''
@@ -175,7 +176,7 @@ class BlogEditor extends Component {
     render() {
         let editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.state.decorator)
         const { showDesInput, editorState, desValue } = this.state
-        console.log(convertToRaw(this.state.editorState.getCurrentContent()))
+
         return (
             <div className={'root'}>
                 <div className={'buttons'}>
@@ -208,6 +209,7 @@ class BlogEditor extends Component {
                     <Col span={ showDesInput?12:24 }>
                         <div className={'editor'} onClick={this.focus}>
                             <Editor
+                                decorators={this.state.decorators}
                                 editorState={editorState}
                                 onChange={this.onChange}
                                 placeholder={"Enter some text..."}
@@ -293,27 +295,3 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, actions)(BlogEditor)
-
-// Description(props) {
-//         const { description,alreadyDes } = props.contentState.getEntity(props.entityKey).getData()
-//         let htmlComp = ''
-//         console.log(alreadyDes)
-//         switch (alreadyDes) {
-//             case true : htmlComp = <div onMouseOver={() => this.props.changeDescription(description)}>
-//                                     <AlreadyDescription>{this.codeDescription(props)}</AlreadyDescription>
-//                               </div>
-//             default : htmlComp = <div onMouseOver={() => this.props.changeDescription(description)}>
-//                                     <MiddleDescription>{this.codeDescription(props)}</MiddleDescription>
-//                             </div>
-//         }
-//         return htmlComp
-//     }
-
-//     codeDescription = props => {
-//         const { description } = props.contentState.getEntity(props.entityKey).getData()
-//         return (
-//             <code className={'description'} >
-//                 {props.children}
-//             </code>
-//         )
-//     }

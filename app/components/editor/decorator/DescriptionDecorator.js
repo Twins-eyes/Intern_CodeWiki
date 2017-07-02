@@ -37,14 +37,12 @@ const findSubDescriptionEntities = (contentBlock, callback, contentState) => {
 }
 
 const SubDescription = (props, changeDesFunction) => {
-    const { description } = props.contentState.getEntity(props.entityKey).getData()
+    const { subDescription } = props.contentState.getEntity(props.entityKey).getData()
 
     return (
-        <div onMouseOver={() => changeDesFunction(description)} onMouseOut={() => changeDesFunction('')}>
-            <code className={'sub-description'} style={{backgroundColor: 'red'}}>
-                {props.children}
-            </code>
-        </div>
+        <span className={'sub-description'} onMouseOver={() => changeDesFunction(subDescription)} onMouseOut={() => changeDesFunction('')} style={{backgroundColor: '#ddd', borderRadius: 3, padding: 2}}>
+            {props.children}
+        </span>
     )
 }
 

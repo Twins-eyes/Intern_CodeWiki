@@ -21,22 +21,22 @@ class  BlogPreview extends Component {
     render() {
         let editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.props.editor.decorator)
         return (
-            <Row gutter={8}>
-                <Col span={12}>
-                    <div className={'editor'}>
-                        <Editor
-                            editorState={editorStateFromRedux}
-                            blockRenderMap={this.props.editor.blockRender}
-                            readOnly
-                        />
-                    </div>
-                </Col>
-                <Col span={12}>
-                    <div className={"editor"}>
-                        {this.props.editor.description}
-                    </div>
-                </Col>
-            </Row>
+            <div>
+                <Row gutter={8}>
+                    <Col span={24}>
+                        <div className={'editor'}>
+                            <Editor
+                                editorState={editorStateFromRedux}
+                                blockRenderMap={this.props.editor.blockRender}
+                                readOnly
+                            />
+                        </div>
+                    </Col>
+                </Row>
+                <div className={"editor"}>
+                    {this.props.editor.description}
+                </div>
+            </div>
         )
     }
 }

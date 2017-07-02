@@ -32,7 +32,7 @@ class CustomCodeBlock extends Component {
         <div className={'wrap-code-des'}>
             <Row gutter={8}>
                 <Col span={description?12:24} style={styles.code}>{this.props.children}</Col>
-                <Col span={description?12:0}>{description}</Col>
+                <Col span={description?12:0}><div>{description}</div></Col>
             </Row>
         </div>
         )
@@ -47,7 +47,8 @@ const styles = {
         paddingBottom: 5,
         borderLeftStyle: 'solid',
         borderLeftWidth: 'thick',
-        borderLeftColor: '#f5d773'
+        borderLeftColor: '#f5d773',
+        borderRadius: 1.5
     }
 }
 
