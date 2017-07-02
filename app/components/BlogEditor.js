@@ -10,7 +10,8 @@ import {
     ContentState,
     convertFromRaw,
     DefaultDraftBlockRenderMap,
-    Modifier
+    Modifier,
+    Entity
 } from 'draft-js'
 import Editor from 'draft-js-plugins-editor'
 import { 
@@ -50,8 +51,7 @@ class BlogEditor extends Component {
             decorator,
             showDesInput: false,
             desValue: '',
-            description: '',
-            alreadyDes: false
+            description: ''
         }
 
         this.props.storeDecorator(decorator)
@@ -71,7 +71,7 @@ class BlogEditor extends Component {
         this.plugins = [blockBreakoutPlugin]
 
         this.onDesChange = (e) => this.setState({desValue: e.target.value})
-
+        this._confirmDescription = this._confirmDescription.bind(this)
     }
 
     _promptForDescription = e => {
@@ -96,7 +96,6 @@ class BlogEditor extends Component {
             }, () => {
                 setTimeout(() => this.refs.description.focus(), 0)
             })
-            this._onClickBlogType(changeBlogTypeElement.default)
         }
     }
 
@@ -106,6 +105,30 @@ class BlogEditor extends Component {
         const contentState = editorState.getCurrentContent()
         const contentStateWithEntity = contentState.createEntity(
             'SUB_DESCRIPTION',
+            'MUTABLE',
+            {subDescription: desValue}
+        )
+        const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
+        const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity })
+        this.setState({
+            editorState: RichUtils.toggleLink(
+                newEditorState,
+                newEditorState.getSelection(),
+                entityKey
+            ),
+            showDesInput: false,
+            desValue: '',
+        }, () => {
+            setTimeout(() => this.refs.editor.focus(), 0)
+        })
+    }
+
+    _confirmDescription(e) {
+        e.preventDefault()
+        const {editorState, desValue} = this.state
+        const contentState = editorState.getCurrentContent()
+        const contentStateWithEntity = contentState.createEntity(
+            'DESCRIPTION',
             'MUTABLE',
             {description: desValue}
         )
@@ -119,35 +142,9 @@ class BlogEditor extends Component {
             ),
             showDesInput: false,
             desValue: '',
-            alreadyDes: false
-        }, () => {
-            this._onClickBlogType(changeBlogTypeElement.cb)
-            setTimeout(() => this.refs.editor.focus(), 0)
-        })
-    }
-
-    _confirmDescription = e => {
-        e.preventDefault()
-        const {editorState, desValue} = this.state
-        const contentState = editorState.getCurrentContent()
-        const contentStateWithEntity = contentState.createEntity(
-            'DESCRIPTION',
-            'MUTABLE',
-            {description: desValue, alreadyDes: this.state.alreadyDes}
-        )
-        const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
-        const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity })
-        this.setState({
-            editorState: RichUtils.toggleLink(
-                newEditorState,
-                newEditorState.getSelection(),
-                entityKey
-            ),
-            showDesInput: false,
-            desValue: '',
-            alreadyDes: false
-        }, () => {
-            this._onClickBlogType(changeBlogTypeElement.cb)
+        }, async () => {
+            await this._onClickBlogType(changeBlogTypeElement.default)
+            await this._onClickBlogType(changeBlogTypeElement.cb)
             setTimeout(() => this.refs.editor.focus(), 0)
         })
     }
@@ -178,7 +175,7 @@ class BlogEditor extends Component {
     render() {
         let editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.state.decorator)
         const { showDesInput, editorState, desValue } = this.state
-        
+        console.log(convertToRaw(this.state.editorState.getCurrentContent()))
         return (
             <div className={'root'}>
                 <div className={'buttons'}>
