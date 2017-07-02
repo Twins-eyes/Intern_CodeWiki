@@ -72,7 +72,6 @@ class BlogEditor extends Component {
         this.plugins = [blockBreakoutPlugin]
 
         this.onDesChange = (e) => this.setState({desValue: e.target.value})
-        this._confirmDescription = this._confirmDescription.bind(this)
     }
 
     _promptForDescription = e => {
@@ -100,14 +99,20 @@ class BlogEditor extends Component {
         }
     }
 
-    _comfirmSubDescription = e => {
+    _confirmDescription = (e, draftType, draftData, resetBlogType) => {
         e.preventDefault()
+        let draftEntityData = {}
         const {editorState, desValue} = this.state
         const contentState = editorState.getCurrentContent()
+        switch (draftData) {
+            case 'description': { draftEntityData.description = desValue; break}
+            case 'subDescription': { draftEntityData.subDescription = desValue; break}
+            default: draftEntityData.description = desValue
+        }
         const contentStateWithEntity = contentState.createEntity(
-            'SUB_DESCRIPTION',
+            draftType,
             'MUTABLE',
-            {subDescription: desValue}
+            draftEntityData
         )
         const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
         const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity })
@@ -120,39 +125,19 @@ class BlogEditor extends Component {
             showDesInput: false,
             desValue: '',
         }, () => {
+            if(resetBlogType){this.resetBlogType()}
             setTimeout(() => this.refs.editor.focus(), 0)
         })
     }
 
-    _confirmDescription(e) {
-        e.preventDefault()
-        const {editorState, desValue} = this.state
-        const contentState = editorState.getCurrentContent()
-        const contentStateWithEntity = contentState.createEntity(
-            'DESCRIPTION',
-            'MUTABLE',
-            {description: desValue}
-        )
-        const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
-        const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity })
-        this.setState({
-            editorState: RichUtils.toggleLink(
-                newEditorState,
-                newEditorState.getSelection(),
-                entityKey
-            ),
-            showDesInput: false,
-            desValue: '',
-        }, async () => {
-            await this._onClickBlogType(changeBlogTypeElement.default)
-            await this._onClickBlogType(changeBlogTypeElement.cb)
-            setTimeout(() => this.refs.editor.focus(), 0)
-        })
+    async resetBlogType() {
+        await this._onClickBlogType(changeBlogTypeElement.default)
+        await this._onClickBlogType(changeBlogTypeElement.cb)
     }
 
     _onDescriptionInputKeyDown = e => {
         if (e.which === 13) {
-            this._confirmDescription(e)
+            this._confirmDescription(e, 'DESCRIPTION', 'description', true)
         }
     }
     
@@ -221,7 +206,7 @@ class BlogEditor extends Component {
                         </div>
                     </Col>
                     <Col span={ showDesInput?12:0 }>
-                        <DescriptionInput _confirmDescription={this._confirmDescription}>
+                        <DescriptionInput _confirmDescription={(e) => this._confirmDescription(e, 'DESCRIPTION', 'description', true)}>
                             <Input
                                 onChange={this.onDesChange}
                                 ref={"description"}
@@ -231,7 +216,7 @@ class BlogEditor extends Component {
                                 value={desValue}
                                 onKeyDown={this._onDescriptionInputKeyDown}
                             />
-                            <Button onMouseDown={this._comfirmSubDescription}>Sub Des</Button>
+                            <Button onMouseDown={(e) => this._confirmDescription(e, 'SUB_DESCRIPTION', 'subDescription', false)}>Sub Des</Button>
                         </DescriptionInput>
                     </Col>
                 </Row>

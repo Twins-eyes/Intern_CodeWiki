@@ -40,7 +40,7 @@ const SubDescription = (props, changeDesFunction) => {
     const { subDescription } = props.contentState.getEntity(props.entityKey).getData()
 
     return (
-        <span className={'sub-description'} onMouseOver={() => changeDesFunction(subDescription)} onMouseOut={() => changeDesFunction('')} style={{backgroundColor: '#ddd', borderRadius: 3, padding: 2}}>
+        <span className={'sub-description'} onMouseOver={() => changeDesFunction(subDescription)} onMouseOut={() => changeDesFunction('')} style={{backgroundColor: '#ddd', borderRadius: 1.75, padding: 2}}>
             {props.children}
         </span>
     )
