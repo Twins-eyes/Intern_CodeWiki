@@ -14,9 +14,14 @@ class DescriptionInput extends Component {
                     {this.props.children}
                 </Col>
                 <Col span={4}>
-                    <Button onMouseDown={this.props._confirmDescription}>
+                    <Button onMouseDown={(e) => this.props._confirmDescription(e, 'DESCRIPTION', 'description', true)}>
                         Confirm
                     </Button>
+                    {this.props.subDesButton?
+                        <Button onMouseDown={(e) => this.props._confirmDescription(e, 'SUB_DESCRIPTION', 'subDescription', false)}>
+                            Sub Des
+                        </Button>
+                    :''}
                 </Col>
             </div>
         )

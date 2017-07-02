@@ -52,7 +52,8 @@ class BlogEditor extends Component {
             decorators,
             showDesInput: false,
             desValue: '',
-            description: ''
+            description: '',
+            subDesButton: false
         }
 
         this.props.storeDecorator(decorator)
@@ -86,7 +87,7 @@ class BlogEditor extends Component {
             const descriptionKey = blockWithDescriptionAtBeginning.getEntityAt(startOffset)
             let description = ''
             if (descriptionKey) {
-                this.setState({ alreadyDes: true })
+                this.setState({ subDesButton: true })
                 const descriptionInstance = contentState.getEntity(descriptionKey)
                 description = descriptionInstance.getData().description
             }
@@ -124,8 +125,9 @@ class BlogEditor extends Component {
             ),
             showDesInput: false,
             desValue: '',
+            subDesButton: false
         }, () => {
-            if(resetBlogType){this.resetBlogType()}
+            if(resetBlogType){ this.resetBlogType() }
             setTimeout(() => this.refs.editor.focus(), 0)
         })
     }
@@ -206,7 +208,7 @@ class BlogEditor extends Component {
                         </div>
                     </Col>
                     <Col span={ showDesInput?12:0 }>
-                        <DescriptionInput _confirmDescription={(e) => this._confirmDescription(e, 'DESCRIPTION', 'description', true)}>
+                        <DescriptionInput _confirmDescription={this._confirmDescription} subDesButton={this.state.subDesButton}>
                             <Input
                                 onChange={this.onDesChange}
                                 ref={"description"}
@@ -216,7 +218,6 @@ class BlogEditor extends Component {
                                 value={desValue}
                                 onKeyDown={this._onDescriptionInputKeyDown}
                             />
-                            <Button onMouseDown={(e) => this._confirmDescription(e, 'SUB_DESCRIPTION', 'subDescription', false)}>Sub Des</Button>
                         </DescriptionInput>
                     </Col>
                 </Row>
