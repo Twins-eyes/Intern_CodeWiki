@@ -182,7 +182,7 @@ class BlogEditor extends Component {
 
                     <Button.Group style={{marginRight: 10}}>
                         <Button onMouseDown={this._promptForDescription}>
-                            Add Description
+                            { BlogType === 'CustomCodeBlock' ? 'Edit' : 'Add' } Description
                         </Button>
                         <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.default)} onMouseDown={this.removeDescription}>
                             Remove Description
@@ -258,6 +258,7 @@ const blockTypeOrder = [
 ]
 
 const changeBlogTypeElement = {
+    default: 'unstyled',
     blockquote: 'blockquote',
     codeBlock: 'code-block',
     hr: 'hr',
