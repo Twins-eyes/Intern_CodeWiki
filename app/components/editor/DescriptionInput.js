@@ -17,17 +17,17 @@ class DescriptionInput extends Component {
                 </Row>
                 <Row style={{paddingTop: 10}}>
                     <Col span={this.props.subDesButton?8:12}>
-                        <Button onMouseDown={(e) => this.props._confirmDescription(e, 'DESCRIPTION', 'description', true)}>
+                        <Button onMouseDown={(e) => this.props._confirmDescription(e, 'DESCRIPTION', 'description', true)} icon={'check'}>
                             Confirm
                         </Button>
                     </Col>
                     <Col span={this.props.subDesButton?8:0}>
-                        <Button onMouseDown={(e) => this.props._confirmDescription(e, 'SUB_DESCRIPTION', 'subDescription', false)}>
-                            Sub Des
+                        <Button onMouseDown={(e) => this.props._confirmDescription(e, 'SUB_DESCRIPTION', 'subDescription', false)} icon={'tag'}>
+                            Sub Description
                         </Button>
                     </Col>
                     <Col span={this.props.subDesButton?8:12}>
-                        <Button onMouseDown={() => this.props.showInput()}>
+                        <Button onMouseDown={() => this.props.showInput()} icon={'close'}>
                             Cancel
                         </Button>
                     </Col>

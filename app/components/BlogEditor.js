@@ -163,21 +163,21 @@ class BlogEditor extends Component {
     render() {
         let editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.state.decorator)
         const { showDesInput, editorState, desValue } = this.state
+        const BlogType = editorState.getCurrentContent().getBlockForKey(editorState.getSelection().getStartKey()).getType()
 
         return (
             <div className={'root'}>
                 <div className={'buttons'}>
                     <Button.Group style={{marginRight: 10}}>
-                        { blockTypeText.map((data, index) => <Button key={index} onClick={() => this._onClickBlogType(data.value)}>{data.text}</Button>) }
-                        <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.default)}>default</Button>
+                        { blockTypeText.map((data, index) => <Button key={index} type={BlogType===data.value?'primary':''}  onClick={() => this._onClickBlogType(data.value)}>{data.text}</Button>) }
                     </Button.Group>
 
                     <Button.Group style={{marginRight: 10}}>
-                        { changeInlineElement.map((data, index) => <Button key={index} onClick={() => this._onClickInlineStyle(data.value)}>{data.icon}</Button>) }
+                        { changeInlineElement.map((data, index) => <Button key={index} type={editorState.getCurrentInlineStyle().has(data.value)?'primary':''} onClick={() => this._onClickInlineStyle(data.value)}>{data.icon}</Button>) }
                     </Button.Group>
 
                     <Button.Group style={{marginRight: 10}}>
-                        { blockTypeOrder.map((data, index) => <Button key={index} onClick={() => this._onClickBlogType(data.value)}>{data.icon}</Button>) }
+                        { blockTypeOrder.map((data, index) => <Button key={index} type={BlogType===data.value?'primary':''} onClick={() => this._onClickBlogType(data.value)}>{data.icon}</Button>) }
                     </Button.Group>
 
                     <Button.Group style={{marginRight: 10}}>
@@ -248,7 +248,8 @@ const changeInlineElement = [
 const blockTypeText = [
     { value: 'header-one', text: 'h1' },
     { value: 'header-two', text: 'h2' },
-    { value: 'header-three', text: 'h3' }
+    { value: 'header-three', text: 'h3' },
+    { value: 'unstyled', text: 'unstyled' }
 ]
 
 const blockTypeOrder = [
@@ -257,7 +258,6 @@ const blockTypeOrder = [
 ]
 
 const changeBlogTypeElement = {
-    default: 'unstyled',
     blockquote: 'blockquote',
     codeBlock: 'code-block',
     hr: 'hr',
