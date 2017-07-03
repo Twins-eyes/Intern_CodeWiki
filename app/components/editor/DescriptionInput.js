@@ -10,19 +10,28 @@ class DescriptionInput extends Component {
     render() {
         return (
             <div className={'desInputContainer'}>
-                <Col span={20}>
-                    {this.props.children}
-                </Col>
-                <Col span={4}>
-                    <Button onMouseDown={(e) => this.props._confirmDescription(e, 'DESCRIPTION', 'description', true)}>
-                        Confirm
-                    </Button>
-                    {this.props.subDesButton?
+                <Row>
+                    <Col span={20}>
+                        {this.props.children}
+                    </Col>
+                </Row>
+                <Row style={{paddingTop: 10}}>
+                    <Col span={this.props.subDesButton?8:12}>
+                        <Button onMouseDown={(e) => this.props._confirmDescription(e, 'DESCRIPTION', 'description', true)}>
+                            Confirm
+                        </Button>
+                    </Col>
+                    <Col span={this.props.subDesButton?8:0}>
                         <Button onMouseDown={(e) => this.props._confirmDescription(e, 'SUB_DESCRIPTION', 'subDescription', false)}>
                             Sub Des
                         </Button>
-                    :''}
-                </Col>
+                    </Col>
+                    <Col span={this.props.subDesButton?8:12}>
+                        <Button onMouseDown={() => this.props.showInput()}>
+                            Cancel
+                        </Button>
+                    </Col>
+                </Row>
             </div>
         )
     }

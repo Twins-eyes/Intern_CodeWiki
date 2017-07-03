@@ -208,7 +208,7 @@ class BlogEditor extends Component {
                         </div>
                     </Col>
                     <Col span={ showDesInput?12:0 }>
-                        <DescriptionInput _confirmDescription={this._confirmDescription} subDesButton={this.state.subDesButton}>
+                        <DescriptionInput _confirmDescription={this._confirmDescription} subDesButton={this.state.subDesButton} showInput={() => this.setState({ showDesInput: false })}>
                             <Input
                                 onChange={this.onDesChange}
                                 ref={"description"}
