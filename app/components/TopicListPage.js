@@ -28,10 +28,14 @@ class TopicList extends Component {
             languages:['java','javascript','angular','C','C++','C#','php'],
             value:'all'
         }
-        this.onChange = this.onChange.bind(this)
     }
 
-    topicsList(topics){
+    topicsFilter(e) {
+        var search = this.state.topicsList[0].topicName.toLowerCase().search(e.target.value.toLowerCase())!= -1
+        this.setState({topics: search})
+    }
+
+    topicsList(topics) {
         const topicList = this.state.topics.map((topic, index)=>
             <List
                 key={index}
@@ -43,11 +47,6 @@ class TopicList extends Component {
             />
         )
         return topicList
-    }
-
-    onChange(v){
-        console.log(v)
-        return this.setState({value: v})
     }
 
     langOptions(languages){
@@ -62,23 +61,6 @@ class TopicList extends Component {
             <div>
                 <NavBar location={this.props.location} />
                 <Row>
-                    <Col xs={{span:20, offset:4}} md={{span:20, offset:4}}> 
-                        <input 
-                            type='text'
-                            className={'formInput'}
-                            value={this.props.value}
-                            style={
-                                {
-                                    width:'250px',
-                                    height:'32px',
-                                    float:'right',
-                                    margin: '0px 45px 5px 0px',
-                                }
-                            }
-                            placeholder='search'
-                            autoFocus
-                        />
-                    </Col>
                     <Col xs={{span:10, offset:2}} md={{span:10, offset:2}}>
                         <div className="dropdown">
                             <button className="dropbtn">
@@ -89,6 +71,16 @@ class TopicList extends Component {
                                 { this.langOptions(this.state.languages) } 
                             </div>
                         </div>
+                    </Col>
+                    <Col xs={{span:20, offset:4}} md={{span:10, offset:2}}> 
+                        <input 
+                            type='text'
+                            className={'search'}
+                            value={this.props.value}
+                            placeholder='search'
+                            autoFocus
+                            onChange={this.topicsFilter.bind(this)}
+                        />
                     </Col>
                 </Row>
                 <div style={{marginTop:'20px', opacity:'0.98'}}>

@@ -9,16 +9,13 @@ class NavBar extends Component {
         ){
             return (
                 <div className={'navBar'}>
-                    <Link to={'/'}><img src={require('../img/codewikiwhite.gif')} className={'logo'}/></Link>
-                    <span className={'menu'}>
-                        <Link to={'/signup'} className={'link'} >
-                            Sign up
-                        </Link>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <Link to={'/signin'} className={'link'}>
-                            Sign in
-                        </Link> 
-                    </span>
+                    <Link to={'/'}><img src={require('../img/codewikiwhite.gif')}/></Link>
+                    <Link to={'/signup'} className={'link'} >
+                        Sign up
+                    </Link>
+                    <Link to={'/signin'} className={'link'}>
+                        Sign in
+                    </Link> 
                 </div>
             )
         } else {

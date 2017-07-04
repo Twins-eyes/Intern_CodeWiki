@@ -33,14 +33,14 @@ class List extends Component {
                             </Link>
                         </Col>
                         <Col md={{span:4, push:4}}>
-                            <span style={{color: '#577380'}}>{ date }</span>
+                            <span style={{color: '#8F8E7C'}}>{ date }</span>
                             <Link to={'/author'} className={'topicDetail'}>{ author }</Link>
                         </Col>
                     </Row>
                     <Row type='flex'>
                         <Col md={2}>
                             <Link to={'/lang'}>
-                                <Tag color='red' style={{marginBottom:'5px'}}>{ language }</Tag>
+                                <Tag color='#F5D773' style={{marginBottom:'5px'}}>{ language }</Tag>
                             </Link>
                         </Col>
                         <Col md={{span:21, offset: 1}}>
