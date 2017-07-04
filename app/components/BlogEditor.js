@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
-import { Row, Col, Button, Input } from 'antd'
+import { Row, Col, Button, Input, Tooltip } from 'antd'
 import { 
     CompositeDecorator, 
     convertToRaw, 
@@ -23,9 +23,14 @@ import {
     FaListOl,
     FaListUl
 } from 'react-icons/lib/fa'
+import {
+    GoMarkdown
+} from 'react-icons/lib/go'
 import { AlreadyDescription, MiddleDescription } from './editor/decorator/DescriptionComponent'
 import Immutable from 'immutable'
 import createBlockBreakoutPlugin from 'draft-js-block-breakout-plugin'
+import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin'
+import createImagePlugin from 'draft-js-image-plugin'
 import CustomCodeBlock from './editor/blockRender/CustomCodeBlock'
 import { DescriptionInput } from './editor/DescriptionInput'
 import { Description, SubDescription, findEntities } from './editor/decorator/DescriptionDecorator'
@@ -37,11 +42,11 @@ class BlogEditor extends Component {
 
         const decorators = [
             {
-                strategy: findEntities('DESCRIPTION'),
+                strategy: findEntities(findEntitiesElement.description),
                 component: Description,
             },
             {
-                strategy: findEntities('SUB_DESCRIPTION'),
+                strategy: findEntities(findEntitiesElement.subDescription),
                 component: (props) => SubDescription(props, this.props.changeDescription),
             }
         ]
@@ -69,8 +74,12 @@ class BlogEditor extends Component {
         const options = {
             breakoutBlocks: ['CustomCodeBlock']
         }
-        const blockBreakoutPlugin = createBlockBreakoutPlugin(options)
-        this.plugins = [blockBreakoutPlugin]
+
+        this.plugins = [
+            createBlockBreakoutPlugin(options),
+            createImagePlugin(),
+            createMarkdownShortcutsPlugin()
+        ]
 
         this.onDesChange = (e) => this.setState({desValue: e.target.value})
     }
@@ -189,7 +198,11 @@ class BlogEditor extends Component {
                         </Button>
                     </Button.Group>
 
-                    <Button icon={'info'}/>
+                    <Tooltip placement="topLeft" title="Allowed Markdown">
+                        <Button style={{marginRight: 10}}><GoMarkdown size={15} /></Button>
+                    </Tooltip>
+
+                    <Button icon={'info'} type={'primary'} shape={'circle'} style={{marginRight: 10}}/>
                 </div>
                 
                 <Row gutter={8}>
@@ -275,6 +288,11 @@ const colorStyleMap = {
         borderLeftWidth: 'thick',
         borderLeftColor: '#f5d773'
     }
+}
+
+const findEntitiesElement = {
+    description: 'DESCRIPTION',
+    subDescription: 'SUB_DESCRIPTION'
 }
 
 const mapStateToProps = state => {

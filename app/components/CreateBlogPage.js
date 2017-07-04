@@ -15,10 +15,9 @@ class CreateBlogPage extends Component {
             pageDisplay: page.write
         }
 
-        this.pageDisplay = this.pageDisplay.bind(this)
     }
 
-    pageDisplay() {
+    _pageDisplay = () => {
         switch (this.state.pageDisplay) {
             case page.write: return <BlogEditor />
             case page.preview: return <BlogPreview />
@@ -48,12 +47,12 @@ class CreateBlogPage extends Component {
                         </Col>
                     </Row>
                     <Row style={{paddingLeft: 10, paddingRight: 10}}>
-                        <Col style={{border: '1px solid #ddd'}} span={24}>
+                        <Col span={24}>
                             <ReactCSSTransitionGroup
                                 transitionName="editorPreview"
                                 transitionEnterTimeout={500}
                                 transitionLeaveTimeout={300}>
-                                {this.pageDisplay()}
+                                {this._pageDisplay()}
                             </ReactCSSTransitionGroup>
                         </Col>
                     </Row>

@@ -33,9 +33,11 @@ class  BlogPreview extends Component {
                         </div>
                     </Col>
                 </Row>
-                <div className={"editor"}>
-                    {this.props.editor.description}
-                </div>
+                <Row className={"editor"}>
+                    <Col span={24}>
+                        {this.props.editor.description}
+                    </Col>
+                </Row>
             </div>
         )
     }
