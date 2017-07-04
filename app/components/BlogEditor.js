@@ -28,7 +28,7 @@ import Immutable from 'immutable'
 import createBlockBreakoutPlugin from 'draft-js-block-breakout-plugin'
 import CustomCodeBlock from './editor/blockRender/CustomCodeBlock'
 import { DescriptionInput } from './editor/DescriptionInput'
-import { Description, findDescriptionEntities, SubDescription, findSubDescriptionEntities } from './editor/decorator/DescriptionDecorator'
+import { Description, SubDescription, findEntities } from './editor/decorator/DescriptionDecorator'
 import '../assets/editor.css'
 
 class BlogEditor extends Component {
@@ -37,11 +37,11 @@ class BlogEditor extends Component {
 
         const decorators = [
             {
-                strategy: findDescriptionEntities,
+                strategy: findEntities('DESCRIPTION'),
                 component: Description,
             },
             {
-                strategy: findSubDescriptionEntities,
+                strategy: findEntities('SUB_DESCRIPTION'),
                 component: (props) => SubDescription(props, this.props.changeDescription),
             }
         ]
@@ -181,10 +181,10 @@ class BlogEditor extends Component {
                     </Button.Group>
 
                     <Button.Group style={{marginRight: 10}}>
-                        <Button onMouseDown={this._promptForDescription}>
+                        <Button onMouseDown={this._promptForDescription} type={ BlogType === 'CustomCodeBlock' ? 'primary':'' } icon={'edit'}>
                             { BlogType === 'CustomCodeBlock' ? 'Edit' : 'Add' } Description
                         </Button>
-                        <Button onClick={() => this._onClickBlogType(changeBlogTypeElement.default)} onMouseDown={this.removeDescription}>
+                        <Button icon={'delete'} onClick={() => this._onClickBlogType(changeBlogTypeElement.default)} onMouseDown={this.removeDescription}>
                             Remove Description
                         </Button>
                     </Button.Group>

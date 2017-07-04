@@ -7,7 +7,6 @@ import BlogPreview from '../components/BlogPreview'
 
 class Router extends Component{
     render() {
-        console.log(this.props)
         return (
             <HashRouter>
                 <div>

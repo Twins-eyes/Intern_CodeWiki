@@ -1,21 +1,6 @@
 import React from 'react'
 
-const findDescriptionEntities = (contentBlock, callback, contentState) => {
-    contentBlock.findEntityRanges(
-        (character) => {
-            const entityKey = character.getEntity() 
-            return (
-                entityKey !== null &&
-                contentState.getEntity(entityKey).getType() === 'DESCRIPTION'
-            ) 
-        },
-        callback
-    ) 
-}
-
 const Description = (props) => {
-    const { description,alreadyDes } = props.contentState.getEntity(props.entityKey).getData()
-    
     return (
         <code className={'description'} >
             {props.children}
@@ -23,17 +8,19 @@ const Description = (props) => {
     )
 }
 
-const findSubDescriptionEntities = (contentBlock, callback, contentState) => {
-    contentBlock.findEntityRanges(
-        (character) => {
-            const entityKey = character.getEntity() 
-            return (
-                entityKey !== null &&
-                contentState.getEntity(entityKey).getType() === 'SUB_DESCRIPTION'
-            ) 
-        },
-        callback
-    ) 
+const findEntities = entity => {
+    return (contentBlock, callback, contentState) => {
+        contentBlock.findEntityRanges(
+            (character) => {
+                const entityKey = character.getEntity() 
+                return (
+                    entityKey !== null &&
+                    contentState.getEntity(entityKey).getType() === entity
+                ) 
+            },
+            callback
+        ) 
+    }
 }
 
 const SubDescription = (props, changeDesFunction) => {
@@ -47,10 +34,9 @@ const SubDescription = (props, changeDesFunction) => {
 }
 
 module.exports = {
-    findDescriptionEntities,
     Description,
-    findSubDescriptionEntities,
-    SubDescription
+    SubDescription,
+    findEntities
 }
 
 
