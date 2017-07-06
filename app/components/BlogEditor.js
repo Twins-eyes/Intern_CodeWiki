@@ -177,7 +177,7 @@ class BlogEditor extends Component {
         return (
             <div className={'root'}>
                 <Affix>
-                    <div className={'buttons'} style={{backgroundColor: 'white' ,padding: 5}}>
+                    <div className={'buttons'} style={{backgroundColor: 'white' ,paddingTop: 5, paddingBottom: 5}}>
                         <Button.Group style={{marginRight: 10}}>
                             { blockTypeText.map((data, index) => <Button key={index} type={BlogType===data.value?'primary':''}  onClick={() => this._onClickBlogType(data.value)}>{data.text}</Button>) }
                         </Button.Group>
