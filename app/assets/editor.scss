@@ -8,6 +8,15 @@
     box-shadow: inset 0px 1px 8px -3px #ABABAB;
     background: #fefefe;
 }
+.editor :global(.public-DraftEditor-content) {
+  min-height: 140px;
+}
+.bottonEditor {
+    height: 50px;
+    width: 50px;
+    border-radius: 2px;
+    border: 1px solid #ddd;
+}
 
 body {
     background: white no-repeat center center fixed;
@@ -32,13 +41,14 @@ body {
     .link {
     color: white;
     float: right;
-    margin-right: 15px;
+    margin-right: 25px;
     text-decoration: none;
         &:hover {
             color:#8F8E7C;
         }   
     }
 }
+
 .synopsis-appear {
   opacity: 0.01;
 }
@@ -53,12 +63,6 @@ body {
   opacity: 1;
   transition: opacity 700ms ease-in;
 }
-.h1 {
-    color: #F5D773;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 72px;
-    margin-bottom: 0;
-}
 .syno {
     font-size: 14px;
     float: left;
@@ -71,6 +75,14 @@ body {
         color: #F5D773; 
     }
 }
+
+.h1 {
+    color: #F5D773;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 72px;
+    margin-bottom: 0;
+}
+
 .box {
     background-color: rgba(221,221,221,0.7);
     box-sizing: border-box;
@@ -87,7 +99,7 @@ body {
 }
 .signinBox {
     @extend .box;
-    margin-top: 30px;
+    margin-top: 10px;
 }
 .signupBox {
     @extend .box;
@@ -110,6 +122,9 @@ body {
      @media screen and (min-width: 320px) and (max-width: 480px) {
         margin-left: 75%;
     }
+    &::placeholder {
+        color: #8F8E7C;
+    }
 }
 .button {
     margin: 20px 0px 20px 0px;
@@ -128,6 +143,7 @@ body {
         transition-duration: 0.4s;
     }
 }
+
 span {
     min-height: 100px;
     box-sizing: border-box;
@@ -135,15 +151,7 @@ span {
     padding: 16px;
     border-radius: 2px;
 }
-.editor :global(.public-DraftEditor-content) {
-  min-height: 140px;
-}
-.bottonEditor {
-    height: 50px;
-    width: 50px;
-    border-radius: 2px;
-    border: 1px solid #ddd;
-}
+
 .tpList {
     background: rgba(221,221,221,0.3);
     margin-bottom: 0px;
@@ -158,6 +166,7 @@ span {
         color: #ddd;
     }
 }
+
 .search {
     @extend .formInput;
     margin: 30px 45px 0px 0px;
