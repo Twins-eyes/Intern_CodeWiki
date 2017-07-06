@@ -11,24 +11,20 @@ class DescriptionInput extends Component {
         return (
             <div className={'desInputContainer'}>
                 <Row>
-                    <Col span={20}>
+                    <Col span={24}>
                         {this.props.children}
                     </Col>
                 </Row>
                 <Row style={{paddingTop: 10}}>
-                    <Col span={this.props.subDesButton?8:12}>
-                        <Button onMouseDown={(e) => this.props._confirmDescription(e, 'DESCRIPTION', 'description', true)} icon={'check'}>
-                            Confirm
-                        </Button>
-                    </Col>
-                    <Col span={this.props.subDesButton?8:0}>
-                        <Button onMouseDown={(e) => this.props._confirmDescription(e, 'SUB_DESCRIPTION', 'subDescription', false)} icon={'tag'}>
-                            Sub Description
-                        </Button>
-                    </Col>
-                    <Col span={this.props.subDesButton?8:12}>
-                        <Button onMouseDown={() => this.props.showInput()} icon={'close'}>
+                    <Col span={24}>
+                        <Button style={{float: 'right', marginLeft: 5}} type={'danger'} onMouseDown={() => this.props.showInput()} icon={'close'}>
                             Cancel
+                        </Button>
+                        {this.props.subDesButton?<Button style={{float: 'right', marginLeft: 5}} onMouseDown={(e) => this.props._confirmDescription(e, 'SUB_DESCRIPTION', 'subDescription', false)} icon={'tag'}>
+                            Sub Description
+                        </Button>:''}
+                        <Button style={{float: 'right'}} type={'primary'} onMouseDown={(e) => this.props._confirmDescription(e, 'DESCRIPTION', 'description', true)} icon={'check'}>
+                            Confirm
                         </Button>
                     </Col>
                 </Row>

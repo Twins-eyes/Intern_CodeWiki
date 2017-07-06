@@ -24,18 +24,13 @@ class  BlogPreview extends Component {
             <div>
                 <Row gutter={8}>
                     <Col span={24}>
-                        <div className={'editor'}>
+                        <div>
                             <Editor
                                 editorState={editorStateFromRedux}
                                 blockRenderMap={this.props.editor.blockRender}
                                 readOnly
                             />
                         </div>
-                    </Col>
-                </Row>
-                <Row className={"editor"}>
-                    <Col span={24}>
-                        {this.props.editor.description}
                     </Col>
                 </Row>
             </div>
