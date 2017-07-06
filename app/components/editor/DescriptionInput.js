@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row, Col, Button, Input, Modal } from 'antd'
+import { Row, Col, Button, Input } from 'antd'
 
 class DescriptionInput extends Component {
     constructor(props) {

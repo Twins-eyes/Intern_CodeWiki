@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
-import { Row, Col, Button, Input, Tooltip, Modal } from 'antd'
+import { Row, Col, Button, Input, Tooltip, Affix, Modal } from 'antd'
 import { 
     CompositeDecorator, 
     convertToRaw, 
@@ -176,35 +176,36 @@ class BlogEditor extends Component {
 
         return (
             <div className={'root'}>
-                <div className={'buttons'}>
-                    <Button.Group style={{marginRight: 10}}>
-                        { blockTypeText.map((data, index) => <Button key={index} type={BlogType===data.value?'primary':''}  onClick={() => this._onClickBlogType(data.value)}>{data.text}</Button>) }
-                    </Button.Group>
+                <Affix>
+                    <div className={'buttons'} style={{backgroundColor: 'white' ,padding: 5}}>
+                        <Button.Group style={{marginRight: 10}}>
+                            { blockTypeText.map((data, index) => <Button key={index} type={BlogType===data.value?'primary':''}  onClick={() => this._onClickBlogType(data.value)}>{data.text}</Button>) }
+                        </Button.Group>
 
-                    <Button.Group style={{marginRight: 10}}>
-                        { changeInlineElement.map((data, index) => <Button key={index} type={editorState.getCurrentInlineStyle().has(data.value)?'primary':''} onClick={() => this._onClickInlineStyle(data.value)}>{data.icon}</Button>) }
-                    </Button.Group>
+                        <Button.Group style={{marginRight: 10}}>
+                            { changeInlineElement.map((data, index) => <Button key={index} type={editorState.getCurrentInlineStyle().has(data.value)?'primary':''} onClick={() => this._onClickInlineStyle(data.value)}>{data.icon}</Button>) }
+                        </Button.Group>
 
-                    <Button.Group style={{marginRight: 10}}>
-                        { blockTypeOrder.map((data, index) => <Button key={index} type={BlogType===data.value?'primary':''} onClick={() => this._onClickBlogType(data.value)}>{data.icon}</Button>) }
-                    </Button.Group>
+                        <Button.Group style={{marginRight: 10}}>
+                            { blockTypeOrder.map((data, index) => <Button key={index} type={BlogType===data.value?'primary':''} onClick={() => this._onClickBlogType(data.value)}>{data.icon}</Button>) }
+                        </Button.Group>
 
-                    <Button.Group style={{marginRight: 10}}>
-                        <Button onMouseDown={this._promptForDescription} type={ BlogType === 'CustomCodeBlock' ? 'primary':'' } icon={'edit'}>
-                            { BlogType === 'CustomCodeBlock' ? 'Edit' : 'Add' } Description
-                        </Button>
-                        <Button icon={'delete'} onClick={() => this._onClickBlogType(changeBlogTypeElement.default)} onMouseDown={this.removeDescription}>
-                            Remove Description
-                        </Button>
-                    </Button.Group>
+                        <Button.Group style={{marginRight: 10}}>
+                            <Button onMouseDown={this._promptForDescription} type={ BlogType === 'CustomCodeBlock' ? 'primary':'' } icon={'edit'}>
+                                { BlogType === 'CustomCodeBlock' ? 'Edit' : 'Add' } Description
+                            </Button>
+                            <Button icon={'delete'} onClick={() => this._onClickBlogType(changeBlogTypeElement.default)} onMouseDown={this.removeDescription}>
+                                Remove Description
+                            </Button>
+                        </Button.Group>
 
-                    <Tooltip placement="topLeft" title="Allowed Markdown">
-                        <Button style={{marginRight: 10}}><GoMarkdown size={15} /></Button>
-                    </Tooltip>
+                        <Tooltip placement="topLeft" title="Allowed Markdown">
+                            <Button style={{marginRight: 10}}><GoMarkdown size={15} /></Button>
+                        </Tooltip>
 
-                    <Button icon={'info'} type={'primary'} shape={'circle'} style={{marginRight: 10}}/>
-                </div>
-                
+                        <Button icon={'info'} type={'primary'} shape={'circle'} style={{marginRight: 10}}/>
+                    </div>
+                </Affix>
                 <Row gutter={8}>
                     <Col span={ showDesInput?12:24 }>
                         <div className={'editor'} onClick={this.focus}>
