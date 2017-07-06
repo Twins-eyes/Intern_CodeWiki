@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
-import { Row, Col, Button, Input, Tooltip } from 'antd'
+import { Row, Col, Button, Input, Tooltip, Modal } from 'antd'
 import { 
     CompositeDecorator, 
     convertToRaw, 
@@ -13,7 +13,6 @@ import {
     Modifier,
     Entity
 } from 'draft-js'
-import Editor from 'draft-js-plugins-editor'
 import { 
     FaBold, 
     FaItalic, 
@@ -28,11 +27,12 @@ import {
 } from 'react-icons/lib/go'
 import { AlreadyDescription, MiddleDescription } from './editor/decorator/DescriptionComponent'
 import Immutable from 'immutable'
+import Editor from 'draft-js-plugins-editor'
 import createBlockBreakoutPlugin from 'draft-js-block-breakout-plugin'
 import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin'
 import createImagePlugin from 'draft-js-image-plugin'
 import CustomCodeBlock from './editor/blockRender/CustomCodeBlock'
-import { DescriptionInput } from './editor/DescriptionInput'
+import { DescriptionInput, ButtonBar  } from './editor/DescriptionInput'
 import { Description, SubDescription, findEntities } from './editor/decorator/DescriptionDecorator'
 import '../assets/editor.css'
 
@@ -221,17 +221,25 @@ class BlogEditor extends Component {
                         </div>
                     </Col>
                     <Col span={ showDesInput?12:0 }>
-                        <DescriptionInput _confirmDescription={this._confirmDescription} subDesButton={this.state.subDesButton} showInput={() => this.setState({ showDesInput: false })}>
-                            <Input
-                                onChange={this.onDesChange}
-                                ref={"description"}
-                                className={'desInput'}
-                                type={"textarea"}
-                                placeholder={'Please enter your description'}
-                                value={desValue}
-                                onKeyDown={this._onDescriptionInputKeyDown}
-                            />
-                        </DescriptionInput>
+                        <Modal 
+                            visible={showDesInput} 
+                            title={'Insert Description'}
+                            onOk={this._confirmDescription}
+                            onCancel={() => this.setState({ showDesInput: false })}
+                            footer={null}
+                        >
+                            <DescriptionInput _confirmDescription={this._confirmDescription} subDesButton={this.state.subDesButton} showInput={() => this.setState({ showDesInput: false })}>
+                                <Input
+                                    onChange={this.onDesChange}
+                                    ref={"description"}
+                                    className={'desInput'}
+                                    type={"textarea"}
+                                    placeholder={'Please enter your description'}
+                                    value={desValue}
+                                    onKeyDown={this._onDescriptionInputKeyDown}
+                                />
+                            </DescriptionInput>
+                        </Modal>
                     </Col>
                 </Row>
                 <Button type={'primary'} icon={'check'} onClick={this.saveEditorData}>

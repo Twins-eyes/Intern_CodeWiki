@@ -36,6 +36,7 @@
     "classnames": "^2.2.5",
     "draft-js": "^0.10.1",
     "draft-js-block-breakout-plugin": "^2.0.1",
+    "draft-js-emoji-plugin": "^2.0.0-rc2",
     "draft-js-export-html": "^0.5.4",
     "draft-js-image-plugin": "^2.0.0-rc2",
     "draft-js-markdown-shortcuts-plugin": "^0.3.0",
