@@ -210,6 +210,7 @@ class BlogEditor extends Component {
                     <Col span={ showDesInput?12:24 }>
                         <div className={'editor'} onClick={this.focus}>
                             <Editor
+                                {...this.props}
                                 decorators={this.state.decorators}
                                 editorState={editorState}
                                 onChange={this.onChange}
