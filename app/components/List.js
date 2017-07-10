@@ -28,7 +28,7 @@ class List extends Component {
                 >
                     <Row type='flex'>
                         <Col md={16}>
-                            <Link to={'/id'} className={'topicDetail'}>
+                            <Link to={'/detail'} className={'topicDetail'}>
                                 <h2>{ topicName }</h2>
                             </Link>
                         </Col>

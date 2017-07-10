@@ -86,7 +86,6 @@ class TopicList extends Component {
                 <div style={{marginTop:'20px', opacity:'0.98'}}>
                     {this.topicsList(this.state.topics)}
                 </div>
-                <div className={'footer'}/>
             </div>
         )
     }

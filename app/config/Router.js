@@ -7,6 +7,7 @@ import SignIn from '../components/SignInPage'
 import SignUp from '../components/SignUpPage'
 import TopicList from '../components/TopicListPage'
 import Test from '../components/Test'
+import Reading from '../components/ReadingPage'
 
 class Router extends Component{
     render() {
@@ -21,6 +22,7 @@ class Router extends Component{
                     <Route path='/signup' component={SignUp} />
                     <Route path='/list' component={TopicList} />
                     <Route path='/test' component={Test} />
+                    <Route path='/detail' component={Reading} />
                 </div>
             </HashRouter>
         )

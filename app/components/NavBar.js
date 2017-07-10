@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 class NavBar extends Component {
+
     render () {
         if(this.props.location.pathname == '/' || 
             this.props.location.pathname == '/signin' ||
@@ -26,7 +27,6 @@ class NavBar extends Component {
                         <Link to={'/'} className={'link'}>
                             {this.props.name}
                         </Link>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <Link to={'/a'} className={'link'}>
                             Sign out
                         </Link>
