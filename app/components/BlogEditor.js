@@ -34,7 +34,6 @@ import createImagePlugin from 'draft-js-image-plugin'
 import CustomCodeBlock from './editor/blockRender/CustomCodeBlock'
 import { DescriptionInput, ButtonBar  } from './editor/DescriptionInput'
 import { Description, SubDescription, findEntities } from './editor/decorator/DescriptionDecorator'
-import '../assets/editor.css'
 
 class BlogEditor extends Component {
     constructor(props) {

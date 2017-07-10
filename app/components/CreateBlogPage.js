@@ -5,7 +5,6 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { Col, Row, Button, Radio, Tabs, Icon } from 'antd'
 import BlogEditor from './BlogEditor'
 import BlogPreview from './BlogPreview'
-import '../assets/editor.css'
 
 class CreateBlogPage extends Component {
     constructor(props) {
