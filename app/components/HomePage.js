@@ -9,7 +9,7 @@ class HomePage extends Component {
     render () {
         return (
             <div>
-                <NavBar location={this.props.location}/>
+                <NavBar location={this.props.location} />
                 <Row>
                     <Col xs={{span:20, offset:4}} sm={{span:8, offset:2}} md={{span:10, offset:2}}>
                         <div className={'syno'}>

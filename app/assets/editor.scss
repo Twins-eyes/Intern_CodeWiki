@@ -1,12 +1,12 @@
 .editor {
     box-sizing: border-box;
+    background: white;
     border: 1px solid #ddd;
     cursor: text;
     padding: 16px;
     border-radius: 2px;
     margin-bottom: 2em;
-    box-shadow: inset 0px 1px 8px -3px #ABABAB;
-    background: #fefefe;
+    box-shadow:  0px 1px 8px -3px #ABABAB;
     &:global(.public-DraftEditor-content) {
         min-height: 140px;
     }
@@ -339,4 +339,10 @@ span {
     padding: 10px;
     text-align: right;
     color: #8F8E7C;
+}
+
+.editorBlock {
+    align-items: center;
+    padding: 20px;
+    
 }

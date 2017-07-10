@@ -30,11 +30,6 @@ class TopicList extends Component {
         }
     }
 
-    topicsFilter(e) {
-        var search = this.state.topicsList[0].topicName.toLowerCase().search(e.target.value.toLowerCase())!= -1
-        this.setState({topics: search})
-    }
-
     topicsList(topics) {
         const topicList = this.state.topics.map((topic, index)=>
             <List
@@ -79,7 +74,7 @@ class TopicList extends Component {
                             value={this.props.value}
                             placeholder='search'
                             autoFocus
-                            onChange={this.topicsFilter.bind(this)}
+                            onChange={this.topicsFilter}
                         />
                     </Col>
                 </Row>

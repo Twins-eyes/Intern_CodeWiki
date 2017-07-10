@@ -176,7 +176,7 @@ class BlogEditor extends Component {
         return (
             <div className={'root'}>
                 <Affix>
-                    <div className={'buttons'} style={{backgroundColor: 'white' ,paddingTop: 5, paddingBottom: 5}}>
+                    <div className={'buttons'} style={{background: '#f9f9f9' ,paddingTop: 5, paddingBottom: 5}}>
                         <Button.Group style={{marginRight: 10}}>
                             { blockTypeText.map((data, index) => <Button key={index} type={BlogType===data.value?'primary':''}  onClick={() => this._onClickBlogType(data.value)}>{data.text}</Button>) }
                         </Button.Group>
@@ -191,7 +191,7 @@ class BlogEditor extends Component {
 
                         <Button.Group style={{marginRight: 10}}>
                             <Button onMouseDown={this._promptForDescription} type={ BlogType === 'CustomCodeBlock' ? 'primary':'' } icon={'edit'}>
-                                { BlogType === 'CustomCodeBlock' ? 'Edit' : 'Add' } Description
+                                { BlogType === 'CustomCodeBlock' ? 'Edit Description' : 'Add Description' }
                             </Button>
                             <Button icon={'delete'} onClick={() => this._onClickBlogType(changeBlogTypeElement.default)} onMouseDown={this.removeDescription}>
                                 Remove Description
