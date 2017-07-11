@@ -37,9 +37,6 @@ class SignUpPage extends Component {
                 username: e.target.value
             })
         }
-        else {
-            console.log('mai match')
-        }
     }
 
     render() {

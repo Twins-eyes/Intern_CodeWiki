@@ -7,7 +7,7 @@ class List extends Component {
     tagsList(tags){
         const tagList = tags.map((tag, index) => 
             <Link to={'/tag'} key={index}>
-                <Tag key={index} color='orange'>
+                <Tag key={index} color='orange' style={{marginRight: 5}}>
                     #{tag}
                 </Tag>
             </Link>

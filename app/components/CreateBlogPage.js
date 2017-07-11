@@ -68,8 +68,9 @@ class CreateBlogPage extends Component {
                                     transitionLeaveTimeout={300}>
                                     <Row style={{ background: '#f9f9f9', marginBottom:0}}>
                                         <Col md={{span:11, offset:1}}>
-                                            <Input placeholder={'Enter Blog title'} 
-                                                style={{ width: 400, height: 34 }}
+                                            <Input placeholder={'Enter Blog title...'} 
+                                                style={{ width: 400, height: 34, marginLeft: 0 }}
+                                                className={'editor'}
                                             />
                                         </Col>
                                         <Col md={{span:11, offset:1}}>
@@ -92,7 +93,7 @@ class CreateBlogPage extends Component {
                                                     ref={this.saveInputRef}
                                                     type="text"
                                                     size="small"
-                                                    style={{ width: 100, height: 28, marginTop: 5 }}
+                                                    style={inputStyle}
                                                     value={inputValue}
                                                     onChange={this.handleInputChange}
                                                     onBlur={this.handleInputConfirm}
@@ -103,7 +104,7 @@ class CreateBlogPage extends Component {
                                                 <Input 
                                                     onFocus={this.showInput} 
                                                     placeholder={'+ New Tag'}
-                                                    style={{ width: 100, height: 28, marginTop: 5 }}
+                                                    style={inputStyle}
                                                 /> 
                                             }
                                         </Col>
@@ -124,6 +125,16 @@ class CreateBlogPage extends Component {
             </div>
         )
     }
+}
+
+const inputStyle = {
+    width: 100, 
+    height: 28, 
+    marginTop: 5,
+    marginBottom: 10,
+    border: '1px solid #ddd',
+    marginBottom: '2em',
+    boxShadow:  '0px 1px 8px -3px #ABABAB'
 }
 
 const page = {
