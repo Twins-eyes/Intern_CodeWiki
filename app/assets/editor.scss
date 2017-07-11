@@ -3,7 +3,7 @@
     background: white;
     border: 1px solid #ddd;
     cursor: text;
-    padding: 16px;
+    padding: 20px;
     border-radius: 2px;
     margin-bottom: 2em;
     box-shadow:  0px 1px 8px -3px #ABABAB;
@@ -51,8 +51,11 @@
     padding: 10px;
 }
 
-.buttons {
-    margin-bottom: 10px;
+.button {
+    padding-right: 100px;
+    &:active {
+        background-color: #FBBB69;
+    }
 }
 
 .urlInputContainer {
@@ -242,7 +245,7 @@ body {
 }
 
 span {
-    min-height: 100px;
+    //min-height: 100px;
     box-sizing: border-box;
     cursor: text;
     padding: 16px;
@@ -344,5 +347,8 @@ span {
 .editorBlock {
     align-items: center;
     padding: 20px;
-    
+    span {
+        width: 0px;
+        height: 0px;
+    }
 }
