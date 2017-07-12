@@ -128,7 +128,7 @@ body {
 
 .navBar {
     background-color: #F5D773;
-    height: 30%;
+    height:90px;
     width: 100%;
     padding: 25px;
     font-size: 14px;
@@ -279,15 +279,14 @@ span {
 }
 
 .detail {
-    margin: 20px 5% 0px 5%;
+    margin: 20px 5% 10px 5%;
     width: 90%;
-    //border: 1px solid #d9d9d9;
-    border-radius: 4px 4px 0 0;
+    // border: 1px solid #ddd;
+    border-radius: 5px;
     -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
     background: white;
     padding: 40px;
-    //text-align: right;
     color: #8F8E7C;
 }
 

@@ -11,6 +11,7 @@ class CreateBlogPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            title: '',
             tags: ['sample tag'],
             inputValue: '',
             inputVisible: false
@@ -71,6 +72,7 @@ class CreateBlogPage extends Component {
                                             <Input placeholder={'Enter Blog title...'} 
                                                 style={{ width: 400, height: 34, marginLeft: 0 }}
                                                 className={'editor'}
+                                                value={this.state.title}
                                             />
                                         </Col>
                                         <Col md={{span:11, offset:1}}>

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Row, Col, Tag } from 'antd'
 import { Link } from 'react-router-dom'
 import NavBar from '../components/NavBar'
+import BlogPreview from '../components/BlogPreview'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 class ReadingPage extends Component {
 
@@ -12,8 +14,7 @@ class ReadingPage extends Component {
             language:'javascript',
             tags:['abc','cba','java','javascript','hello','world'],
             author:'authorizeby',
-            date: '16/8/2016',
-            description: 'Parallax Engine that reacts to the orientation of a smart device'
+            date: '16/8/2016'
         }
     }
 
@@ -29,26 +30,30 @@ class ReadingPage extends Component {
     }
 
     render(){
-
+        const { topicName, author, date, tags } = this.state
         return(
-            <div style={{backgroundColor: '#f9f9f9'}}>
+            <div style={{backgroundColor: '#f9f9f9', height: '100%'}}>
                 <NavBar location={this.props.location} />
                 <div className={'detail'}>
                     <Row>
                         <Col md={24}>
-                            <h1>{ this.state.topicName }</h1>
+                            <h1 style={{fontSize: '28px'}}>{ topicName }</h1>
                         </Col>
                         <Col md={12}>
-                            { this.tagsList(this.state.tags) }
+                            { this.tagsList(tags) }
                         </Col>
                         <Col md={12}>
-                            <span className={'author'}>{ this.state.author }</span>
-                            <span className={'author'}>{ this.state.date }</span>
+                            <span className={'author'}>{ author }</span>
+                            <span className={'author'}>{ date }</span>
                         </Col>
                     </Row>
                     <br/><hr/>
-                </div>
-                <div className={'description'}>
+                    <ReactCSSTransitionGroup
+                        transitionName="editorPreview"
+                        transitionEnterTimeout={500}
+                        transitionLeaveTimeout={300}>
+                        <BlogPreview/>
+                    </ReactCSSTransitionGroup>
                 </div>
             </div>
         )
