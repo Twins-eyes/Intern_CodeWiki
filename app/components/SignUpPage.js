@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import NavBar from '../components/NavBar'
 import { Col, Row } from 'antd'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import { connect } from 'react-redux'
+import { signUp } from '../actions'
 
 class SignUpPage extends Component {
     constructor(props){
@@ -29,6 +31,7 @@ class SignUpPage extends Component {
     }
 
     handleUsername(e) {
+        console.log(e)
         const usernameRegex = new RegExp('[a-zA-Z_0-9]{3,12}')
         const valid = usernameRegex.test(e.target.value)
         console.log(valid)
@@ -39,7 +42,14 @@ class SignUpPage extends Component {
         }
     }
 
+    onSignUpHandler = e => {
+        e.preventDefault()
+        const { username, email, password } = this.state
+        this.props.signUp(username, email, password)
+    }
+
     render() {
+        console.log(this.state)
         return(
             <div>
                 <NavBar location={this.props.location}/>
@@ -60,6 +70,7 @@ class SignUpPage extends Component {
                                         name='email'
                                         value={this.props.email}
                                         autoFocus='true'
+                                        onChange={e => this.setState({ email: e.target.value })}
                                         required
                                     />
                                 </Col>
@@ -98,7 +109,7 @@ class SignUpPage extends Component {
                                     />
                                 </Col>
                             </Row>  
-                            <center><button className={'button'}>Sign up</button></center>
+                            <center><button className={'button'} onClick={this.onSignUpHandler}>Sign up</button></center>
                         </form>
                     </div></center> 
                 </ReactCSSTransitionGroup>
@@ -107,4 +118,4 @@ class SignUpPage extends Component {
     }
 }
 
-export default SignUpPage
+export default connect(null, {signUp})(SignUpPage)

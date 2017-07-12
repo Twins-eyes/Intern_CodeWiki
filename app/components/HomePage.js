@@ -3,7 +3,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import NavBar from '../components/NavBar'
 import SignInBox from '../components/SignInBox'
 import { Row, Col } from 'antd'
-import ParallaxComponent from 'react-parallax-component'
+//import ParallaxComponent from 'react-parallax-component'
 
 class HomePage extends Component {
     render () {
@@ -41,13 +41,13 @@ class HomePage extends Component {
                         <br/><SignInBox/>
                     </Col>
                 </Row>
-                <ParallaxComponent
+                {/* <ParallaxComponent
                     speed={-0.5}
                     top="40%"
                     left={(1) * 80}                        
                 >
                     <img src='../img/bg_layer4_3.png'/>
-                </ParallaxComponent>
+                </ParallaxComponent> */}
             </div>
         )
     }
