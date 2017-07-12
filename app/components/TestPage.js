@@ -1,9 +1,15 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import * as actions from '../actions'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import { Select } from 'antd'
-import '../assets/editor.css'
+import { Row, Col } from 'antd'
+import { 
+    CompositeDecorator, 
+    convertToRaw, 
+    Editor, 
+    EditorState, 
+    RichUtils, 
+    ContentState 
+} from 'draft-js'
+import NavBar from '../components/NavBar'
+import '../assets/editor.scss'
 
 class TestPage extends Component {
     constructor(props) {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Row, Col } from 'antd'
-import '../../../assets/editor.css'
+import '../../../assets/editor.scss'
 
 class CustomCodeBlock extends Component {
 

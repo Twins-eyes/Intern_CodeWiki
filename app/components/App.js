@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import { configureStore } from '../store'
 import Router from '../config/Router'
-import 'antd/dist/antd.css'
+import '../assets/editor.scss'
+import 'antd/dist/antd.css';
 
 class App extends Component {
     render () {

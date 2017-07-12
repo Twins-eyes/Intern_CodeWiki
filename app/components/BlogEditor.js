@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
-import { Row, Col, Button, Input, Tooltip, Affix, Modal } from 'antd'
+import { Row, Col, Button, Input, Tooltip, Affix, Modal, Tag } from 'antd'
 import { 
     CompositeDecorator, 
     convertToRaw, 
@@ -34,7 +34,6 @@ import createImagePlugin from 'draft-js-image-plugin'
 import CustomCodeBlock from './editor/blockRender/CustomCodeBlock'
 import { DescriptionInput, ButtonBar  } from './editor/DescriptionInput'
 import { Description, SubDescription, findEntities } from './editor/decorator/DescriptionDecorator'
-import '../assets/editor.css'
 
 class BlogEditor extends Component {
     constructor(props) {
@@ -58,7 +57,8 @@ class BlogEditor extends Component {
             showDesInput: false,
             desValue: '',
             description: '',
-            subDesButton: false
+            subDesButton: false,
+            isActive: false
         }
 
         this.props.storeDecorator(decorator)
@@ -163,7 +163,10 @@ class BlogEditor extends Component {
         }
     }
 
-    _onClickInlineStyle = event =>  this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, event))
+    _onClickInlineStyle = event =>  {
+        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, event))
+        this.setState({isActive: true})
+    }
 
     _onClickBlogType = event => this.onChange(RichUtils.toggleBlockType(this.state.editorState, event))
 
@@ -171,28 +174,27 @@ class BlogEditor extends Component {
 
     render() {
         let editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.state.decorator)
-        const { showDesInput, editorState, desValue } = this.state
+        const { showDesInput, editorState, desValue, isActive } = this.state
         const BlogType = editorState.getCurrentContent().getBlockForKey(editorState.getSelection().getStartKey()).getType()
-
         return (
             <div className={'root'}>
                 <Affix>
-                    <div className={'buttons'} style={{backgroundColor: 'white' ,paddingTop: 5, paddingBottom: 5}}>
-                        <Button.Group style={{marginRight: 10}}>
+                    <div style={{background: '#f9f9f9' ,paddingTop: 5, paddingBottom: 5, marginBottom: 10}}>
+                        <Button.Group style={{marginRight: 10, marginBottom: 10}}>
                             { blockTypeText.map((data, index) => <Button key={index} type={BlogType===data.value?'primary':''}  onClick={() => this._onClickBlogType(data.value)}>{data.text}</Button>) }
                         </Button.Group>
 
-                        <Button.Group style={{marginRight: 10}}>
+                        <Button.Group style={{marginRight: 10, marginBottom: 10}}>
                             { changeInlineElement.map((data, index) => <Button key={index} type={editorState.getCurrentInlineStyle().has(data.value)?'primary':''} onClick={() => this._onClickInlineStyle(data.value)}>{data.icon}</Button>) }
                         </Button.Group>
 
-                        <Button.Group style={{marginRight: 10}}>
+                        <Button.Group style={{marginRight: 10, marginBottom: 10}}>
                             { blockTypeOrder.map((data, index) => <Button key={index} type={BlogType===data.value?'primary':''} onClick={() => this._onClickBlogType(data.value)}>{data.icon}</Button>) }
                         </Button.Group>
 
-                        <Button.Group style={{marginRight: 10}}>
+                        <Button.Group style={{marginRight: 10, marginBottom: 10}}>
                             <Button onMouseDown={this._promptForDescription} type={ BlogType === 'CustomCodeBlock' ? 'primary':'' } icon={'edit'}>
-                                { BlogType === 'CustomCodeBlock' ? 'Edit' : 'Add' } Description
+                                { BlogType === 'CustomCodeBlock' ? 'Edit Description' : 'Add Description' }
                             </Button>
                             <Button icon={'delete'} onClick={() => this._onClickBlogType(changeBlogTypeElement.default)} onMouseDown={this.removeDescription}>
                                 Remove Description
@@ -200,10 +202,10 @@ class BlogEditor extends Component {
                         </Button.Group>
 
                         <Tooltip placement="topLeft" title="Allowed Markdown">
-                            <Button style={{marginRight: 10}}><GoMarkdown size={15} /></Button>
+                            <Button style={{marginRight: 10, marginBottom: 10}}><GoMarkdown size={15} /></Button>
                         </Tooltip>
 
-                        <Button icon={'info'} type={'primary'} shape={'circle'} style={{marginRight: 10}}/>
+                        <Button icon={'info'} type={'primary'} shape={'circle'} style={{marginRight: 10, marginBottom: 10}}/>
                     </div>
                 </Affix>
                 <Row gutter={8}>

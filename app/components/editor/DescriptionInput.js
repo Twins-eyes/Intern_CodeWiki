@@ -17,7 +17,7 @@ class DescriptionInput extends Component {
                 </Row>
                 <Row style={{paddingTop: 10}}>
                     <Col span={24}>
-                        <Button style={{float: 'right', marginLeft: 5}} type={'danger'} onMouseDown={() => this.props.showInput()} icon={'close'}>
+                        <Button style={{float: 'right', marginLeft: 5}} type={'default'} onMouseDown={() => this.props.showInput()} icon={'close'}>
                             Cancel
                         </Button>
                         {this.props.subDesButton?<Button style={{float: 'right', marginLeft: 5}} onMouseDown={(e) => this.props._confirmDescription(e, 'SUB_DESCRIPTION', 'subDescription', false)} icon={'tag'}>

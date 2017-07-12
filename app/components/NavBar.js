@@ -2,27 +2,35 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 class NavBar extends Component {
+
     render () {
-        if(this.props.location.pathname == '/'){
+        if(this.props.location.pathname == '/' || 
+            this.props.location.pathname == '/signin' ||
+            this.props.location.pathname == '/signup'
+        ){
             return (
-                <div style={{backgroundColor:'#88BBD6', height: 100}}>
-                    <Link to={'/'}>
+                <div className={'navBar'}>
+                    <Link to={'/'}><img src={require('../img/codewikiwhite.gif')}/></Link>
+                    <Link to={'/signup'} className={'link'} >
                         Sign up
                     </Link>
-                    <Link to={'/a'}>
+                    <Link to={'/signin'} className={'link'}>
                         Sign in
-                    </Link>
+                    </Link> 
                 </div>
             )
         } else {
             return (
-                <div style={{backgroundColor:'#88BBD6', height: 100}}>
-                    <Link to={'/'}>
-                        Home
-                    </Link>
-                    <Link to={'/a'}>
-                        a
-                    </Link>
+                <div className={'navBar'}>
+                    <Link to={'/'}><img src={require('../img/codewikiwhite.gif')} className={'logo'}/></Link>
+                    <span className={'menu'}>
+                        <Link to={'/'} className={'link'}>
+                            {this.props.name}
+                        </Link>
+                        <Link to={'/a'} className={'link'}>
+                            Sign out
+                        </Link>
+                    </span>
                 </div>
             )
         }
