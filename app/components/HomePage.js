@@ -3,16 +3,17 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import NavBar from '../components/NavBar'
 import SignInBox from '../components/SignInBox'
 import { Row, Col } from 'antd'
-import Parallax from 'parallax-js' 
+import ParallaxComponent from 'react-parallax-component'
 
 class HomePage extends Component {
     render () {
+        const random = (min, max) => Math.random() * (max - min) + min
         return (
             <div>
                 <NavBar location={this.props.location} />
                 <Row>
                     <Col xs={{span:20, offset:4}} sm={{span:8, offset:2}} md={{span:10, offset:2}}>
-                        <div className={'syno'}>
+                        <div className={'syno'} style={{height: 1000}}>
                             <ReactCSSTransitionGroup
                                 transitionName='synopsis'
                                 transitionAppear={true}
@@ -40,6 +41,13 @@ class HomePage extends Component {
                         <br/><SignInBox/>
                     </Col>
                 </Row>
+                <ParallaxComponent
+                    speed={-0.5}
+                    top="40%"
+                    left={(1) * 80}                        
+                >
+                    <img src='../img/bg_layer4_3.png'/>
+                </ParallaxComponent>
             </div>
         )
     }

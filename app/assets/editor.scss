@@ -304,3 +304,16 @@ span {
     padding: 0px 5px;
     float: right;
 }
+
+:local(.styles) {
+  position: relative;
+
+  span.letter {
+    font-size: 60px;
+    font-weight: 600;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    width: 80px;
+    display: inline-block;
+  }
+}
