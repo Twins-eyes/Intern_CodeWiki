@@ -15,9 +15,11 @@ class SignInPage extends Component {
         return(
              <div>
                 <NavBar location={this.props.location}/>
-                <center><div style={{width:'550px', marginTop:'50px'}}>
-                    <SignInBox/>
-                </div></center>
+                <center>
+                    <div style={{width:'550px', marginTop:'50px'}}>
+                        <SignInBox/>
+                    </div>
+                </center>
             </div>
         )
     }

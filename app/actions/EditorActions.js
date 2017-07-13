@@ -4,9 +4,10 @@ import {
     STORE_EDITOR_STATE, 
     STORE_DECORATOR, 
     SAVE_DATA_EDITOR,
-    STORE_BLOCK_RENDER
+    STORE_BLOCK_RENDER,
+    GET_TOPIC_DATA
 } from './types'
-import { POST_DATA_EDITOR } from '../api'
+import { POST_DATA_EDITOR, GET_ALL_TOPIC } from '../api'
 
 export const changeDescription = description => {
     return {
@@ -32,7 +33,10 @@ export const storeDecorator = decorator => {
 export const saveDataFromEditor = editorSate => {
     return function(dispatch) {
         return axios.post(POST_DATA_EDITOR, {
-            "editorRaw": editorSate, 
+            'editorRaw': editorSate,
+            'title': 'sun',
+            'ownerId': 'sun',
+            'tags': ['abc','cba','java','javascript','hello','world']
         }).then(response => {
             console.log(response.data)
             // return {
@@ -50,4 +54,19 @@ export const customBlockRender = blockRenderMap => {
         type: STORE_BLOCK_RENDER,
         payload: blockRenderMap
     }
+}
+
+export const allTopic = topics => {
+    return {
+        type: GET_TOPIC_DATA,
+        payload: topics
+    }
+}
+
+export const getAllEditorData = () => dispatch => {
+    return axios.get(GET_ALL_TOPIC).then(response => {
+        dispatch(allTopic(response.data.editor))
+    }).catch(error => {
+        console.log(error)
+    })
 }

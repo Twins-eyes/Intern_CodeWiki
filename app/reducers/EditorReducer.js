@@ -3,7 +3,8 @@ import {
     STORE_EDITOR_STATE, 
     STORE_DECORATOR, 
     SAVE_DATA_EDITOR,
-    STORE_BLOCK_RENDER
+    STORE_BLOCK_RENDER,
+    GET_TOPIC_DATA
 } from '../actions/types'
 import { EditorState, convertToRaw } from 'draft-js'
 import { Map } from 'immutable'
@@ -13,7 +14,8 @@ const INITIAL_STATE = Map({
     editorState: convertToRaw(EditorState.createEmpty().getCurrentContent()),
     decorator: undefined,
     editorData: {},
-    blockRender: undefined
+    blockRender: undefined,
+    allTopic: []
 })
 
 export default (state = INITIAL_STATE, action) => {
@@ -28,6 +30,8 @@ export default (state = INITIAL_STATE, action) => {
             return state.set('editorData', action.payload)
         case STORE_BLOCK_RENDER:
             return state.set('blockRender', action.payload)
+        case GET_TOPIC_DATA:
+            return state.set('allTopic', action.payload)
         default:
             return state
     }

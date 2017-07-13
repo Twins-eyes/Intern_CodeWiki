@@ -52,7 +52,7 @@ class BlogEditor extends Component {
         const decorator = new CompositeDecorator(decorators)
 
         this.state = {
-            editorState: EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), decorator),
+            editorState: EditorState.createWithContent(convertFromRaw(this.props.editorState), decorator),
             decorators,
             showDesInput: false,
             desValue: '',
@@ -173,7 +173,7 @@ class BlogEditor extends Component {
     saveEditorData = () => this.props.saveDataFromEditor(convertToRaw(this.state.editorState.getCurrentContent()))
 
     render() {
-        let editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.state.decorator)
+        let editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editorState), this.state.decorator)
         const { showDesInput, editorState, desValue, isActive } = this.state
         const BlogType = editorState.getCurrentContent().getBlockForKey(editorState.getSelection().getStartKey()).getType()
         return (
@@ -219,7 +219,7 @@ class BlogEditor extends Component {
                                 placeholder={"Enter some text..."}
                                 ref={"editor"}
                                 customStyleMap={colorStyleMap}
-                                blockRenderMap={this.props.editor.blockRender}
+                                blockRenderMap={this.props.blockRender}
                                 plugins={this.plugins}
                             />
                         </div>
@@ -308,7 +308,10 @@ const findEntitiesElement = {
 }
 
 const mapStateToProps = state => {
-    return { editor: state.editor }
+    return { 
+        editorState: state.editor.get('editorState'), 
+        blockRender: state.editor.get('blockRender'), 
+    }
 }
 
 export default connect(mapStateToProps, actions)(BlogEditor)
