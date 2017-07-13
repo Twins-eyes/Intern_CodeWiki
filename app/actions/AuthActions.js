@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { POST_SIGNIN, POST_SIGNUP } from '../api'
+import { GET_USER_DATE } from './types'
 
 export const signIn = (username, password) => {
     return function(dispatch) {
@@ -29,5 +30,12 @@ export const signUp = (username, email, password) => {
         }).catch(err => {
             console.log(err)
         })
+    }
+}
+
+export const text = () => {
+    return {
+        type: GET_USER_DATE,
+        payload: 12
     }
 }

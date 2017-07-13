@@ -4,6 +4,8 @@ import NavBar from '../components/NavBar'
 import List from '../components/List'
 import { MdKeyboardArrowDown } from 'react-icons/lib/md'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import { getAllEditorData } from '../actions'
+import { connect } from 'react-redux' 
 
 class TopicList extends Component {
     constructor(props){
@@ -25,20 +27,20 @@ class TopicList extends Component {
             ],
             value:'all'
         }
+
+        this.props.getAllEditorData()
     }
 
-    topicsList(topics) {
-        const topicList = this.state.topics.map((topic, index)=>
+    topicsList = topics => {
+       return topics.map((topic, index) => (
             <List
                 key={index}
-                topicName={topic.topicName}
-                language={topic.language}
+                topicName={topic.title}
                 tags={topic.tags}
-                author={topic.author}
-                date={topic.date}
+                author={topic.ownerId}
+                date={topic.createdAt}
             />
-        )
-        return topicList
+        ))
     }
 
     render(){
@@ -58,11 +60,15 @@ class TopicList extends Component {
                     </Col>
                 </Row>
                 <div style={{marginTop:'20px', opacity:'0.98'}}>
-                    {this.topicsList(this.state.topics)}
+                    { this.topicsList(this.props.topics) }
                 </div>
             </div>
         )
     }
 }
 
-export default TopicList
+const mapStateToProps = state => {
+    return { topics: state.editor.get('allTopic')}
+}
+
+export default connect(mapStateToProps, {getAllEditorData})(TopicList)

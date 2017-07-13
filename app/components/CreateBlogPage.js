@@ -12,7 +12,7 @@ class CreateBlogPage extends Component {
         super(props)
         this.state = {
             title: '',
-            tags: ['sample tag'],
+            tags: [],
             inputValue: '',
             inputVisible: false
         }
@@ -33,17 +33,17 @@ class CreateBlogPage extends Component {
     }
 
     handleInputConfirm = () => {
-        const state = this.state;
-        const inputValue = state.inputValue;
-        let tags = state.tags;
+        const state = this.state
+        const inputValue = state.inputValue
+        let tags = state.tags
         if (inputValue && tags.indexOf(inputValue) === -1) {
-        tags = [...tags, inputValue];
+            tags = [...tags, inputValue]
         }
-        console.log(tags);
+        console.log(tags)
         this.setState({
-        tags,
-        inputVisible: false,
-        inputValue: '',
+            tags,
+            inputVisible: false,
+            inputValue: '',
         })
     }
 
@@ -68,19 +68,31 @@ class CreateBlogPage extends Component {
                                     transitionEnterTimeout={500}
                                     transitionLeaveTimeout={300}>
                                     <Row style={{ background: '#f9f9f9', marginBottom:0}}>
-                                        <Col md={{span:11, offset:1}}>
+                                        <Col md={{span:24}}>
                                             <Input placeholder={'Enter Blog title...'} 
                                                 style={{ width: 400, height: 34, marginLeft: 0 }}
                                                 className={'editor'}
                                                 value={this.state.title}
+                                                onChange={e => this.setState({ title: e.target.value })}
                                             />
                                         </Col>
-                                        <Col md={{span:11, offset:1}}>
+                                    </Row>
+                                    <Tabs size={'small'}>
+                                        <Tabs.TabPane key={1} tab={<span><Icon type="edit" />Write</span>}>
+                                            <BlogEditor />
+                                        </Tabs.TabPane>
+                                        <Tabs.TabPane className={'editor'} key={2} tab={<span><Icon type="desktop" />Preview</span>}>
+                                            <BlogPreview />
+                                        </Tabs.TabPane>
+                                    </Tabs>
+                                    <Row style={{ background: '#f9f9f9', marginBottom:0}}>
+                                        <Col md={{span:24}} style={{marginLeft: 10}}>
+                                            { !this.state.tags.length?<Tag color={'#FBBB69'}>Sample tag</Tag>:''}
                                             { tags.map((tag, index) => {
                                                 const isLongTag = tag.length > 20;
                                                 const tagElem = (
                                                     <Tag key={index} 
-                                                        color={index != 0 ? 'orange' : '#FBBB69' }
+                                                        color={'orange'}
                                                         style={{marginRight:'10px', marginTop: 'l'}}
                                                         closable={index !== 0} 
                                                         afterClose={() => this.handleClose(tag)}>
@@ -111,14 +123,6 @@ class CreateBlogPage extends Component {
                                             }
                                         </Col>
                                     </Row>
-                                    <Tabs size={'small'}>
-                                        <Tabs.TabPane key={1} tab={<span><Icon type="edit" />Write</span>}>
-                                            <BlogEditor />
-                                        </Tabs.TabPane>
-                                        <Tabs.TabPane className={'editor'} key={2} tab={<span><Icon type="desktop" />Preview</span>}>
-                                            <BlogPreview />
-                                        </Tabs.TabPane>
-                                    </Tabs>
                                 </ReactCSSTransitionGroup>
                             </Col>
                         </Row>
