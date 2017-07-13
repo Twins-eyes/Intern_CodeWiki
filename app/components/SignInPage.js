@@ -2,9 +2,16 @@ import React, { Component } from 'react'
 import NavBar from '../components/NavBar'
 import SignInBox from '../components/SignInBox'
 import { Row, Col } from 'antd'
+import { connect } from 'react-redux'
+import { text } from '../actions'
 
 class SignInPage extends Component {
+    constructor(props) {
+        super(props)
+        this.props.text()
+    }
     render() {
+        console.log(this.props)
         return(
              <div>
                 <NavBar location={this.props.location}/>
@@ -16,4 +23,9 @@ class SignInPage extends Component {
     }
 }
 
-export default SignInPage
+const mapStateToProps = state => {
+    console.log(state)
+    return { user: state.auth.get('user') }
+}
+
+export default connect(mapStateToProps, {text})(SignInPage)
