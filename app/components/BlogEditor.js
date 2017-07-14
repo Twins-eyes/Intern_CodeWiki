@@ -9,8 +9,6 @@ import {
     RichUtils, 
     ContentState,
     convertFromRaw,
-    DefaultDraftBlockRenderMap,
-    Modifier,
     Entity
 } from 'draft-js'
 import { 
@@ -22,47 +20,30 @@ import {
     FaListOl,
     FaListUl
 } from 'react-icons/lib/fa'
-import {
-    GoMarkdown
-} from 'react-icons/lib/go'
+import { GoMarkdown } from 'react-icons/lib/go'
 import { AlreadyDescription, MiddleDescription } from './editor/decorator/DescriptionComponent'
-import Immutable from 'immutable'
 import Editor from 'draft-js-plugins-editor'
 import createBlockBreakoutPlugin from 'draft-js-block-breakout-plugin'
 import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin'
 import createImagePlugin from 'draft-js-image-plugin'
-import CustomCodeBlock from './editor/blockRender/CustomCodeBlock'
 import { DescriptionInput, ButtonBar  } from './editor/DescriptionInput'
-import { Description, SubDescription, findEntities } from './editor/decorator/DescriptionDecorator'
+import { Description, SubDescription, findEntities, decorators } from './editor/decorator/DescriptionDecorator'
+import { blockRenderMap, colorStyleMap } from './editor/styles'
 
 class BlogEditor extends Component {
     constructor(props) {
         super(props)
 
-        const decorators = [
-            {
-                strategy: findEntities(findEntitiesElement.description),
-                component: Description,
-            },
-            {
-                strategy: findEntities(findEntitiesElement.subDescription),
-                component: (props) => SubDescription(props, this.props.changeDescription),
-            }
-        ]
         const decorator = new CompositeDecorator(decorators)
 
         this.state = {
             editorState: EditorState.createWithContent(convertFromRaw(this.props.editorState), decorator),
-            decorators,
             showDesInput: false,
             desValue: '',
             description: '',
             subDesButton: false,
             isActive: false
         }
-
-        this.props.storeDecorator(decorator)
-        this.props.customBlockRender(DefaultDraftBlockRenderMap.merge(blockRenderMap))
 
         this.focus = () => this.refs.editor.focus()
         
@@ -213,13 +194,13 @@ class BlogEditor extends Component {
                         <div className={'editor'} onClick={this.focus}>
                             <Editor
                                 {...this.props}
-                                decorators={this.state.decorators}
+                                decorators={decorators}
                                 editorState={editorState}
                                 onChange={this.onChange}
                                 placeholder={"Enter some text..."}
                                 ref={"editor"}
                                 customStyleMap={colorStyleMap}
-                                blockRenderMap={this.props.blockRender}
+                                blockRenderMap={blockRenderMap}
                                 plugins={this.plugins}
                             />
                         </div>
@@ -255,13 +236,6 @@ class BlogEditor extends Component {
 
 }
 
-const blockRenderMap = Immutable.Map({
-  'CustomCodeBlock': {
-    element: 'section',
-    wrapper: <CustomCodeBlock />
-  }
-})
-
 const changeInlineElement = [
     { value: 'BOLD', icon: <FaBold size={12} /> },
     { value: 'ITALIC', icon: <FaItalic size={11} /> },
@@ -288,23 +262,6 @@ const changeBlogTypeElement = {
     codeBlock: 'code-block',
     hr: 'hr',
     cb: 'CustomCodeBlock'
-}
-
-const colorStyleMap = {
-    CODEBLOCK: {
-        backgroundColor: '#f2f2f2', 
-        paddingLeft: 16,
-        paddingTop: 4,
-        paddingBottom: 4,
-        borderLeftStyle: 'solid',
-        borderLeftWidth: 'thick',
-        borderLeftColor: '#f5d773'
-    }
-}
-
-const findEntitiesElement = {
-    description: 'DESCRIPTION',
-    subDescription: 'SUB_DESCRIPTION'
 }
 
 const mapStateToProps = state => {

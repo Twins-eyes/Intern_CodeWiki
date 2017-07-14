@@ -8,14 +8,25 @@ import {
     Editor, 
     EditorState, 
     ContentState,
-    convertFromRaw
+    convertFromRaw,
+    DefaultDraftBlockRenderMap,
 } from 'draft-js'
+import Immutable from 'immutable'
 import {stateToHTML} from 'draft-js-export-html'
+import { Description, SubDescription, findEntities, decorators } from './editor/decorator/DescriptionDecorator'
+import { blockRenderMap, colorStyleMap } from './editor/styles'
 
 class  BlogPreview extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            decorator: new CompositeDecorator(decorators)
+        }
+    }
 
     render() {
-        const editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editorRaw), this.props.decorator)
+        const editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editorRaw), this.state.decorator)
 
         return (
             <div>
@@ -24,7 +35,8 @@ class  BlogPreview extends Component {
                         <div>
                             <Editor
                                 editorState={editorStateFromRedux}
-                                blockRenderMap={this.props.blockRender}
+                                blockRenderMap={blockRenderMap}
+                                customStyleMap={colorStyleMap}
                                 readOnly
                             /> 
                         </div>

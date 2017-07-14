@@ -2,9 +2,7 @@ import axios from 'axios'
 import {
     CHANGE_DESCRIPTION, 
     STORE_EDITOR_STATE, 
-    STORE_DECORATOR, 
     SAVE_DATA_EDITOR,
-    STORE_BLOCK_RENDER,
     GET_TOPIC_DATA,
     EDITOR_DATA_BY_ID
 } from './types'
@@ -24,13 +22,6 @@ export const storeEditorState = editorState => {
     }
 }
 
-export const storeDecorator = decorator => {
-    return {
-        type: STORE_DECORATOR,
-        payload: decorator
-    }
-}
-
 export const saveDataFromEditor = editorSate => {
     return function(dispatch) {
         return axios.post(POST_DATA_EDITOR, {
@@ -47,13 +38,6 @@ export const saveDataFromEditor = editorSate => {
         }).catch(error => {
             console.log(error)
         })
-    }
-}
-
-export const customBlockRender = blockRenderMap => {
-    return {
-        type: STORE_BLOCK_RENDER,
-        payload: blockRenderMap
     }
 }
 
