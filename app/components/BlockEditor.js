@@ -126,7 +126,7 @@ class BlockEditor extends Component {
                         </div>
                         {this.descriptionTextArea()}
                     </Col>
-                    <Col span={12} style={{padding: 10}}>
+                    <Col span={12} style={{padding: 10, backgrounfColor: 'red'}}>
                         <div className={'editor'}>
                             {this.state.content.description}
                             {this.state.htmlFromEditor}

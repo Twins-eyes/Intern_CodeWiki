@@ -113,13 +113,14 @@
     border: 1px solid #ddd;
     cursor: text;
     border-radius: 2px;
+    margin-left: 20px;
     margin-bottom: 2em;
     box-shadow: inset 0px 1px 8px -3px #ABABAB;
     background: #fefefe;
 }
 
 body {
-    background: white no-repeat center center fixed;
+    background: transparent no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -127,8 +128,8 @@ body {
 }
 
 .navBar {
-    background-color: #F5D773;
-    height:90px;
+    background-color: #ffd83f;
+    height:75px;
     width: 100%;
     padding: 25px;
     font-size: 14px;
@@ -172,12 +173,12 @@ body {
         color:#8F8E7C;
     }
     span {
-        color: #F5D773; 
+        color: #e0b21d; 
     }
 }
 
 .h1 {
-    color: #F5D773;
+    color: #e0b21d;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 72px;
     margin-bottom: 0;
@@ -228,7 +229,7 @@ body {
 }
 .button {
     margin: 20px 0px 20px 0px;
-    background-color: #F5D773;
+    background-color: #e0b21d;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -305,15 +306,11 @@ span {
     float: right;
 }
 
-:local(.styles) {
-  position: relative;
-
-  span.letter {
-    font-size: 60px;
-    font-weight: 600;
-    font-family: 'Open Sans', sans-serif;
-    text-align: center;
-    width: 80px;
-    display: inline-block;
-  }
+html { 
+  background: white; 
+  width: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
