@@ -115,8 +115,8 @@ class BlogEditor extends Component {
         const {editorState, desValue} = this.state
         const contentState = editorState.getCurrentContent()
         switch (draftData) {
-            case 'description': { draftEntityData.description = desValue; break}
-            case 'subDescription': { draftEntityData.subDescription = desValue; break}
+            case 'description': { draftEntityData.description = desValue; break }
+            case 'subDescription': { draftEntityData.subDescription = desValue; break }
             default: draftEntityData.description = desValue
         }
         const contentStateWithEntity = contentState.createEntity(
@@ -170,7 +170,7 @@ class BlogEditor extends Component {
 
     _onClickBlogType = event => this.onChange(RichUtils.toggleBlockType(this.state.editorState, event))
 
-    saveEditorData = () => this.props.saveDataFromEditor(convertToRaw(this.state.editorState.getCurrentContent()))
+    saveEditorData = () => this.props.saveDataFromEditor(JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent())))
 
     render() {
         let editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editorState), this.state.decorator)

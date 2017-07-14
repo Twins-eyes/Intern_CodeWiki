@@ -8,39 +8,9 @@ import { getAllEditorData } from '../actions'
 import { connect } from 'react-redux' 
 
 class TopicList extends Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            topics: [
-                {
-                    topicName:'This is the topic name for testing codewiki',
-                    tags:['abc','cba','java','javascript','hello','world'],
-                    author:'authorizeby',
-                    date: '16/8/2016'
-                },
-                {
-                    topicName:'2',
-                    tags:['sci','int'],
-                    author:'sun',
-                    date: '16/8/2016' 
-                }
-            ],
-            value:'all'
-        }
 
+    componentWillMount = () => {
         this.props.getAllEditorData()
-    }
-
-    topicsList = topics => {
-       return topics.map((topic, index) => (
-            <List
-                key={index}
-                topicName={topic.title}
-                tags={topic.tags}
-                author={topic.ownerId}
-                date={topic.createdAt}
-            />
-        ))
     }
 
     render(){
@@ -52,7 +22,6 @@ class TopicList extends Component {
                         <input 
                             type='text'
                             className={'search'}
-                            value={this.props.value}
                             placeholder='search'
                             autoFocus
                             onChange={this.topicsFilter}
@@ -60,7 +29,16 @@ class TopicList extends Component {
                     </Col>
                 </Row>
                 <div style={{marginTop:'20px', opacity:'0.98'}}>
-                    { this.topicsList(this.props.topics) }
+                    { this.props.topics.map((topic, index) => (
+                        <List
+                            key={index}
+                            topicName={topic.title}
+                            tags={topic.tags}
+                            author={topic.ownerId}
+                            date={topic.createdAt}
+                            topicId={topic._id}
+                        />
+                    )) }
                 </div>
             </div>
         )

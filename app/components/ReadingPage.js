@@ -1,63 +1,66 @@
 import React, { Component } from 'react'
-import { Row, Col, Tag } from 'antd'
+import { Row, Col, Tag, Spin } from 'antd'
 import { Link } from 'react-router-dom'
 import NavBar from '../components/NavBar'
 import BlogPreview from '../components/BlogPreview'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import { EditorState, convertToRaw } from 'draft-js'
+import { connect } from 'react-redux'
+import { getEditorById } from '../actions'
+import { TagList } from './Tag'
+import '../assets/editor.scss'
 
 class ReadingPage extends Component {
-
     constructor(props) {
         super(props)
+
         this.state = {
-            topicName:'This is the topic name for testing codewiki',
-            language:'javascript',
-            tags:['abc','cba','java','javascript','hello','world'],
-            author:'authorizeby',
-            date: '16/8/2016'
+            isLoading: true
         }
     }
 
-    tagsList(tags){
-        const tagList = tags.map((tag, index) => 
-            <Link to={'/tag'} key={index}>
-                <Tag key={index} color='#FBBB69' style={{margin:'10px 5px'}}>
-                    #{tag}
-                </Tag>
-            </Link>
-        )
-        return tagList
+    componentWillMount() {
+        this.props.getEditorById(this.props.match.params).then(() => {
+            this.setState({ isLoading: false })
+        })
     }
 
     render(){
-        const { topicName, author, date, tags } = this.state
+        const { title, editorRaw, createdAt, ownerId, tags, _id } = this.props.editorData
+
         return(
             <div style={{backgroundColor: '#f9f9f9', height: '100%'}}>
                 <NavBar location={this.props.location} />
-                <div className={'detail'}>
-                    <Row>
-                        <Col md={24}>
-                            <h1 style={{fontSize: '28px'}}>{ topicName }</h1>
-                        </Col>
-                        <Col md={12}>
-                            { this.tagsList(tags) }
-                        </Col>
-                        <Col md={12}>
-                            <span className={'author'}>{ author }</span>
-                            <span className={'author'}>{ date }</span>
-                        </Col>
-                    </Row>
-                    <br/><hr/>
-                    <ReactCSSTransitionGroup
-                        transitionName="editorPreview"
-                        transitionEnterTimeout={500}
-                        transitionLeaveTimeout={300}>
-                        <BlogPreview/>
-                    </ReactCSSTransitionGroup>
-                </div>
+                { this.state.isLoading? <div className="spinLoader"><Spin /></div> :
+                    <div className={'detail'}>
+                        <Row>
+                            <Col md={24}>
+                                <h1 style={{fontSize: '28px'}}>{ title }</h1>
+                            </Col>
+                            <Col md={12}>
+                                { tags.map((tag, index) => <TagList tag={tag} key={index} />) }
+                            </Col>
+                            <Col md={12}>
+                                <span className={'author'}>{ ownerId }</span>
+                                <span className={'author'}>{ createdAt }</span>
+                            </Col>
+                        </Row>
+                        <br/><hr/>
+                        <ReactCSSTransitionGroup
+                            transitionName="editorPreview"
+                            transitionEnterTimeout={500}
+                            transitionLeaveTimeout={300}>
+                            <BlogPreview editorRaw={JSON.parse(editorRaw)}/>
+                        </ReactCSSTransitionGroup>
+                    </div>
+                }
             </div>
         )
     }
 }
 
-export default ReadingPage
+const mapStateToProps = state => {
+    return { editorData: state.editor.get('detailDisplay') }
+}
+
+export default connect(mapStateToProps, {getEditorById})(ReadingPage)

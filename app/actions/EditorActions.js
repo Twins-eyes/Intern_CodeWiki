@@ -5,9 +5,10 @@ import {
     STORE_DECORATOR, 
     SAVE_DATA_EDITOR,
     STORE_BLOCK_RENDER,
-    GET_TOPIC_DATA
+    GET_TOPIC_DATA,
+    EDITOR_DATA_BY_ID
 } from './types'
-import { POST_DATA_EDITOR, GET_ALL_TOPIC } from '../api'
+import { POST_DATA_EDITOR, GET_ALL_TOPIC, GET_EDITOR_DATA } from '../api'
 
 export const changeDescription = description => {
     return {
@@ -66,6 +67,23 @@ export const allTopic = topics => {
 export const getAllEditorData = () => dispatch => {
     return axios.get(GET_ALL_TOPIC).then(response => {
         dispatch(allTopic(response.data.editor))
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const detailDisplayById = editorData => {
+    return {
+        type: EDITOR_DATA_BY_ID,
+        payload: editorData
+    }
+}
+
+export const getEditorById = data => dispatch => {
+    return axios.post(GET_EDITOR_DATA, {
+        '_id': data.id
+    }).then(response => {
+        dispatch(detailDisplayById(response.data.editor))
     }).catch(error => {
         console.log(error)
     })

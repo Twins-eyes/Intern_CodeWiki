@@ -7,19 +7,16 @@ import {
     convertToRaw, 
     Editor, 
     EditorState, 
-    RichUtils, 
     ContentState,
     convertFromRaw
 } from 'draft-js'
 import {stateToHTML} from 'draft-js-export-html'
 
 class  BlogPreview extends Component {
-    constructor(props) {
-        super(props)        
-    }
 
     render() {
-        let editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editorState), this.props.decorator)
+        const editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editorRaw), this.props.decorator)
+
         return (
             <div>
                 <Row gutter={8}>
@@ -29,10 +26,10 @@ class  BlogPreview extends Component {
                                 editorState={editorStateFromRedux}
                                 blockRenderMap={this.props.blockRender}
                                 readOnly
-                            />
+                            /> 
                         </div>
                     </Col>
-                </Row>
+                </Row> 
             </div>
         )
     }
@@ -41,8 +38,7 @@ class  BlogPreview extends Component {
 const mapStateToProps = state => {
     return {
         decorator: state.editor.get('decorator'),
-        blockRender: state.editor.get('blockRender'),
-        editorState: state.editor.get('editorState')
+        blockRender: state.editor.get('blockRender')
     }
 }
 

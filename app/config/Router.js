@@ -14,10 +14,12 @@ class Router extends Component{
             <HashRouter>
                 <div>
                     <Route exact path='/' component={HomePage} />
-                    <Route path='/signin' component={SignIn} />
-                    <Route path='/signup' component={SignUp} />
+                    <Switch>
+                        <Route path='/signin' component={SignIn} />
+                        <Route path='/signup' component={SignUp} />
+                    </Switch>
                     <Route path='/list' component={TopicList} />
-                    <Route path='/detail' component={Reading} />
+                    <Route path='/detail/:id' component={Reading} />
                     <Route path='/block' component={BlogPreview} />
                     <Route path='/createBlog' component={CreateBlogPage} />
                 </div>
