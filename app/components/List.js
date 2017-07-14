@@ -16,7 +16,7 @@ class List extends Component {
     }
     
     render(){
-        const { topicName, language, tags, author, date } = this.props
+        const { topicName, tags, author, date } = this.props
         return(
             <div className={'tpList'}>
                 <ReactCSSTransitionGroup
@@ -27,18 +27,20 @@ class List extends Component {
                     transitionLeaveTimeout={500}
                 >
                     <Row type='flex'>
-                        <Col md={16}>
-                            <Link to={'/detail'} className={'topicDetail'}>
+                        <Col md={20}>
+                        <   Link to={'/detail'} className={'topicDetail'}>
                                 <h2>{ topicName }</h2>
                             </Link>
                         </Col>
-                        <Col md={{span:4, push:4}}>
-                            <span style={{color: '#8F8E7C'}}>{ date }</span>
+                        <Col md={2}>
+                            <span style={{color: '#8F8E7C'}}>{ date } </span>
+                        </Col>
+                        <Col md={2}>
                             <Link to={'/author'} className={'topicDetail'}>{ author }</Link>
                         </Col>
                     </Row>
                     <Row type='flex'>
-                        <Col md={{span:22, offset: 1}}>
+                        <Col md={{span:24}}>
                             {this.tagsList(tags)}
                         </Col>
                     </Row>
