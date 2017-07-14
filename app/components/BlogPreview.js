@@ -19,7 +19,7 @@ class  BlogPreview extends Component {
     }
 
     render() {
-        let editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editor.editorState), this.props.editor.decorator)
+        let editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editorState), this.props.decorator)
         return (
             <div>
                 <Row gutter={8}>
@@ -27,7 +27,7 @@ class  BlogPreview extends Component {
                         <div>
                             <Editor
                                 editorState={editorStateFromRedux}
-                                blockRenderMap={this.props.editor.blockRender}
+                                blockRenderMap={this.props.blockRender}
                                 readOnly
                             />
                         </div>
@@ -39,7 +39,11 @@ class  BlogPreview extends Component {
 }
 
 const mapStateToProps = state => {
-    return { editor: state.editor }
+    return {
+        decorator: state.editor.get('decorator'),
+        blockRender: state.editor.get('blockRender'),
+        editorState: state.editor.get('editorState')
+    }
 }
 
 export default connect(mapStateToProps, actions)(BlogPreview)

@@ -3,30 +3,35 @@ import {
     STORE_EDITOR_STATE, 
     STORE_DECORATOR, 
     SAVE_DATA_EDITOR,
-    STORE_BLOCK_RENDER
+    STORE_BLOCK_RENDER,
+    GET_TOPIC_DATA
 } from '../actions/types'
 import { EditorState, convertToRaw } from 'draft-js'
+import { Map } from 'immutable'
 
-const INITIAL_STATE = {
+const INITIAL_STATE = Map({
     description: '',
     editorState: convertToRaw(EditorState.createEmpty().getCurrentContent()),
     decorator: undefined,
     editorData: {},
-    blockRender: undefined
-}
+    blockRender: undefined,
+    allTopic: []
+})
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case CHANGE_DESCRIPTION:
-            return { ...state, description: action.payload }
+            return state.set('description', action.payload)
         case STORE_EDITOR_STATE:
-            return { ...state, editorState: action.payload }
+            return state.set('editorState', action.payload)
         case STORE_DECORATOR:
-            return { ...state, decorator: action.payload }
+            return state.set('decorator', action.payload)
         case SAVE_DATA_EDITOR:
-            return { ...state, editorData: action.payload }
+            return state.set('editorData', action.payload)
         case STORE_BLOCK_RENDER:
-            return { ...state, blockRender: action.payload }
+            return state.set('blockRender', action.payload)
+        case GET_TOPIC_DATA:
+            return state.set('allTopic', action.payload)
         default:
             return state
     }

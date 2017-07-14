@@ -3,6 +3,10 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import NavBar from '../components/NavBar'
 import SignInBox from '../components/SignInBox'
 import { Row, Col } from 'antd'
+<<<<<<< HEAD
+=======
+//import ParallaxComponent from 'react-parallax-component'
+>>>>>>> master
 
 class HomePage extends Component {
     render () {
