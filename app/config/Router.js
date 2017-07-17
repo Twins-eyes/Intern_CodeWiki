@@ -14,7 +14,7 @@ class Router extends Component{
     render() {
         if(localStorage.getItem('key')){
             this.props.checkUser()
-        }
+        } 
 
         return (
             <HashRouter>
