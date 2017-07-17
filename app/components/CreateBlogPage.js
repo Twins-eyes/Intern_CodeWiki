@@ -80,7 +80,7 @@ class CreateBlogPage extends Component {
                                                 const isLongTag = tag.length > 20;
                                                 const tagElem = (
                                                     <Tag key={index} 
-                                                        color={index != 0 ? 'orange' : '#FBBB69' }
+                                                        color={index != 0 ? '#ffd83f' : '#FBBB69' }
                                                         style={{marginRight:'10px', marginTop: 'l'}}
                                                         closable={index !== 0} 
                                                         afterClose={() => this.handleClose(tag)}>
