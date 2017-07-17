@@ -21,8 +21,6 @@ class SignInBox extends Component {
     }
 
     render (){
-        
-
         return(
             <ReactCSSTransitionGroup
                 transitionName='sgnBox'

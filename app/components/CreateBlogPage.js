@@ -43,11 +43,6 @@ class CreateBlogPage extends Component {
         if (inputValue && tags.indexOf(inputValue) === -1) {
         tags = [...tags, inputValue];
         }
-<<<<<<< HEAD
-        console.log(tags);
-=======
-
->>>>>>> master
         this.setState({
         tags,
         inputVisible: false,
@@ -63,86 +58,80 @@ class CreateBlogPage extends Component {
         return (
             <div>
                 <NavBar location={this.props.location} />
-                <div className={'editorBlock'} style={{background: '#f9f9f9'}}>
-                    <ReactCSSTransitionGroup
-                        transitionName="page"
-                        transitionAppear={true}
-                        transitionAppearTimeout={400}
-                        transitionEnter={false}
-                        transitionLeave={false}>
-                        <Row style={{padding: 20, marginTop:0}}>
-                            <Col span={22} offset={1}>
-                                <ReactCSSTransitionGroup
-                                    transitionName="editorPreview"
-                                    transitionEnterTimeout={500}
-                                    transitionLeaveTimeout={300}>
-                                    <Row style={{ background: '#f9f9f9', marginBottom:0}}>
-                                        <Col md={{span:11, offset:1}}>
-                                            <Input placeholder={'Enter Blog title...'} 
-                                                style={{ width: 400, height: 34, marginLeft: 0 }}
-                                                className={'editor'}
-                                                value={this.state.title}
-                                            />
-                                        </Col>
-                                    </Row>
-                                    <Tabs size={'small'}>
-                                        <Tabs.TabPane key={1} tab={<span><Icon type="edit" />Write</span>}>
-                                            <BlogEditor />
-                                        </Tabs.TabPane>
-                                        <Tabs.TabPane className={'editor'} key={2} tab={<span><Icon type="desktop" />Preview</span>}>
-                                            <BlogPreview editorRaw={this.props.editorState} />
-                                        </Tabs.TabPane>
-                                    </Tabs>
-                                    <Row style={{ background: '#f9f9f9', marginBottom:0}}>
-                                        <Col md={{span:24}} style={{marginLeft: 10}}>
-                                            { !this.state.tags.length?<Tag color={'#FBBB69'}>Sample tag</Tag>:''}
-                                            { tags.map((tag, index) => {
-                                                const isLongTag = tag.length > 20;
-                                                const tagElem = (
-                                                    <Tag key={index} 
-                                                        color={index != 0 ? '#ffd83f' : '#FBBB69' }
-                                                        style={{marginRight:'10px', marginTop: 'l'}}
-                                                        closable
-                                                        afterClose={() => this.handleClose(tag)}>
-                                                        #{ isLongTag ? `${tag.slice(0, 20)}...` : tag }
-                                                    </Tag>
-                                                )
-                                                return isLongTag ? <Tooltip key={index} title={ tag }>{tagElem}</Tooltip> : tagElem
-                                                })
-                                            }
-                                            { inputVisible && (
-                                                <Input
-                                                    ref={this.saveInputRef}
-                                                    type="text"
-                                                    size="small"
-                                                    style={inputStyle}
-                                                    value={inputValue}
-                                                    onChange={this.handleInputChange}
-                                                    onBlur={this.handleInputConfirm}
-                                                    onPressEnter={this.handleInputConfirm}
+                <div className={'cover'}>
+                    <div className={'editorBlock'}>
+                        <ReactCSSTransitionGroup
+                            transitionName="page"
+                            transitionAppear={true}
+                            transitionAppearTimeout={400}
+                            transitionEnter={false}
+                            transitionLeave={false}>
+                            <Row style={{padding: 20, marginTop:0}}>
+                                <Col span={22} offset={1}>
+                                    <ReactCSSTransitionGroup
+                                        transitionName="editorPreview"
+                                        transitionEnterTimeout={500}
+                                        transitionLeaveTimeout={300}>
+                                        <Row style={{marginBottom:0}}>
+                                            <Col md={{span:11, offset:1}}>
+                                                <Input placeholder={'Enter Blog title...'} 
+                                                    style={{ width: 400, height: 34, marginLeft: 0 }}
+                                                    className={'editor'}
+                                                    value={this.state.title}
                                                 />
-                                            )}
-                                            { !inputVisible && 
-                                                <Input 
-                                                    onFocus={this.showInput} 
-                                                    placeholder={'+ New Tag'}
-                                                    style={inputStyle}
-                                                /> 
-                                            }
-                                        </Col>
-                                    </Row>
-                                    <Tabs size={'small'}>
-                                        <Tabs.TabPane key={1} tab={<span><Icon type="edit" />Write</span>}>
-                                            <BlogEditor />
-                                        </Tabs.TabPane>
-                                        <Tabs.TabPane className={'editor'} key={2} tab={<span><Icon type="desktop" />Preview</span>}>
-                                            <BlogPreview />
-                                        </Tabs.TabPane>
-                                    </Tabs>
-                                </ReactCSSTransitionGroup>
-                            </Col>
-                        </Row>
-                    </ReactCSSTransitionGroup>
+                                            </Col>
+                                        </Row>
+                                        <Tabs size={'small'}>
+                                            <Tabs.TabPane key={1} tab={<span><Icon type="edit" />Write</span>}>
+                                                <BlogEditor />
+                                            </Tabs.TabPane>
+                                            <Tabs.TabPane className={'editor'} key={2} tab={<span><Icon type="desktop" />Preview</span>}>
+                                                <BlogPreview editorRaw={this.props.editorState} />
+                                            </Tabs.TabPane>
+                                        </Tabs>
+                                        <Row style={{ background: 'rgba(249,249,249,1)', marginBottom:0}}>
+                                            <Col md={{span:24}} style={{marginLeft: 10}}>
+                                                { !this.state.tags.length?<Tag color={'#FBBB69'}>Sample tag</Tag>:''}
+                                                { tags.map((tag, index) => {
+                                                    const isLongTag = tag.length > 20;
+                                                    const tagElem = (
+                                                        <Tag key={index} 
+                                                            color={index != 0 ? '#ffd83f' : '#FBBB69' }
+                                                            style={{marginRight:'10px', marginTop: 'l'}}
+                                                            closable
+                                                            afterClose={() => this.handleClose(tag)}>
+                                                            #{ isLongTag ? `${tag.slice(0, 20)}...` : tag }
+                                                        </Tag>
+                                                    )
+                                                    return isLongTag ? <Tooltip key={index} title={ tag }>{tagElem}</Tooltip> : tagElem
+                                                    })
+                                                }
+                                                { inputVisible && (
+                                                    <Input
+                                                        ref={this.saveInputRef}
+                                                        type="text"
+                                                        size="small"
+                                                        style={inputStyle}
+                                                        value={inputValue}
+                                                        onChange={this.handleInputChange}
+                                                        onBlur={this.handleInputConfirm}
+                                                        onPressEnter={this.handleInputConfirm}
+                                                    />
+                                                )}
+                                                { !inputVisible && 
+                                                    <Input 
+                                                        onFocus={this.showInput} 
+                                                        placeholder={'+ New Tag'}
+                                                        style={inputStyle}
+                                                    /> 
+                                                }
+                                            </Col>
+                                        </Row>
+                                    </ReactCSSTransitionGroup>
+                                </Col>
+                            </Row>
+                        </ReactCSSTransitionGroup>
+                    </div>
                 </div>
             </div>
         )

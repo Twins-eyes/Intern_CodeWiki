@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row, Col } from 'antd'
+import { Row, Col, Input } from 'antd'
 import NavBar from '../components/NavBar'
 import List from '../components/List'
 import { MdKeyboardArrowDown } from 'react-icons/lib/md'
@@ -19,12 +19,12 @@ class TopicList extends Component {
                 <NavBar location={this.props.location} />
                 <Row>
                     <Col xs={{span:20, offset:4}} md={{span:21, offset:2}}> 
-                        <input 
+                        <Input 
                             type='text'
                             className={'search'}
                             placeholder='search'
+                            style={{width: 250, height: 34}}
                             autoFocus
-                            onChange={this.topicsFilter}
                         />
                     </Col>
                 </Row>
