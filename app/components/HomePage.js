@@ -4,7 +4,7 @@ import NavBar from '../components/NavBar'
 import SignInBox from '../components/SignInBox'
 import { Row, Col } from 'antd'
 import { connect } from 'react-redux'
-//import ParallaxComponent from 'react-parallax-component'
+
 
 class HomePage extends Component {
     render () {
@@ -14,7 +14,7 @@ class HomePage extends Component {
                 <NavBar location={this.props.location} />
                 <Row>
                     <Col xs={{span:20, offset:4}} sm={{span:8, offset:2}} md={{span:10, offset:2}}>
-                        <div className={'syno'} style={{height: 1000}}>
+                        <div className={'syno'}>
                             <ReactCSSTransitionGroup
                                 transitionName='synopsis'
                                 transitionAppear={true}
@@ -44,13 +44,6 @@ class HomePage extends Component {
                         </Col>
                     }
                 </Row>
-                {/* <ParallaxComponent
-                    speed={-0.5}
-                    top="40%"
-                    left={(1) * 80}                        
-                >
-                    <img src='../img/bg_layer4_3.png'/>
-                </ParallaxComponent> */}
             </div>
         )
     }

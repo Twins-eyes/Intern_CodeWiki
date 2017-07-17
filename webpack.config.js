@@ -5,6 +5,12 @@ var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
   inject: 'body'
 });
 
+const path = require('path');
+const fs  = require('fs');
+
+const lessToJs = require('less-vars-to-js');
+const themeVariables = lessToJs(fs.readFileSync(path.join(__dirname, './ant-default-vars.less'), 'utf8'));
+
 module.exports = {
   entry: [
     'babel-polyfill',
@@ -12,7 +18,28 @@ module.exports = {
   ],
   module: {
     loaders: [
-        { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
+        { 
+          test: /\.js$/, 
+          exclude: /node_modules/, 
+          loader: "babel-loader",
+          options: {
+            plugins: [
+              ['import', { libraryName: "antd", style: true }]
+            ]
+          }
+        },
+        {
+          test: /\.less$/,
+          use: [
+            {loader: "style-loader"},
+            {loader: "css-loader"},
+            {loader: "less-loader",
+              options: {
+                modifyVars: themeVariables
+              }
+            }
+          ]
+        },
         { test: /\.css$/, loader: "style-loader!css-loader" },
         { test: /\.scss$/, loader: "style-loader!css-loader!sass-loader"},
         {
@@ -34,7 +61,8 @@ module.exports = {
                 speed: 3,
               },
             },
-          }],
+          }
+        ],
           exclude: /node_modules/,
           include: __dirname,
         },

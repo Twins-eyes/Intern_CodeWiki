@@ -12,7 +12,7 @@ class CreateBlogPage extends Component {
         super(props)
         this.state = {
             title: '',
-            tags: [],
+            tags: ['sample tag'],
             inputValue: '',
             inputVisible: false
         }
@@ -32,17 +32,17 @@ class CreateBlogPage extends Component {
     }
 
     handleInputConfirm = () => {
-        const state = this.state
-        const inputValue = state.inputValue
-        let tags = state.tags
+        const state = this.state;
+        const inputValue = state.inputValue;
+        let tags = state.tags;
         if (inputValue && tags.indexOf(inputValue) === -1) {
-            tags = [...tags, inputValue]
+        tags = [...tags, inputValue];
         }
 
         this.setState({
-            tags,
-            inputVisible: false,
-            inputValue: '',
+        tags,
+        inputVisible: false,
+        inputValue: '',
         })
     }
 
@@ -68,13 +68,12 @@ class CreateBlogPage extends Component {
                                     transitionEnterTimeout={500}
                                     transitionLeaveTimeout={300}>
                                     <Row style={{ background: '#f9f9f9', marginBottom:0}}>
-                                        <Col md={{span:24}}>
+                                        <Col md={{span:11, offset:1}}>
                                             <Input placeholder={'Enter Blog title...'} 
                                                 style={{ width: 400, height: 34, marginLeft: 0 }}
                                                 className={'editor'}
                                                 required="required" 
                                                 value={this.state.title}
-                                                onChange={e => this.setState({ title: e.target.value })}
                                             />
                                         </Col>
                                     </Row>
