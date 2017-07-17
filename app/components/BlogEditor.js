@@ -151,12 +151,13 @@ class BlogEditor extends Component {
 
     _onClickBlogType = event => this.onChange(RichUtils.toggleBlockType(this.state.editorState, event))
 
-    saveEditorData = () => this.props.saveDataFromEditor(JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent())))
+    saveEditorData = () => this.props.saveDataFromEditor(JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent())), this.props.title, this.props.tags)
 
     render() {
         let editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editorState), this.state.decorator)
         const { showDesInput, editorState, desValue, isActive } = this.state
         const BlogType = editorState.getCurrentContent().getBlockForKey(editorState.getSelection().getStartKey()).getType()
+        
         return (
             <div className={'root'}>
                 <Affix>
@@ -227,6 +228,7 @@ class BlogEditor extends Component {
                         </Modal>
                     </Col>
                 </Row>
+                {this.props.children}
                 <Button type={'primary'} icon={'check'} onClick={this.saveEditorData}>
                     Save
                 </Button>

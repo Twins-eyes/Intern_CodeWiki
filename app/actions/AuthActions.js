@@ -1,26 +1,30 @@
 import axios from 'axios'
-import { POST_SIGNIN, POST_SIGNUP } from '../api'
-import { GET_USER_DATE } from './types'
+import { POST_SIGNIN, POST_SIGNUP, GET_USER_DATA_API } from '../api'
+import { GET_USER_DATA } from './types'
 
 export const signIn = (username, password) => {
-    return function(dispatch) {
+    return dispatch => {
         return axios.post(POST_SIGNIN, {
             "username": username,
             "password": password
         }).then(response => {
             localStorage.setItem('key', response.data.token)
-            // return {
-            //     type: SAVE_DATA_EDITOR,
-            //     payload: data
-            // }
+            dispatch(saveUserData(response.data.user))
         }).catch(err => {
             console.log(err)
         })
     }
 }
 
+export const saveUserData = user => {
+    return {
+        type: GET_USER_DATA,
+        payload: user
+    }
+}
+
 export const signUp = (username, email, password) => {
-    return function(dispatch) {
+    return dispatch => {
         return axios.post(POST_SIGNUP, {
             'username': username,
             'email': email,
@@ -33,9 +37,12 @@ export const signUp = (username, email, password) => {
     }
 }
 
-export const text = () => {
-    return {
-        type: GET_USER_DATE,
-        payload: 12
+export const checkUser = () => {
+    return dispatch => {
+        return axios.post(GET_USER_DATA_API, null, {
+            headers: { "Authorization": localStorage.getItem('key') }
+        }).then(response => {
+            dispatch(saveUserData(response.data.user))
+        })
     }
 }

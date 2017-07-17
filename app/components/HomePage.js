@@ -3,6 +3,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import NavBar from '../components/NavBar'
 import SignInBox from '../components/SignInBox'
 import { Row, Col } from 'antd'
+import { connect } from 'react-redux'
 //import ParallaxComponent from 'react-parallax-component'
 
 class HomePage extends Component {
@@ -37,9 +38,11 @@ class HomePage extends Component {
                             </ReactCSSTransitionGroup>
                         </div>
                     </Col>
-                    <Col xs={{span:20, offset:4}} sm={{span:12, offset:2}} md={{span:10, offset:2}}>
-                        <br/><SignInBox/>
-                    </Col>
+                    {localStorage.getItem('key')?'':
+                        <Col xs={{span:20, offset:4}} sm={{span:12, offset:2}} md={{span:10, offset:2}}>
+                            <br/><SignInBox/>
+                        </Col>
+                    }
                 </Row>
                 {/* <ParallaxComponent
                     speed={-0.5}
@@ -53,4 +56,9 @@ class HomePage extends Component {
     }
 }
 
-export default HomePage
+const mapStateToProps = state => {
+    console.log(state.auth)
+    return {}
+}
+
+export default connect(mapStateToProps)(HomePage)

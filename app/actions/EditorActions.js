@@ -22,13 +22,15 @@ export const storeEditorState = editorState => {
     }
 }
 
-export const saveDataFromEditor = editorSate => {
+export const saveDataFromEditor = (editorSate, title, tags) => {
     return function(dispatch) {
         return axios.post(POST_DATA_EDITOR, {
             'editorRaw': editorSate,
-            'title': 'sun',
+            'title': title,
             'ownerId': 'sun',
-            'tags': ['abc','cba','java','javascript','hello','world']
+            'tags': tags
+        }, {
+            headers: { "Authorization": localStorage.getItem('key') }
         }).then(response => {
             console.log(response.data)
             // return {

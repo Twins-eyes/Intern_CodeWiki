@@ -18,13 +18,8 @@ class CreateBlogPage extends Component {
         }
     }
 
-    componentWillUnmount = () => {
-        console.log('un')
-    }
-
     handleClose = (removedTag) => {
         const tags = this.state.tags.filter(tag => tag !== removedTag)
-        console.log(tags);
         this.setState({ tags })
     }
 
@@ -54,7 +49,7 @@ class CreateBlogPage extends Component {
     saveInputRef = input => this.input = input
 
     render() {
-        const { tags, inputValue, inputVisible } = this.state 
+        const { tags, inputValue, inputVisible, title } = this.state 
     
         return (
             <div>
@@ -77,6 +72,7 @@ class CreateBlogPage extends Component {
                                             <Input placeholder={'Enter Blog title...'} 
                                                 style={{ width: 400, height: 34, marginLeft: 0 }}
                                                 className={'editor'}
+                                                required="required" 
                                                 value={this.state.title}
                                                 onChange={e => this.setState({ title: e.target.value })}
                                             />
@@ -84,50 +80,51 @@ class CreateBlogPage extends Component {
                                     </Row>
                                     <Tabs size={'small'}>
                                         <Tabs.TabPane key={1} tab={<span><Icon type="edit" />Write</span>}>
-                                            <BlogEditor />
+                                            <BlogEditor title={title} tags={tags}>
+                                                <Row style={{ background: '#f9f9f9', marginBottom:0}}>
+                                                    <Col md={{span:24}}>
+                                                        { !this.state.tags.length?<Tag color={'#FBBB69'}>Sample tag</Tag>:''}
+                                                        { tags.map((tag, index) => {
+                                                            const isLongTag = tag.length > 20;
+                                                            const tagElem = (
+                                                                <Tag key={index} 
+                                                                    color={'orange'}
+                                                                    style={{marginRight:'10px', marginTop: 'l'}}
+                                                                    closable
+                                                                    afterClose={() => this.handleClose(tag)}>
+                                                                    #{ isLongTag ? `${tag.slice(0, 20)}...` : tag }
+                                                                </Tag>
+                                                            )
+                                                            return isLongTag ? <Tooltip key={index} title={ tag }>{tagElem}</Tooltip> : tagElem
+                                                            })
+                                                        }
+                                                        { inputVisible && (
+                                                            <Input
+                                                                ref={this.saveInputRef}
+                                                                type="text"
+                                                                size="small"
+                                                                style={inputStyle}
+                                                                value={inputValue}
+                                                                onChange={this.handleInputChange}
+                                                                onBlur={this.handleInputConfirm}
+                                                                onPressEnter={this.handleInputConfirm}
+                                                            />
+                                                        )}
+                                                        { !inputVisible && 
+                                                            <Input 
+                                                                onFocus={this.showInput} 
+                                                                placeholder={'+ New Tag'}
+                                                                style={inputStyle}
+                                                            /> 
+                                                        }
+                                                    </Col>
+                                                </Row>
+                                            </BlogEditor>
                                         </Tabs.TabPane>
                                         <Tabs.TabPane className={'editor'} key={2} tab={<span><Icon type="desktop" />Preview</span>}>
                                             <BlogPreview editorRaw={this.props.editorState} />
                                         </Tabs.TabPane>
                                     </Tabs>
-                                    <Row style={{ background: '#f9f9f9', marginBottom:0}}>
-                                        <Col md={{span:24}} style={{marginLeft: 10}}>
-                                            { !this.state.tags.length?<Tag color={'#FBBB69'}>Sample tag</Tag>:''}
-                                            { tags.map((tag, index) => {
-                                                const isLongTag = tag.length > 20;
-                                                const tagElem = (
-                                                    <Tag key={index} 
-                                                        color={'orange'}
-                                                        style={{marginRight:'10px', marginTop: 'l'}}
-                                                        closable
-                                                        afterClose={() => this.handleClose(tag)}>
-                                                        #{ isLongTag ? `${tag.slice(0, 20)}...` : tag }
-                                                    </Tag>
-                                                )
-                                                return isLongTag ? <Tooltip key={index} title={ tag }>{tagElem}</Tooltip> : tagElem
-                                                })
-                                            }
-                                            { inputVisible && (
-                                                <Input
-                                                    ref={this.saveInputRef}
-                                                    type="text"
-                                                    size="small"
-                                                    style={inputStyle}
-                                                    value={inputValue}
-                                                    onChange={this.handleInputChange}
-                                                    onBlur={this.handleInputConfirm}
-                                                    onPressEnter={this.handleInputConfirm}
-                                                />
-                                            )}
-                                            { !inputVisible && 
-                                                <Input 
-                                                    onFocus={this.showInput} 
-                                                    placeholder={'+ New Tag'}
-                                                    style={inputStyle}
-                                                /> 
-                                            }
-                                        </Col>
-                                    </Row>
                                 </ReactCSSTransitionGroup>
                             </Col>
                         </Row>
