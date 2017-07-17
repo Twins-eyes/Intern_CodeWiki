@@ -46,3 +46,7 @@ export const checkUser = () => {
         })
     }
 }
+
+export const signOut = () => {
+    
+}
