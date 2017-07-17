@@ -23,8 +23,10 @@ class List extends Component {
                                 <h2>{ topicName }</h2>
                             </Link>
                         </Col>
-                        <Col md={{span:4, push:4}}>
-                            <span style={{color: '#8F8E7C'}}>{ date }</span>
+                        <Col md={2}>
+                            <span style={{color: '#8F8E7C'}}>{ date } </span>
+                        </Col>
+                        <Col md={2}>
                             <Link to={'/author'} className={'topicDetail'}>{ author }</Link>
                         </Col>
                     </Row>

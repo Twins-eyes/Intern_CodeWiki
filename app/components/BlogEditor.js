@@ -165,7 +165,7 @@ class BlogEditor extends Component {
                             { blockTypeText.map((data, index) => <Button key={index} type={BlogType===data.value?'primary':''}  onClick={() => this._onClickBlogType(data.value)}>{data.text}</Button>) }
                         </Button.Group>
 
-                        <Button.Group style={{marginRight: 10, marginBottom: 10}}>
+                        <Button.Group style={{marginRight: 10, marginBottom: 10, color: '#ffd83f'}}>
                             { changeInlineElement.map((data, index) => <Button key={index} type={editorState.getCurrentInlineStyle().has(data.value)?'primary':''} onClick={() => this._onClickInlineStyle(data.value)}>{data.icon}</Button>) }
                         </Button.Group>
 

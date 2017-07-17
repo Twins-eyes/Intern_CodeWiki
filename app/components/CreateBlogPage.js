@@ -12,7 +12,7 @@ class CreateBlogPage extends Component {
         super(props)
         this.state = {
             title: '',
-            tags: [],
+            tags: ['sample tag'],
             inputValue: '',
             inputVisible: false
         }
@@ -37,17 +37,21 @@ class CreateBlogPage extends Component {
     }
 
     handleInputConfirm = () => {
-        const state = this.state
-        const inputValue = state.inputValue
-        let tags = state.tags
+        const state = this.state;
+        const inputValue = state.inputValue;
+        let tags = state.tags;
         if (inputValue && tags.indexOf(inputValue) === -1) {
-            tags = [...tags, inputValue]
+        tags = [...tags, inputValue];
         }
+<<<<<<< HEAD
+        console.log(tags);
+=======
 
+>>>>>>> master
         this.setState({
-            tags,
-            inputVisible: false,
-            inputValue: '',
+        tags,
+        inputVisible: false,
+        inputValue: '',
         })
     }
 
@@ -73,12 +77,11 @@ class CreateBlogPage extends Component {
                                     transitionEnterTimeout={500}
                                     transitionLeaveTimeout={300}>
                                     <Row style={{ background: '#f9f9f9', marginBottom:0}}>
-                                        <Col md={{span:24}}>
+                                        <Col md={{span:11, offset:1}}>
                                             <Input placeholder={'Enter Blog title...'} 
                                                 style={{ width: 400, height: 34, marginLeft: 0 }}
                                                 className={'editor'}
                                                 value={this.state.title}
-                                                onChange={e => this.setState({ title: e.target.value })}
                                             />
                                         </Col>
                                     </Row>
@@ -97,7 +100,7 @@ class CreateBlogPage extends Component {
                                                 const isLongTag = tag.length > 20;
                                                 const tagElem = (
                                                     <Tag key={index} 
-                                                        color={'orange'}
+                                                        color={index != 0 ? '#ffd83f' : '#FBBB69' }
                                                         style={{marginRight:'10px', marginTop: 'l'}}
                                                         closable
                                                         afterClose={() => this.handleClose(tag)}>
@@ -128,6 +131,14 @@ class CreateBlogPage extends Component {
                                             }
                                         </Col>
                                     </Row>
+                                    <Tabs size={'small'}>
+                                        <Tabs.TabPane key={1} tab={<span><Icon type="edit" />Write</span>}>
+                                            <BlogEditor />
+                                        </Tabs.TabPane>
+                                        <Tabs.TabPane className={'editor'} key={2} tab={<span><Icon type="desktop" />Preview</span>}>
+                                            <BlogPreview />
+                                        </Tabs.TabPane>
+                                    </Tabs>
                                 </ReactCSSTransitionGroup>
                             </Col>
                         </Row>
