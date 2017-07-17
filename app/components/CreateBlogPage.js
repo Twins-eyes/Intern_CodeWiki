@@ -73,9 +73,9 @@ class CreateBlogPage extends Component {
                                         transitionEnterTimeout={500}
                                         transitionLeaveTimeout={300}>
                                         <Row style={{marginBottom:0}}>
-                                            <Col md={{span:11, offset:1}}>
+                                            <Col md={{span:11, offset:1}} style={{marginLeft: 4}}>
                                                 <Input placeholder={'Enter Blog title...'} 
-                                                    style={{ width: 400, height: 34, marginLeft: 0 }}
+                                                    style={{ width: 400, height: 34, marginLeft: 0}}
                                                     className={'editor'}
                                                     value={this.state.title}
                                                 />
