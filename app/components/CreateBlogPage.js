@@ -18,6 +18,10 @@ class CreateBlogPage extends Component {
         }
     }
 
+    componentWillUnmount = () => {
+        console.log('un')
+    }
+
     handleClose = (removedTag) => {
         const tags = this.state.tags.filter(tag => tag !== removedTag)
         console.log(tags);
@@ -39,7 +43,11 @@ class CreateBlogPage extends Component {
         if (inputValue && tags.indexOf(inputValue) === -1) {
         tags = [...tags, inputValue];
         }
+<<<<<<< HEAD
         console.log(tags);
+=======
+
+>>>>>>> master
         this.setState({
         tags,
         inputVisible: false,
@@ -51,6 +59,7 @@ class CreateBlogPage extends Component {
 
     render() {
         const { tags, inputValue, inputVisible } = this.state 
+    
         return (
             <div>
                 <NavBar location={this.props.location} />
@@ -75,14 +84,25 @@ class CreateBlogPage extends Component {
                                                 value={this.state.title}
                                             />
                                         </Col>
-                                        <Col md={{span:11, offset:1}}>
+                                    </Row>
+                                    <Tabs size={'small'}>
+                                        <Tabs.TabPane key={1} tab={<span><Icon type="edit" />Write</span>}>
+                                            <BlogEditor />
+                                        </Tabs.TabPane>
+                                        <Tabs.TabPane className={'editor'} key={2} tab={<span><Icon type="desktop" />Preview</span>}>
+                                            <BlogPreview editorRaw={this.props.editorState} />
+                                        </Tabs.TabPane>
+                                    </Tabs>
+                                    <Row style={{ background: '#f9f9f9', marginBottom:0}}>
+                                        <Col md={{span:24}} style={{marginLeft: 10}}>
+                                            { !this.state.tags.length?<Tag color={'#FBBB69'}>Sample tag</Tag>:''}
                                             { tags.map((tag, index) => {
                                                 const isLongTag = tag.length > 20;
                                                 const tagElem = (
                                                     <Tag key={index} 
                                                         color={index != 0 ? '#ffd83f' : '#FBBB69' }
                                                         style={{marginRight:'10px', marginTop: 'l'}}
-                                                        closable={index !== 0} 
+                                                        closable
                                                         afterClose={() => this.handleClose(tag)}>
                                                         #{ isLongTag ? `${tag.slice(0, 20)}...` : tag }
                                                     </Tag>
@@ -144,4 +164,8 @@ const page = {
     preview: 'preview'
 }
 
-export default CreateBlogPage
+const mapStateToProps = state => {
+    return { editorState: state.editor.get('editorState') }
+}
+
+export default connect(mapStateToProps)(CreateBlogPage)

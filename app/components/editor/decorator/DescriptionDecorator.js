@@ -1,7 +1,7 @@
 import React from 'react'
 import { Tooltip } from 'antd'
 
-const Description = (props) => {
+const Description = props => {
     return (
         <code className={'description'} >
             {props.children}
@@ -24,22 +24,34 @@ const findEntities = entity => {
     }
 }
 
-const SubDescription = (props, changeDesFunction) => {
+const SubDescription = props => {
     const { subDescription } = props.contentState.getEntity(props.entityKey).getData()
 
     return (
         <Tooltip placement="topLeft" title={subDescription}>
-            <span className={'sub-description'} onMouseOver={() => changeDesFunction(subDescription)} onMouseOut={() => changeDesFunction('')} style={{backgroundColor: '#ddd', borderRadius: 1.75, padding: 2}}>
+            <span className={'sub-description'} style={{backgroundColor: '#ddd', borderRadius: 1.75, padding: 2}}>
                 {props.children}
             </span>
         </Tooltip>
     )
 }
 
+const decorators = [
+    {
+        strategy: findEntities('DESCRIPTION'),
+        component: Description,
+    },
+    {
+        strategy: findEntities('SUB_DESCRIPTION'),
+        component: SubDescription,
+    }
+]
+
 module.exports = {
     Description,
     SubDescription,
-    findEntities
+    findEntities,
+    decorators
 }
 
 

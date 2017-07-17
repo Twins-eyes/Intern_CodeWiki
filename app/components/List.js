@@ -2,21 +2,12 @@ import React, { Component } from 'react'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { Row, Col, Tag } from 'antd'
 import { Link } from 'react-router-dom'
+import { TagList } from './Tag'
 
 class List extends Component {
-    tagsList(tags){
-        const tagList = tags.map((tag, index) => 
-            <Link to={'/tag'} key={index}>
-                <Tag key={index} color='#FBBB69' style={{marginRight: 5, marginTop: 5}}>
-                    #{tag}
-                </Tag>
-            </Link>
-        )
-        return tagList
-    }
-    
     render(){
-        const { topicName, tags, author, date } = this.props
+        const { topicName, language, tags, author, date, topicId } = this.props
+
         return(
             <div className={'tpList'}>
                 <ReactCSSTransitionGroup
@@ -27,8 +18,8 @@ class List extends Component {
                     transitionLeaveTimeout={500}
                 >
                     <Row type='flex'>
-                        <Col md={20}>
-                        <   Link to={'/detail'} className={'topicDetail'}>
+                        <Col md={16}>
+                            <Link to={`/detail/${topicId}`} className={'topicDetail'}>
                                 <h2>{ topicName }</h2>
                             </Link>
                         </Col>
@@ -40,8 +31,8 @@ class List extends Component {
                         </Col>
                     </Row>
                     <Row type='flex'>
-                        <Col md={{span:24}}>
-                            {this.tagsList(tags)}
+                        <Col md={{span:22, offset: 1}}>
+                            { tags.map((tag, index) => <TagList tag={tag} key={index} />) }
                         </Col>
                     </Row>
                 </ReactCSSTransitionGroup>

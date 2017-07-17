@@ -299,11 +299,23 @@ span {
     float: right;
 }
 
-html { 
-  background: white; 
-  width: 100%;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+:local(.styles) {
+  position: relative;
+
+  span.letter {
+    font-size: 60px;
+    font-weight: 600;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    width: 80px;
+    display: inline-block;
+  }
+}
+
+.spinLoader {
+  text-align: center;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  padding: 30px 50px;
+  margin: 20px 0;
 }
