@@ -3,6 +3,8 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import NavBar from '../components/NavBar'
 import SignInBox from '../components/SignInBox'
 import { Row, Col } from 'antd'
+import { connect } from 'react-redux'
+
 
 class HomePage extends Component {
     render () {
@@ -36,13 +38,20 @@ class HomePage extends Component {
                             </ReactCSSTransitionGroup>
                         </div>
                     </Col>
-                    <Col xs={{span:20, offset:4}} sm={{span:12, offset:2}} md={{span:10, offset:2}}>
-                        <br/><SignInBox/>
-                    </Col>
+                    {localStorage.getItem('key')?'':
+                        <Col xs={{span:20, offset:4}} sm={{span:12, offset:2}} md={{span:10, offset:2}}>
+                            <br/><SignInBox/>
+                        </Col>
+                    }
                 </Row>
             </div>
         )
     }
 }
 
-export default HomePage
+const mapStateToProps = state => {
+    console.log(state.auth)
+    return {}
+}
+
+export default connect(mapStateToProps)(HomePage)

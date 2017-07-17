@@ -3,6 +3,7 @@ import { Row, Col } from 'antd'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { connect } from 'react-redux' 
 import { signIn } from '../actions'
+import { Redirect } from 'react-router-dom'
 
 class SignInBox extends Component {
     constructor(props) {
@@ -10,17 +11,29 @@ class SignInBox extends Component {
 
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            redirectToReferrer: false
         }
     }
 
     onSignIn = e => {
         e.preventDefault()
         const { username, password } = this.state
-        this.props.signIn(username, password)
+        this.props.signIn(username, password).then(() => {
+            this.setState({ redirectToReferrer: true })
+        })
     }
 
-    render (){
+    render() {
+        const { from } = this.props.location.state || { from: { pathname: '/' } }
+        const { redirectToReferrer } = this.state
+
+        if (redirectToReferrer) {
+            return (
+                <Redirect to={from}/>
+            )
+        }
+
         return(
             <ReactCSSTransitionGroup
                 transitionName='sgnBox'

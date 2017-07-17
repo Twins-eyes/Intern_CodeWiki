@@ -24,7 +24,7 @@ class List extends Component {
                             </Link>
                         </Col>
                         <Col md={2}>
-                            <span style={{color: '#8F8E7C'}}>{ date } </span>
+                            <span style={{color: '#8F8E7C'}}>{ new Date(date).toDateString() } </span>
                         </Col>
                         <Col md={2}>
                             <Link to={'/author'} className={'topicDetail'}>{ author }</Link>
