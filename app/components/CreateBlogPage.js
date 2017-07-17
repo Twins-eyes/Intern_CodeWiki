@@ -38,7 +38,6 @@ class CreateBlogPage extends Component {
         if (inputValue && tags.indexOf(inputValue) === -1) {
         tags = [...tags, inputValue];
         }
-
         this.setState({
         tags,
         inputVisible: false,

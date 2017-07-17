@@ -64,7 +64,7 @@ class SignUpPage extends Component {
                         <form className={'form'}>
                             <Row>
                                 <Col md={12}>
-                                    <span>Email Address</span><br/>   
+                                    <span style={{paddingLeft:0}}>Email Address</span><br/>   
                                     <input type='email'
                                         className={'formInput'}
                                         name='email'
@@ -75,7 +75,7 @@ class SignUpPage extends Component {
                                     />
                                 </Col>
                                 <Col md={12}>
-                                    <span>Username</span><br/>   
+                                    <span style={{paddingLeft:0}}>Username</span><br/>   
                                     <input type='text'
                                         className={ 'formInput' }
                                         name='username'
@@ -89,7 +89,7 @@ class SignUpPage extends Component {
                             </Row>  
                             <Row>
                                 <Col md={12}>
-                                    <span>Password</span><br/>   
+                                    <span style={{paddingLeft:0}}>Password</span><br/>   
                                     <input type='password'
                                         className={'formInput'}
                                         name='password'
@@ -99,7 +99,7 @@ class SignUpPage extends Component {
                                     />
                                 </Col>
                                 <Col md={12}>
-                                    <span>Confirm Password</span><br/>   
+                                    <span style={{paddingLeft:0}}>Confirm Password</span><br/>   
                                     <input type='password'
                                         className={'formInput'}
                                         name='confirmPassword'

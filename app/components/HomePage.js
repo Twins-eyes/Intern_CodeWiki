@@ -27,11 +27,11 @@ class HomePage extends Component {
                                     code and explanation with other people
                                     in the different ways from the traditional site.<br/><br/>
                                 </span>
-                                <p><span>CodeWiki</span>allow you to correspond between code
+                                <p><span>CodeWiki</span> allow you to correspond between code
                                     and explanation within one screen, helping developers
                                     to easily write the explanation when sharing with other people.<br/> 
                                     <br/>
-                                    <span>CodeWiki</span>not only provides the open space 
+                                    <span>CodeWiki</span> not only provides the open space 
                                     to share your codes but also finds others' code to get more 
                                     understanding in coding ways.
                                 </p>
