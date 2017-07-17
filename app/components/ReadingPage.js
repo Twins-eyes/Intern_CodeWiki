@@ -42,7 +42,9 @@ class ReadingPage extends Component {
                             </Col>
                             <Col md={12}>
                                 <span className={'author'}>{ ownerId }</span>
-                                <span className={'author'}>{ createdAt }</span>
+                                <span className={'author'}>
+                                    {new Date(createdAt).toDateString()}
+                                </span>
                             </Col>
                         </Row>
                         <br/><hr/>
