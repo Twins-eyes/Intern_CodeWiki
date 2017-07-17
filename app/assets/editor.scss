@@ -192,6 +192,11 @@
         color:#8F8E7C;
     }
 }
+.sip {
+    span {
+        padding-left: 0px;
+    }
+}
 .signinBox {
     @extend .box;
     margin-top: 50px;
@@ -240,7 +245,7 @@
     font-size: 14px;
     border-radius: 8px;
     &:hover {
-        background-color:#8F8E7C;
+        background-color:#FBBB69;
         -webkit-transition-duration: 0.4s; /* Safari */
         transition-duration: 0.4s;
     }
