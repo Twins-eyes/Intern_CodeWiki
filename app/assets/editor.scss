@@ -60,11 +60,6 @@
     padding: 3px;
 }
 
-.button {
-    margin-top: 10px;
-    text-align: 'center'
-}
-
 .description {
     margin-bottom: 3px;
     border-radius: 3px;
@@ -149,7 +144,7 @@
   opacity: 0.01;
 }
 .synopsis-appear.synopsis-appear-active {
-  opacity: 1;
+  opacity: 0.9;
   transition: opacity 500ms ease-in;
 }
 .sgnBox-appear {
@@ -160,20 +155,22 @@
   transition: opacity 700ms ease-in;
 }
 .syno {
+    align-items: right;
     font-size: 14px;
-    float: left;
-    margin-top: 20px;
+    margin-top: 50px;
+    margin-left: 0px;
     padding-right: 50px;
-    p {
-        color:#8F8E7C;
+    color: white;
+    h1 {
+        color: #F18F01;
     }
-    span {
-        color: #ffd83f; 
+    h3 {
+        color: #F18F01;
     }
 }
 
 .h1 {
-    color: #ffd83f;
+    color: white;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 72px;
     margin-bottom: 0;
@@ -235,7 +232,7 @@
 }
 .button {
     margin: 20px 0px 20px 0px;
-    background-color: #F18F01;
+    background-color:#FF893A;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -245,7 +242,7 @@
     font-size: 14px;
     border-radius: 8px;
     &:hover {
-        background-color:#FBBB69;
+    background-color: #F18F01;
         -webkit-transition-duration: 0.4s; /* Safari */
         transition-duration: 0.4s;
     }
@@ -284,7 +281,6 @@ span {
 .detail {
     margin: 20px 5% 10px 5%;
     width: 90%;
-    // border: 1px solid #ddd;
     border-radius: 5px;
     -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -311,7 +307,7 @@ span {
 :local(.styles) {
   position: relative;
 
-  span.letter {
+span.letter {
     font-size: 60px;
     font-weight: 600;
     font-family: 'Open Sans', sans-serif;
@@ -327,4 +323,25 @@ span {
   margin-bottom: 20px;
   padding: 30px 50px;
   margin: 20px 0;
+}
+
+.homebg {
+    position: fixed; 
+    opacity: 0.9;
+    top: 0; 
+    left: 0; 
+    z-index: -1;
+        
+    /* Preserve aspet ratio */
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.toListButt {
+    @extend .button;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    background-color: transparent;
+    border: #F18F01 2px solid;
 }

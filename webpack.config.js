@@ -43,7 +43,7 @@ module.exports = {
         { test: /\.css$/, loader: "style-loader!css-loader" },
         { test: /\.scss$/, loader: "style-loader!css-loader!sass-loader"},
         {
-          test: /\.(jpe?g|png|gif|svg)$/i,
+          test: /\.(jpe?g|png|gif|svg|jpg)$/i,
           loaders: ['file-loader?context=src/images&name=images/[path][name].[ext]', {
             loader: 'image-webpack-loader',
             query: {
