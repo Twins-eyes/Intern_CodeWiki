@@ -17,15 +17,9 @@ class TopicList extends Component {
         return(
             <div>
                 <NavBar location={this.props.location} />
-                <Row>
+                <Row style={{marginTop: 40}}>
                     <Col xs={{span:20, offset:4}} md={{span:21, offset:2}}> 
-                        <Input 
-                            type='text'
-                            className={'search'}
-                            placeholder='search'
-                            style={{width: 250, height: 34}}
-                            autoFocus
-                        />
+                        <span>Topic</span>
                     </Col>
                 </Row>
                 <div style={{marginTop:'20px', opacity:'0.98'}}>

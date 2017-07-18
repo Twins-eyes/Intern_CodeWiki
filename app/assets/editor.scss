@@ -345,3 +345,7 @@ span.letter {
     background-color: transparent;
     border: #F18F01 2px solid;
 }
+
+.nav-input::-webkit-input-placeholder {
+    color: white;
+}
