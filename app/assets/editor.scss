@@ -255,12 +255,12 @@ span {
 }
 
 .tpList {
-    background: #f9f9f9;
     margin-bottom: 0px;
-    border: 1px solid white;
+    border-bottom: 1px solid #F18F01;
     padding: 20px;
     margin-left: 5%;
     width: 90%;
+    min-height: 75px;
 }
 .topicDetail {
     color: #8F8E7C;
@@ -368,3 +368,6 @@ span.letter {
     }
 }
 
+.nav-input::-webkit-input-placeholder {
+    color: white;
+}
