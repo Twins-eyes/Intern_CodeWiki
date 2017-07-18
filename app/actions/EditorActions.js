@@ -6,7 +6,7 @@ import {
     GET_TOPIC_DATA,
     EDITOR_DATA_BY_ID
 } from './types'
-import { POST_DATA_EDITOR, GET_ALL_TOPIC, GET_EDITOR_DATA } from '../api'
+import { POST_DATA_EDITOR, GET_ALL_TOPIC, GET_EDITOR_DATA, SEARCH_TOPIC } from '../api'
 
 export const changeDescription = description => {
     return {
@@ -71,6 +71,16 @@ export const getEditorById = data => dispatch => {
         '_id': data.id
     }).then(response => {
         dispatch(detailDisplayById(response.data.editor))
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const searchTopic = search => dispatch => {
+    return axios.post(SEARCH_TOPIC, {
+        'searchText': search
+    }).then(response => {
+        dispatch(allTopic(response.data.topic))
     }).catch(error => {
         console.log(error)
     })
