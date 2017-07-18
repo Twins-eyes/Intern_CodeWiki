@@ -6,3 +6,4 @@ export const EDITOR_DATA_BY_ID = 'editor_data_by_id'
 
 export const GET_USER_DATA = 'get_user_data'
 export const GET_TOPIC_DATA = 'get_all_topic'
+export const USER_LOGOUT = 'user_logout'
