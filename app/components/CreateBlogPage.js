@@ -80,47 +80,6 @@ class CreateBlogPage extends Component {
                                     <Tabs size={'small'}>
                                         <Tabs.TabPane key={1} tab={<span><Icon type="edit" />Write</span>}>
                                             <BlogEditor title={title} tags={tags}>
-<<<<<<< HEAD
-                                                <Row style={{ background: '#f9f9f9', marginBottom:0}}>
-                                                    <Col md={{span:24}}>
-                                                        { !this.state.tags.length?<Tag color={'#FBBB69'}>Sample tag</Tag>:''}
-                                                        { tags.map((tag, index) => {
-                                                            const isLongTag = tag.length > 20;
-                                                            const tagElem = (
-                                                                <Tag key={index} 
-                                                                    color={'#F18F01'}
-                                                                    style={{marginRight:'10px', marginTop: 'l'}}
-                                                                    closable
-                                                                    afterClose={() => this.handleClose(tag)}>
-                                                                    #{ isLongTag ? `${tag.slice(0, 20)}...` : tag }
-                                                                </Tag>
-                                                            )
-                                                            return isLongTag ? <Tooltip key={index} title={ tag }>{tagElem}</Tooltip> : tagElem
-                                                            })
-                                                        }
-                                                        { inputVisible && (
-                                                            <Input
-                                                                ref={this.saveInputRef}
-                                                                type="text"
-                                                                size="small"
-                                                                style={inputStyle}
-                                                                value={inputValue}
-                                                                onChange={this.handleInputChange}
-                                                                onBlur={this.handleInputConfirm}
-                                                                onPressEnter={this.handleInputConfirm}
-                                                            />
-                                                        )}
-                                                        { !inputVisible && 
-                                                            <Input 
-                                                                onFocus={this.showInput} 
-                                                                placeholder={'+ New Tag'}
-                                                                style={inputStyle}
-                                                            /> 
-                                                        }
-                                                    </Col>
-                                                </Row>
-                                            </BlogEditor>
-=======
                                                  <Row style={{ background: '#f9f9f9', marginBottom:0}}>
                                                      <Col md={{span:24}}>
                                                          { !this.state.tags.length?<Tag color={'#FBBB69'}>Sample tag</Tag>:''}
@@ -160,7 +119,6 @@ class CreateBlogPage extends Component {
                                                      </Col>
                                                  </Row>
                                              </BlogEditor>
->>>>>>> master
                                         </Tabs.TabPane>
                                         <Tabs.TabPane className={'editor'} key={2} tab={<span><Icon type="desktop" />Preview</span>}>
                                             <BlogPreview editorRaw={this.props.editorState} />

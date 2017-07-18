@@ -57,7 +57,7 @@ class NavBar extends Component {
                     </Link>
                     <input
                         type={'text'} 
-                        style={{borderRadius: 3, border: '0', marginLeft: 20, marginTop: 1, paddingLeft: 10, fontSize: 12, height: 29, width: 200, backgroundColor: '#F2991D'}} 
+                        style={{borderRadius: 3, border: '0', marginLeft: 20, marginTop: 1, paddingLeft: 10, fontSize: 12, height: 29, width: 200}} 
                         placeholder={'Search by tag or title'} 
                         className={'nav-input'}
                         onChange={e => this.props.searchTopic(e.target.value)}
