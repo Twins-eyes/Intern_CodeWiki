@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { signOut } from '../actions'
+import { signOut, searchTopic } from '../actions'
 import '../assets/editor.scss'
 
 class NavBar extends Component {
@@ -57,16 +57,19 @@ class NavBar extends Component {
                     </Link>
                     <input
                         type={'text'} 
-                        style={{borderRadius: 3, border: '0', marginLeft: 20, marginTop: 1, paddingLeft: 5, fontSize: 12, height: 29, width: 200, backgroundColor: '#F2991D'}} 
+                        style={{borderRadius: 3, border: '0', marginLeft: 20, marginTop: 1, paddingLeft: 10, fontSize: 12, height: 29, width: 200, backgroundColor: '#F2991D'}} 
                         placeholder={'Search by tag or title'} 
                         className={'nav-input'}
+                        onChange={e => this.props.searchTopic(e.target.value)}
                     />
                     <Link style={{ paddingLeft: 20 }} to={'/list'}>
                         List
                     </Link>
-                    <Link style={{ paddingLeft: 20 }} to={'/createBlog'}>
-                        Create
-                    </Link>
+                    {isLoggedIn?
+                        <Link style={{ paddingLeft: 20 }} to={'/createBlog'}>
+                            Create
+                        </Link>
+                    :''}
                 </span>
                 {this.authButton()}
             </div>
@@ -78,4 +81,4 @@ const mapStateToProps = state => {
     return { isLoggedIn: state.auth.get('isLoggedIn') }
 }
 
-export default connect(mapStateToProps, {signOut})(NavBar)
+export default connect(mapStateToProps, {signOut, searchTopic})(NavBar)

@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import NavBar from '../components/NavBar'
-import SignInBox from '../components/SignInBox'
 import { Row, Col } from 'antd'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import NavBar from '../components/NavBar'
+import SignInBox from '../components/SignInBox'
 
 
 class HomePage extends Component {
@@ -36,15 +37,19 @@ class HomePage extends Component {
                                         code and explanation with other people
                                         in the different ways from the traditional site.<br/><br/>
                                     </span></center>
-                                    <p><h3>CodeWiki</h3> allow you to correspond between code
+                                    <div><h3>CodeWiki</h3> allow you to correspond between code
                                         and explanation within one screen, helping developers
                                         to easily write the explanation when sharing with other people.<br/> 
                                         <br/>
                                         <h3>CodeWiki</h3> not only provides the open space 
                                         to share your codes but also finds others' code to get more 
                                         understanding in coding ways.
-                                    </p>
-                                    <center><button className={'toListButt'}>TOPICS</button></center>
+                                    </div>
+                                    <center>
+                                        <Link to={'/list'}>
+                                            <button className={'toListButt'}>TOPICS</button>
+                                        </Link>
+                                    </center>
                                 </ReactCSSTransitionGroup>
                             </div>
                         </Col>
