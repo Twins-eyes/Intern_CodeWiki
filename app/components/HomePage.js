@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import NavBar from '../components/NavBar'
 import SignInBox from '../components/SignInBox'
@@ -44,7 +45,7 @@ class HomePage extends Component {
                                         to share your codes but also finds others' code to get more 
                                         understanding in coding ways.
                                     </p>
-                                    <center><button className={'toListButt'}><span>TOPICS</span></button></center>
+                                    <center><Link to={'/list'}><button className={'toListButt'}><span>TOPICS</span></button></Link></center>
                                 </ReactCSSTransitionGroup>
                             </div>
                         </Col>
