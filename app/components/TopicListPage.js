@@ -16,30 +16,38 @@ class TopicList extends Component {
     render(){
         return(
             <div>
-                <NavBar location={this.props.location} />
-                <Row>
-                    <Col xs={{span:20, offset:4}} md={{span:21, offset:2}}> 
-                        <Input 
-                            type='text'
-                            className={'search'}
-                            placeholder='search'
-                            style={{width: 250, height: 34}}
-                            autoFocus
-                        />
-                    </Col>
-                </Row>
-                <div style={{marginTop:'20px', opacity:'0.98'}}>
-                    { this.props.topics.map((topic, index) => (
-                        <List
-                            key={index}
-                            topicName={topic.title}
-                            tags={topic.tags}
-                            author={topic.ownerId}
-                            date={topic.createdAt}
-                            topicId={topic._id}
-                        />
-                    )) }
-                </div>
+                <ReactCSSTransitionGroup
+                        transitionName="page"
+                        transitionAppear={true}
+                        transitionAppearTimeout={400}
+                        transitionEnter={false}
+                        transitionLeave={false}
+                >
+                    <NavBar location={this.props.location} />
+                    <Row>
+                        <Col xs={{span:20, offset:4}} md={{span:21, offset:2}}> 
+                            <Input 
+                                type='text'
+                                className={'search'}
+                                placeholder='search'
+                                style={{width: 250, height: 34}}
+                                autoFocus
+                            />
+                        </Col>
+                    </Row>
+                    <div style={{marginTop:'20px', opacity:'0.98'}}>
+                        { this.props.topics.map((topic, index) => (
+                            <List
+                                key={index}
+                                topicName={topic.title}
+                                tags={topic.tags}
+                                author={topic.ownerId}
+                                date={topic.createdAt}
+                                topicId={topic._id}
+                            />
+                        )) }
+                    </div>
+                </ReactCSSTransitionGroup>
             </div>
         )
     }
