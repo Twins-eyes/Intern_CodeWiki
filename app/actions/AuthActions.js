@@ -47,7 +47,6 @@ export const checkUser = () => {
         })
     }
 }
-
 export const signOut = () => dispatch => {
     localStorage.clear()
     return dispatch(dispatchLogout())
