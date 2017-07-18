@@ -32,7 +32,7 @@ class NavBar extends Component {
                         <Link to={'/'} className={'link'}>
                             {this.props.name}
                         </Link>
-                        <Link to={'/a'} onClick={() => this.props.signOut()} className={'link'}>
+                        <Link to={'/'} onClick={() => this.props.signOut()} className={'link'}>
                             Sign out
                         </Link>
                     </span>

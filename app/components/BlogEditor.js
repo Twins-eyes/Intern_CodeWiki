@@ -151,7 +151,7 @@ class BlogEditor extends Component {
 
     _onClickBlogType = event => this.onChange(RichUtils.toggleBlockType(this.state.editorState, event))
 
-    saveEditorData = () => this.props.saveDataFromEditor(JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent())), this.props.title, this.props.tags)
+    saveEditorData = () => this.props.saveDataFromEditor(JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent())), this.props.title, this.props.tags, this.props.user._id, this.props.user.username)
 
     render() {
         let editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editorState), this.state.decorator)
@@ -166,7 +166,7 @@ class BlogEditor extends Component {
                             { blockTypeText.map((data, index) => <Button key={index} type={BlogType===data.value?'primary':''}  onClick={() => this._onClickBlogType(data.value)}>{data.text}</Button>) }
                         </Button.Group>
 
-                        <Button.Group style={{marginRight: 10, marginBottom: 10, color: '#ffd83f'}}>
+                        <Button.Group style={{marginRight: 10, marginBottom: 10}}>
                             { changeInlineElement.map((data, index) => <Button key={index} type={editorState.getCurrentInlineStyle().has(data.value)?'primary':''} onClick={() => this._onClickInlineStyle(data.value)}>{data.icon}</Button>) }
                         </Button.Group>
 
@@ -268,6 +268,7 @@ const changeBlogTypeElement = {
 
 const mapStateToProps = state => {
     return { 
+        user: state.auth.get('user'),
         editorState: state.editor.get('editorState'), 
         blockRender: state.editor.get('blockRender'), 
     }

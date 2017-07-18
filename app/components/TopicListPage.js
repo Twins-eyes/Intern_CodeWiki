@@ -29,12 +29,13 @@ class TopicList extends Component {
                     </Col>
                 </Row>
                 <div style={{marginTop:'20px', opacity:'0.98'}}>
+                    <Col style={{borderBottom: '1px solid #F18F01', marginLeft: '5%', width: '90%'}}></Col>
                     { this.props.topics.map((topic, index) => (
                         <List
                             key={index}
                             topicName={topic.title}
                             tags={topic.tags}
-                            author={topic.ownerId}
+                            author={topic.owner.ownerName}
                             date={topic.createdAt}
                             topicId={topic._id}
                         />
