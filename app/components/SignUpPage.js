@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import NavBar from '../components/NavBar'
-import { Col, Row } from 'antd'
+import { Col, Row, Card } from 'antd'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { connect } from 'react-redux'
 import { signUp } from '../actions'
@@ -60,7 +60,7 @@ class SignUpPage extends Component {
                     transitionEnter={false}
                     transitionLeave={false}
                 >
-                    <center><div className={'signupBox'}>
+                    <center><Card className={'signupBox'} style={{backgroundColor:'#fafafa'}}>
                         <form className={'form'}>
                             <Row>
                                 <Col md={12}>
@@ -111,7 +111,7 @@ class SignUpPage extends Component {
                             </Row>  
                             <center><button className={'button'} onClick={this.onSignUpHandler}>Sign up</button></center>
                         </form>
-                    </div></center> 
+                    </Card></center> 
                 </ReactCSSTransitionGroup>
             </div>
         )

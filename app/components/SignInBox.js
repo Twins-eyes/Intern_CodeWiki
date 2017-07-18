@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row, Col } from 'antd'
+import { Row, Col, Card } from 'antd'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { connect } from 'react-redux' 
 import { signIn } from '../actions'
@@ -42,7 +42,7 @@ class SignInBox extends Component {
                 transitionEnter={false}
                 transitionLeave={false}
             >
-                <div className={'signinBox'}>
+                <Card className={'signinBox'} style={{backgroundColor:'#fafafa'}}>
                     <form className={'form'}>
                         <Row>
                             <Col md={24}>
@@ -77,7 +77,7 @@ class SignInBox extends Component {
                             <button className={'button'} onClick={this.onSignIn}>Sign in</button>
                         </center>
                     </form>
-                </div>
+                </Card>
             </ReactCSSTransitionGroup>
         )
     }
