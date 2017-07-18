@@ -11,34 +11,45 @@ class HomePage extends Component {
         const random = (min, max) => Math.random() * (max - min) + min
         return (
             <div>
-                <NavBar location={this.props.location} />
-                <Row>
-                    <Col xs={{span:20, offset:4}} sm={{span:8, offset:2}} md={{span:10, offset:2}}>
-                        <div className={'syno'}>
-                            <ReactCSSTransitionGroup
-                                transitionName='synopsis'
-                                transitionAppear={true}
-                                transitionAppearTimeout={500}
-                                transitionEnter={false}
-                                transitionLeave={false}
-                            >
-                                <h1 className={'h1'}>CodeWiki</h1><br/>
-                                <span>The new way to express your
-                                    code and explanation with other people
-                                    in the different ways from the traditional site.<br/><br/>
-                                </span>
-                                <p><span>CodeWiki</span> allow you to correspond between code
-                                    and explanation within one screen, helping developers
-                                    to easily write the explanation when sharing with other people.<br/> 
-                                    <br/>
-                                    <span>CodeWiki</span> not only provides the open space 
-                                    to share your codes but also finds others' code to get more 
-                                    understanding in coding ways.
-                                </p>
-                            </ReactCSSTransitionGroup>
-                        </div>
-                    </Col>
-                </Row>
+                <ReactCSSTransitionGroup
+                   transitionName='synopsis'
+                   transitionAppear={true}
+                   transitionAppearTimeout={500}
+                   transitionEnter={false}
+                   transitionLeave={false}
+                >
+                    <img src={require('../img/coding-924920_960_720.jpg')} className={'homebg'} />
+                    <NavBar location={this.props.location} />
+                    <Row>
+                        <Col xs={{span:20, offset:4}} sm={{span:8, offset:2}} md={{span:10, offset:2}}/>
+                        <Col xs={{span:20, offset:4}} sm={{span:8, offset:2}} md={{span:10, offset:2}}>
+                            <div className={'syno'}>
+                                <ReactCSSTransitionGroup
+                                    transitionName='synopsis'
+                                    transitionAppear={true}
+                                    transitionAppearTimeout={700}
+                                    transitionEnter={false}
+                                    transitionLeave={false}
+                                >
+                                    <center><h1 className={'h1'}>CodeWiki</h1><br/>
+                                    <span>The new way to express your
+                                        code and explanation with other people
+                                        in the different ways from the traditional site.<br/><br/>
+                                    </span></center>
+                                    <p><h3>CodeWiki</h3> allow you to correspond between code
+                                        and explanation within one screen, helping developers
+                                        to easily write the explanation when sharing with other people.<br/> 
+                                        <br/>
+                                        <h3>CodeWiki</h3> not only provides the open space 
+                                        to share your codes but also finds others' code to get more 
+                                        understanding in coding ways.
+                                    </p>
+                                    <center><button className={'toListButt'}>TOPICS</button></center>
+                                </ReactCSSTransitionGroup>
+                            </div>
+                        </Col>
+                    </Row>
+                </ReactCSSTransitionGroup>
             </div>
         )
     }
