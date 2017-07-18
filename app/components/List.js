@@ -18,20 +18,20 @@ class List extends Component {
                     transitionLeaveTimeout={500}
                 >
                     <Row type='flex'>
-                        <Col md={16}>
+                        <Col md={19} xs={24}>
                             <Link to={`/detail/${topicId}`} className={'topicDetail'}>
                                 <h2>{ topicName }</h2>
                             </Link>
                         </Col>
-                        <Col md={2}>
+                        <Col md={2} xs={12}>
                             <span style={{color: '#8F8E7C'}}>{ new Date(date).toDateString() } </span>
                         </Col>
-                        <Col md={2}>
-                            <Link to={'/author'} className={'topicDetail'}>{ author }</Link>
+                        <Col md={2} xs={12}>
+                            <span style={{color: '#8F8E7C', float: 'right'}}>{ author }</span>
                         </Col>
                     </Row>
                     <Row type='flex'>
-                        <Col md={{span:22, offset: 1}}>
+                        <Col md={{span:24}}>
                             { tags.map((tag, index) => <TagList tag={tag} key={index} />) }
                         </Col>
                     </Row>

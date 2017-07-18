@@ -3,7 +3,6 @@ import {Editor, EditorState, RichUtils, convertToRaw} from 'draft-js'
 import {stateToHTML} from 'draft-js-export-html'
 import { Row, Col } from 'antd'
 import '../assets/editor.scss'
-//import 'semantic-ui-css/semantic.min.css'
 
 class BlockEditor extends Component {
     constructor(props) {
@@ -23,7 +22,6 @@ class BlockEditor extends Component {
         this.setState({
             editorState,
             htmlFromEditor: stateToHTML(editorState.getCurrentContent()),
-            //displayEditorState: convertToRaw(editorState.getCurrentContent())
         })
         var selectionState = this.state.editorState.getSelection()
         var anchorKey = selectionState.getAnchorKey()
@@ -51,11 +49,8 @@ class BlockEditor extends Component {
                 changedSelectedArray = [...changedSelectedArray, dataChange]
             }
         })
-        console.log(changedSelectedArray)
         selectionObj = Object.assign(selectionObj, { key: '123' }, { massage: changedSelectedArray }, { description: '' } )
-        console.log(selectionObj)
         this.setState({ content: selectionObj, hoverSelection: false })
-        console.log(this.state.content)
     }
     _onBoldClick() {
         this.onChange(RichUtils.toggleInlineStyle(
@@ -86,8 +81,6 @@ class BlockEditor extends Component {
     }
 
     _onSelectionDescription() {
-        // RichUtils.toggleInlineStyle(this.state.editorState, 'HIGHLIGHT')
-        // this.setState({editorState: this.state.editorState})
         let content = this.state.content
         content.bgColor = '#ddd'
         this.setState({ hoverSelection: true, content })
@@ -137,9 +130,6 @@ class BlockEditor extends Component {
                     <Col span={24} style={{padding: 20}}>
                         <div dangerouslySetInnerHTML={{__html: this.state.htmlFromEditor}}></div>
                         <div>
-                            {/*<div className={'bottonEditor'}>
-                                lkmckm
-                            </div>*/}
                             <button onClick={this._onBoldClick.bind(this)}>BOLD</button>
                             <button onClick={this._onItalicClick.bind(this)}>ITALIC</button>
                             <button onClick={this._onUnderlineClick.bind(this)}>UNDERLINE</button>
