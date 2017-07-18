@@ -52,7 +52,6 @@ class SignUpPage extends Component {
         console.log(this.state)
         return(
             <div>
-                <NavBar location={this.props.location}/>
                 <ReactCSSTransitionGroup
                     transitionName='sgnBox'
                     transitionAppear={true}
@@ -60,58 +59,59 @@ class SignUpPage extends Component {
                     transitionEnter={false}
                     transitionLeave={false}
                 >
-                    <center><Card className={'signupBox'} style={{backgroundColor:'#fafafa'}}>
-                        <form className={'form'}>
-                            <Row>
-                                <Col md={12}>
-                                    <span style={{paddingLeft:0}}>Email Address</span><br/>   
-                                    <input type='email'
-                                        className={'formInput'}
-                                        name='email'
-                                        value={this.props.email}
-                                        autoFocus='true'
-                                        onChange={e => this.setState({ email: e.target.value })}
-                                        required
-                                    />
-                                </Col>
-                                <Col md={12}>
-                                    <span style={{paddingLeft:0}}>Username</span><br/>   
-                                    <input type='text'
-                                        className={ 'formInput' }
-                                        name='username'
-                                        value={this.props.username}
-                                        required
-                                        onChange={this.handleUsername.bind(this)}
-                                        size={12}
-                                        pattern={'[A-Za-z\d]{3,12}'}
-                                    />
-                                </Col>
-                            </Row>  
-                            <Row>
-                                <Col md={12}>
-                                    <span style={{paddingLeft:0}}>Password</span><br/>   
-                                    <input type='password'
-                                        className={'formInput'}
-                                        name='password'
-                                        value={this.props.password}
-                                        onChange={this.handlePassword.bind(this)}
-                                        required
-                                    />
-                                </Col>
-                                <Col md={12}>
-                                    <span style={{paddingLeft:0}}>Confirm Password</span><br/>   
-                                    <input type='password'
-                                        className={'formInput'}
-                                        name='confirmPassword'
-                                        onChange={this.handleCFPassword.bind(this)}
-                                        value={this.props.cfPassword}
-                                        required
-                                    />
-                                </Col>
-                            </Row>  
-                            <center><button className={'button'} onClick={this.onSignUpHandler}>Sign up</button></center>
-                        </form>
-                    </Card></center> 
+                    <NavBar location={this.props.location}/>
+                        <center><Card className={'signupBox'} style={{backgroundColor:'#fafafa'}}>
+                            <form className={'form'}>
+                                <Row>
+                                    <Col md={12}>
+                                        <span style={{paddingLeft:0}}>Email Address</span><br/>   
+                                        <input type='email'
+                                            className={'formInput'}
+                                            name='email'
+                                            value={this.props.email}
+                                            autoFocus='true'
+                                            onChange={e => this.setState({ email: e.target.value })}
+                                            required
+                                        />
+                                    </Col>
+                                    <Col md={12}>
+                                        <span style={{paddingLeft:0}}>Username</span><br/>   
+                                        <input type='text'
+                                            className={ 'formInput' }
+                                            name='username'
+                                            value={this.props.username}
+                                            required
+                                            onChange={this.handleUsername.bind(this)}
+                                            size={12}
+                                            pattern={'[A-Za-z\d]{3,12}'}
+                                        />
+                                    </Col>
+                                </Row>  
+                                <Row>
+                                    <Col md={12}>
+                                        <span style={{paddingLeft:0}}>Password</span><br/>   
+                                        <input type='password'
+                                            className={'formInput'}
+                                            name='password'
+                                            value={this.props.password}
+                                            onChange={this.handlePassword.bind(this)}
+                                            required
+                                        />
+                                    </Col>
+                                    <Col md={12}>
+                                        <span style={{paddingLeft:0}}>Confirm Password</span><br/>   
+                                        <input type='password'
+                                            className={'formInput'}
+                                            name='confirmPassword'
+                                            onChange={this.handleCFPassword.bind(this)}
+                                            value={this.props.cfPassword}
+                                            required
+                                        />
+                                    </Col>
+                                </Row>  
+                                <center><button className={'button'} onClick={this.onSignUpHandler}>Sign up</button></center>
+                            </form>
+                        </Card></center> 
                 </ReactCSSTransitionGroup>
             </div>
         )

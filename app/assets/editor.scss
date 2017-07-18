@@ -144,7 +144,7 @@
   opacity: 0.01;
 }
 .synopsis-appear.synopsis-appear-active {
-  opacity: 0.9;
+  opacity: 1;
   transition: opacity 500ms ease-in;
 }
 .sgnBox-appear {
@@ -157,8 +157,9 @@
 .syno {
     align-items: right;
     font-size: 14px;
-    margin-top: 50px;
     margin-left: 0px;
+    position: fixed;
+    top: 25%;
     padding-right: 50px;
     color: white;
     h1 {
@@ -269,15 +270,6 @@ span {
     }
 }
 
-.search {
-    @extend .formInput;
-    margin: 30px 45px 0px 0px;
-    float: right;
-    border: 1px solid #ddd;
-    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-}
-
 .detail {
     margin: 20px 5% 10px 5%;
     width: 90%;
@@ -324,28 +316,54 @@ span.letter {
   padding: 30px 50px;
   margin: 20px 0;
 }
-
 .homebg {
-    position: fixed; 
-    opacity: 0.9;
-    top: 0; 
-    left: 0; 
-    z-index: -1;
-        
-    /* Preserve aspet ratio */
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     min-width: 100%;
-    min-height: 100%;
+    max-height: 100%;
+    z-index: -1; 
 }
-
 .toListButt {
     @extend .button;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    transition: all 0.3s;
+    font-size: 16px;
     background-color: transparent;
     border: #F18F01 2px solid;
+    span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+    }
+    span:after {
+        content: '\25b6';
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        right: -20px;
+        transition: 0.5s;
+    }
+    &:hover {
+        background-color: transparent;
+        span {
+            padding-right: 25px;
+        }
+        span:after {
+            opacity: 1;
+            right: 0;
+        }
+    }
 }
 
-.nav-input::-webkit-input-placeholder {
-    color: white;
+.nav-input {
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 5px #FBBB69 inset;
+        border: 1px solid #FBBB69 inset;
+    }
+    &::-webkit-input-placeholder {
+        color: #8F8E7C;
+    }
 }
