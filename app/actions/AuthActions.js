@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { POST_SIGNIN, POST_SIGNUP, GET_USER_DATA_API } from '../api'
-import { GET_USER_DATA } from './types'
+import { GET_USER_DATA, USER_LOGOUT } from './types'
 
 export const signIn = (username, password) => {
     return dispatch => {
@@ -31,6 +31,7 @@ export const signUp = (username, email, password) => {
             'password': password
         }).then(response => {
             localStorage.setItem('key', response.data.token)
+            dispatch(saveUserData(response.data.user))
         }).catch(err => {
             console.log(err)
         })
@@ -46,7 +47,13 @@ export const checkUser = () => {
         })
     }
 }
+export const signOut = () => dispatch => {
+    localStorage.clear()
+    return dispatch(dispatchLogout())
+}
 
-export const signOut = () => {
-    
+export const dispatchLogout = () => {
+    return {
+        type: USER_LOGOUT
+    }
 }
