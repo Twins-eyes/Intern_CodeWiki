@@ -44,7 +44,7 @@ class HomePage extends Component {
                                         to share your codes but also finds others' code to get more 
                                         understanding in coding ways.
                                     </p>
-                                    <center><button className={'toListButt'}>TOPICS</button></center>
+                                    <center><button className={'toListButt'}><span>TOPICS</span></button></center>
                                 </ReactCSSTransitionGroup>
                             </div>
                         </Col>
