@@ -11,17 +11,47 @@ import CreateBlogPage from '../components/CreateBlogPage'
 import BlogPreview from '../components/BlogPreview'
 
 class Router extends Component{
-    render() {
+    componentWillMount = () => {
         if(localStorage.getItem('key')){
             this.props.checkUser()
         } 
+    }
 
+    PrivateRoute = ({ component: Component, ...rest }) => (
+        <Route {...rest} render={props => (
+            this.props.isLoggedIn ? (
+                <Component {...props}/>
+            ) : (
+                <Redirect to={{
+                    pathname: '/signin',
+                    state: { from: props.location }
+                }}/>
+            )
+        )}/>
+    )
+
+    AuthRoute = ({ component: Component, ...rest }) => (
+        <Route {...rest} render={props => (
+            !this.props.isLoggedIn ? (
+                <Component {...props}/>
+            ) : (
+                <Redirect to={{
+                    pathname: '/list',
+                    state: { from: props.location }
+                }}/>
+            )
+        )}/>
+    )
+
+    render() {
+        const { PrivateRoute, AuthRoute } = this
+        
         return (
             <HashRouter>
                 <div>
                     <Route exact path='/' component={HomePage} />
-                    <Route path='/signin' component={SignIn} />
-                    <Route path='/signup' component={SignUp} />
+                    <AuthRoute path='/signin' component={SignIn} />
+                    <AuthRoute path='/signup' component={SignUp} />
                     <Route path='/list' component={TopicList} />
                     <Route path='/detail/:id' component={Reading} />
                     <Route path='/block' component={BlogPreview} />
@@ -32,24 +62,9 @@ class Router extends Component{
     }
 }
 
-const loggedIn = () => {
-    let isLoggedIn = false
-    localStorage.getItem('key')?isLoggedIn=true:isLoggedIn=false
-    return isLoggedIn
+const mapStateToProps = state => {
+    return { isLoggedIn: state.auth.get('isLoggedIn') }
 }
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-    <Route {...rest} render={props => (
-        loggedIn() ? (
-            <Component {...props}/>
-        ) : (
-            <Redirect to={{
-                pathname: '/signin',
-                state: { from: props.location }
-            }}/>
-        )
-    )}/>
-)
-
-export default connect(null, {checkUser})(Router)
+export default connect(mapStateToProps, {checkUser})(Router)
 
