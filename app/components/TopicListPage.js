@@ -30,9 +30,9 @@ class TopicList extends Component {
         return(
             <div>
                 <NavBar location={this.props.location} />
-                <Row gutter={16}>
-                    {isLoggedIn?<Col span={6}>
-                        <div style={{marginTop:'20px', marginLeft: '10%', opacity:'0.98'}}>
+                <Row gutter={4} type="flex" justify="space-around">
+                    {isLoggedIn?<Col md={5} xs={22}>
+                        <div style={{marginTop:'20px', opacity:'0.98'}}>
                             <Card title={'My Topics'}>
                                 <MyList
                                     topics={this.props.myTopics}
@@ -40,7 +40,7 @@ class TopicList extends Component {
                             </Card>
                         </div>
                     </Col>:''}
-                    <Col span={isLoggedIn?17:24}>
+                    <Col md={isLoggedIn?17:23} xs={22}>
                         <div style={{marginTop:'20px', opacity:'0.98'}}>
                             <Card title={'All Topics'}>
                                 <List

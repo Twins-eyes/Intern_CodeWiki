@@ -60,7 +60,7 @@ class CreateBlogPage extends Component {
                         transitionAppearTimeout={400}
                         transitionEnter={false}
                         transitionLeave={false}>
-                        <Row style={{padding: 20, marginTop:0}}>
+                        <Row style={{padding: 20}}>
                             <Col span={22} offset={1}>
                                 <ReactCSSTransitionGroup
                                     transitionName="editorPreview"
