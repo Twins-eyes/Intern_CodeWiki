@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { Row, Col } from 'antd'
-import { Link } from 'react-router-dom'
 import NavBar from '../components/NavBar'
 import SignInBox from '../components/SignInBox'
 
