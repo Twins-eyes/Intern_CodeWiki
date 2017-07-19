@@ -53,7 +53,7 @@ class CreateBlogPage extends Component {
         return (
             <div>
                 <NavBar location={this.props.location} />
-                <div className={'editorBlock'} style={{background: '#f9f9f9'}}>
+                <Row className={'editorBlock'} style={{background: '#f9f9f9'}}>
                     <ReactCSSTransitionGroup
                         transitionName="page"
                         transitionAppear={true}
@@ -67,7 +67,7 @@ class CreateBlogPage extends Component {
                                     transitionEnterTimeout={500}
                                     transitionLeaveTimeout={300}>
                                     <Row style={{ background: '#f9f9f9', marginBottom:0}}>
-                                        <Col md={{span:11, offset:1}}>
+                                        <Col md={{span:11}}>
                                             <Input placeholder={'Enter Blog title...'} 
                                                 style={{ width: 400, height: 34, marginLeft: 0 }}
                                                 className={'editor'}
@@ -128,7 +128,7 @@ class CreateBlogPage extends Component {
                             </Col>
                         </Row>
                     </ReactCSSTransitionGroup>
-                </div>
+                </Row>
             </div>
         )
     }

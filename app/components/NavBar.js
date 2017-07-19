@@ -52,12 +52,12 @@ class NavBar extends Component {
         return (
             <div className={'navBar'}>
                 <span>
-                    <Link style={{ paddingLeft: 70 }} to={'/'}>
+                    <Link style={{ paddingLeft: 70 }} to={isLoggedIn?'/list':'/'}>
                         <img src={require('../img/codewikiwhite.gif')} className={'logo'}/>
                     </Link>
                     <input
                         type={'text'} 
-                        style={{borderRadius: 3, border: '0', marginLeft: 20, marginTop: 1, paddingLeft: 10, fontSize: 12, height: 29, width: 200}} 
+                        style={{borderRadius: 3, border: '0', marginLeft: 20, marginTop: 1, paddingLeft: 10, fontSize: 12, height: 29, width: 200, backgroundColor: 'white'}} 
                         placeholder={'Search by tag or title'} 
                         className={'nav-input'}
                         onChange={e => this.props.searchTopic(e.target.value)}

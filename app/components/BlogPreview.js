@@ -47,11 +47,4 @@ class  BlogPreview extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        decorator: state.editor.get('decorator'),
-        blockRender: state.editor.get('blockRender')
-    }
-}
-
-export default connect(mapStateToProps, actions)(BlogPreview)
+export default connect(null, actions)(BlogPreview)
