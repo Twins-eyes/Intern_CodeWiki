@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { Row, Col } from 'antd'
 import { Link } from 'react-router-dom'
@@ -18,7 +19,7 @@ class HomePage extends Component {
                    transitionEnter={false}
                    transitionLeave={false}
                 >
-                    <img src={require('../img/coding-924920_960_720.jpg')} className={'homebg'} />
+                    <img src={require('../img/coding-924920.jpg')} className={'homebg'} />
                     <NavBar location={this.props.location} />
                     <Row>
                         <Col xs={{span:20, offset:4}} sm={{span:8, offset:2}} md={{span:10, offset:2}}/>
@@ -46,7 +47,7 @@ class HomePage extends Component {
                                     </div>
                                     <center>
                                         <Link to={'/list'}>
-                                            <button className={'toListButt'}>TOPICS</button>
+                                            <button className={'toListButt'}><span>TOPICS</span></button>
                                         </Link>
                                     </center>
                                 </ReactCSSTransitionGroup>
