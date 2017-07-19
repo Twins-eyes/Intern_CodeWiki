@@ -49,7 +49,6 @@ class SignUpPage extends Component {
     }
 
     render() {
-        console.log(this.state)
         return(
             <div>
                 <NavBar location={this.props.location}/>

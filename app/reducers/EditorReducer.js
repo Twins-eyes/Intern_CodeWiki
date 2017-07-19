@@ -3,10 +3,11 @@ import {
     STORE_EDITOR_STATE, 
     SAVE_DATA_EDITOR,
     GET_TOPIC_DATA,
-    EDITOR_DATA_BY_ID
+    EDITOR_DATA_BY_ID,
+    GET_MY_TOPIC
 } from '../actions/types'
 import { EditorState, convertToRaw } from 'draft-js'
-import { Map } from 'immutable'
+import { Map, fromJS } from 'immutable'
 
 const INITIAL_STATE = Map({
     description: '',
@@ -17,7 +18,8 @@ const INITIAL_STATE = Map({
         _id: 0,
         tags: [],
         editorRaw: convertToRaw(EditorState.createEmpty().getCurrentContent())
-    }
+    },
+    myTopics: []
 })
 
 export default (state = INITIAL_STATE, action) => {
@@ -32,6 +34,8 @@ export default (state = INITIAL_STATE, action) => {
             return state.set('allTopic', action.payload)
         case EDITOR_DATA_BY_ID:
             return state.set('detailDisplay', action.payload)
+        case GET_MY_TOPIC:
+            return state.set('myTopics', action.payload)
         default:
             return state
     }

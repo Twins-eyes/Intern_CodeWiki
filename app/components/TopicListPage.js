@@ -1,47 +1,67 @@
 import React, { Component } from 'react'
-import { Row, Col, Input } from 'antd'
+import { Row, Col, Input, Card } from 'antd'
 import NavBar from '../components/NavBar'
 import List from '../components/List'
+import MyList from '../components/MyList'
 import { MdKeyboardArrowDown } from 'react-icons/lib/md'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import { getAllEditorData } from '../actions'
+import { getAllEditorData, searchMyTopic } from '../actions'
 import { connect } from 'react-redux' 
 
 class TopicList extends Component {
 
     componentWillMount = () => {
-        this.props.getAllEditorData()
+        this.loadResource(this.props.getAllEditorData)
+        this.loadResource(this.props.searchMyTopic, this.props.user._id)
+    }
+
+    componentWillReceiveProps = nextProps => {
+        if(this.props.user._id !== nextProps.user._id)
+            this.loadResource(this.props.searchMyTopic, nextProps.user._id)
+    }
+
+    loadResource = (loadPage, id) => {
+        loadPage(id)
     }
 
     render(){
+        const { isLoggedIn } = this.props
+
         return(
             <div>
                 <NavBar location={this.props.location} />
-                <Row style={{marginTop: 40}}>
-                    <Col xs={{span:20, offset:4}} md={{span:21, offset:2}}> 
-                        <span>Topic</span>
+                <Row gutter={16}>
+                    {isLoggedIn?<Col span={6}>
+                        <div style={{marginTop:'20px', marginLeft: '10%', opacity:'0.98'}}>
+                            <Card title={'My Topics'}>
+                                <MyList
+                                    topics={this.props.myTopics}
+                                />
+                            </Card>
+                        </div>
+                    </Col>:''}
+                    <Col span={isLoggedIn?17:24}>
+                        <div style={{marginTop:'20px', opacity:'0.98'}}>
+                            <Card title={'All Topics'}>
+                                <List
+                                    topics={this.props.topics}
+                                />
+                            </Card>
+                        </div>
                     </Col>
                 </Row>
-                <div style={{marginTop:'20px', opacity:'0.98'}}>
-                    <Col style={{borderBottom: '1px solid #F18F01', marginLeft: '5%', width: '90%'}}></Col>
-                    { this.props.topics.map((topic, index) => (
-                        <List
-                            key={index}
-                            topicName={topic.title}
-                            tags={topic.tags}
-                            author={topic.owner.ownerName}
-                            date={topic.createdAt}
-                            topicId={topic._id}
-                        />
-                    )) }
-                </div>
             </div>
         )
     }
 }
 
 const mapStateToProps = state => {
-    return { topics: state.editor.get('allTopic')}
+    return { 
+        user: state.auth.get('user'),
+        topics: state.editor.get('allTopic'),
+        myTopics: state.editor.get('myTopics'),
+        isLoggedIn: state.auth.get('isLoggedIn')
+    }
 }
 
-export default connect(mapStateToProps, {getAllEditorData})(TopicList)
+export default connect(mapStateToProps, {getAllEditorData, searchMyTopic})(TopicList)

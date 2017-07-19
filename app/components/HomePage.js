@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { Row, Col } from 'antd'
-import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import NavBar from '../components/NavBar'
 import SignInBox from '../components/SignInBox'
@@ -60,9 +59,4 @@ class HomePage extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    console.log(state.auth)
-    return {}
-}
-
-export default connect(mapStateToProps)(HomePage)
+export default HomePage

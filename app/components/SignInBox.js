@@ -51,7 +51,6 @@ class SignInBox extends Component {
                                     <input type='text'
                                         className={'formInput'}
                                         name='email_username'
-                                        value={this.props.value}
                                         autoFocus='true'
                                         onChange={e => this.setState({ username: e.target.value })}
                                         required
@@ -66,7 +65,6 @@ class SignInBox extends Component {
                                     <input type='password'
                                         className={'formInput'}
                                         name='password'
-                                        value={this.props.value}
                                         onChange={e => this.setState({ password: e.target.value })}
                                         required
                                     />

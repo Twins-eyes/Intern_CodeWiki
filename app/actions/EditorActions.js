@@ -4,9 +4,16 @@ import {
     STORE_EDITOR_STATE, 
     SAVE_DATA_EDITOR,
     GET_TOPIC_DATA,
-    EDITOR_DATA_BY_ID
+    EDITOR_DATA_BY_ID,
+    GET_MY_TOPIC
 } from './types'
-import { POST_DATA_EDITOR, GET_ALL_TOPIC, GET_EDITOR_DATA, SEARCH_TOPIC } from '../api'
+import { 
+    POST_DATA_EDITOR, 
+    GET_ALL_TOPIC, 
+    GET_EDITOR_DATA, 
+    SEARCH_TOPIC, 
+    SEARCH_MY_TOPIC
+} from '../api'
 
 export const changeDescription = description => {
     return {
@@ -84,4 +91,21 @@ export const searchTopic = search => dispatch => {
     }).catch(error => {
         console.log(error)
     })
+}
+
+export const searchMyTopic = id => dispatch => {
+    return axios.post(SEARCH_MY_TOPIC, {
+        'id': id
+    }).then(response => {
+        return dispatch(myTopicDispatch(response.data.topics))
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const myTopicDispatch = topics => {
+    return {
+        type: GET_MY_TOPIC,
+        payload: topics
+    }
 }
