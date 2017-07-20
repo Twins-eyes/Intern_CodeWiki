@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
+import { Redirect } from 'react-router-dom'
 import { Row, Col, Button, Input, Tooltip, Affix, Modal, Tag } from 'antd'
 import { 
     CompositeDecorator, 
@@ -42,7 +43,8 @@ class BlogEditor extends Component {
             desValue: '',
             description: '',
             subDesButton: false,
-            isActive: false
+            isActive: false,
+            redirectTo: '',
         }
 
         this.focus = () => this.refs.editor.focus()
@@ -151,7 +153,12 @@ class BlogEditor extends Component {
 
     _onClickBlogType = event => this.onChange(RichUtils.toggleBlockType(this.state.editorState, event))
 
-    saveEditorData = () => this.props.saveDataFromEditor(JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent())), this.props.title, this.props.tags, this.props.user._id, this.props.user.username)
+    saveEditorData = () => {
+        return this.props.saveDataFromEditor(JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent())), this.props.title, this.props.tags, this.props.user._id, this.props.user.username).then(response => {
+            this.setState({ redirectTo: response.data.editor._id })
+            this.props.clearEditorState()
+        })
+    }
 
     render() {
         let editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editorState), this.state.decorator)
@@ -232,6 +239,7 @@ class BlogEditor extends Component {
                 <Button type={'primary'} icon={'check'} onClick={this.saveEditorData}>
                     Save
                 </Button>
+                {this.state.redirectTo?<Redirect to={`/detail/${this.state.redirectTo}`}/>:''}
             </div>
         )
     }

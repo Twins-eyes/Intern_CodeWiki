@@ -1,11 +1,13 @@
 import axios from 'axios'
+import { Redirect } from 'react-router-dom'
 import {
     CHANGE_DESCRIPTION, 
     STORE_EDITOR_STATE, 
     SAVE_DATA_EDITOR,
     GET_TOPIC_DATA,
     EDITOR_DATA_BY_ID,
-    GET_MY_TOPIC
+    GET_MY_TOPIC,
+    CLEAR_EDITOR_STATE
 } from './types'
 import { 
     POST_DATA_EDITOR, 
@@ -29,6 +31,12 @@ export const storeEditorState = editorState => {
     }
 }
 
+export const clearEditorState = () => {
+    return {
+        type: CLEAR_EDITOR_STATE
+    }
+}
+
 export const saveDataFromEditor = (editorSate, title, tags, ownerId, ownerName) => {
     return function(dispatch) {
         return axios.post(POST_DATA_EDITOR, {
@@ -39,12 +47,6 @@ export const saveDataFromEditor = (editorSate, title, tags, ownerId, ownerName) 
             'tags': tags
         }, {
             headers: { "Authorization": localStorage.getItem('key') }
-        }).then(response => {
-            console.log(response.data)
-            // return {
-            //     type: SAVE_DATA_EDITOR,
-            //     payload: data
-            // }
         }).catch(error => {
             console.log(error)
         })
