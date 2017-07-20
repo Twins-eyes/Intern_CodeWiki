@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as actions from '../actions'
 import { Row, Col, Button, Input } from 'antd'
 import { 
     CompositeDecorator, 
@@ -47,4 +46,4 @@ class  BlogPreview extends Component {
     }
 }
 
-export default connect(null, actions)(BlogPreview)
+export default BlogPreview

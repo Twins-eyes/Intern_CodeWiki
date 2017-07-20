@@ -7,7 +7,7 @@ import { TagList } from './Tag'
 class List extends Component {
     render(){
         const { topics } = this.props
-
+        
         return (
             <div>
                 { topics.map((topic, index) => (

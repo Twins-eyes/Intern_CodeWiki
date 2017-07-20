@@ -7,14 +7,17 @@ import {
     GET_TOPIC_DATA,
     EDITOR_DATA_BY_ID,
     GET_MY_TOPIC,
-    CLEAR_EDITOR_STATE
+    CLEAR_EDITOR_STATE,
+    CLEAR_EDITOR_DETAIL,
+    UPDATE_EDITOR_DATA
 } from './types'
 import { 
     POST_DATA_EDITOR, 
     GET_ALL_TOPIC, 
     GET_EDITOR_DATA, 
     SEARCH_TOPIC, 
-    SEARCH_MY_TOPIC
+    SEARCH_MY_TOPIC,
+    UPDATE_EDITOR_DATA_API
 } from '../api'
 
 export const changeDescription = description => {
@@ -35,6 +38,23 @@ export const clearEditorState = () => {
     return {
         type: CLEAR_EDITOR_STATE
     }
+}
+
+export const clearEditorDetail = () => {
+    return {
+        type: CLEAR_EDITOR_DETAIL
+    }
+}
+
+export const updateEditorData = (_id, editorSate, title, tags) => dispatch => {
+    return axios.post(UPDATE_EDITOR_DATA_API, {
+        'editorRaw': editorSate,
+        'title': title,
+        'tags': tags,
+        '_id': _id
+    }).catch(error => {
+        console.log(error)
+    })
 }
 
 export const saveDataFromEditor = (editorSate, title, tags, ownerId, ownerName) => {
@@ -75,9 +95,9 @@ export const detailDisplayById = editorData => {
     }
 }
 
-export const getEditorById = data => dispatch => {
+export const getEditorById = id => dispatch => {
     return axios.post(GET_EDITOR_DATA, {
-        '_id': data.id
+        '_id': id
     }).then(response => {
         dispatch(detailDisplayById(response.data.editor))
     }).catch(error => {
