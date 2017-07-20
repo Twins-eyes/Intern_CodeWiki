@@ -4,7 +4,8 @@ import {
     SAVE_DATA_EDITOR,
     GET_TOPIC_DATA,
     EDITOR_DATA_BY_ID,
-    GET_MY_TOPIC
+    GET_MY_TOPIC,
+    CLEAR_EDITOR_STATE
 } from '../actions/types'
 import { EditorState, convertToRaw } from 'draft-js'
 import { Map, fromJS } from 'immutable'
@@ -36,6 +37,8 @@ export default (state = INITIAL_STATE, action) => {
             return state.set('detailDisplay', action.payload)
         case GET_MY_TOPIC:
             return state.set('myTopics', action.payload)
+        case CLEAR_EDITOR_STATE:
+            return state.set('editorState', INITIAL_STATE.get('editorState'))
         default:
             return state
     }
