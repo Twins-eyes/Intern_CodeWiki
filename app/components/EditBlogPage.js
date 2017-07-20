@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { saveDataFromEditor, clearEditorState } from '../actions'
+import { updateEditorData, clearEditorState, getEditorById } from '../actions'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import { Col, Row, Button, Radio, Tabs, Icon, Tag, Input, Tooltip } from 'antd'
+import { Col, Row, Button, Radio, Tabs, Icon, Tag, Input, Tooltip, Spin } from 'antd'
 import { Redirect } from 'react-router-dom'
 import BlogEditor from './BlogEditor'
 import BlogPreview from './BlogPreview'
@@ -17,15 +17,36 @@ import {
     Entity
 } from 'draft-js'
 
-class CreateBlogPage extends Component {
+class EditBlogPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
             title: '',
             tags: [],
             inputValue: '',
-            inputVisible: false
+            inputVisible: false,
+            isLoading: true,
+            redirectTo: '',
+            redirect: false
         }
+    }
+
+    componentWillMount() {
+        if(this.props.location.state){
+            this.props.getEditorById(this.props.location.state.topic._id).then(() => {
+                this.setState({ 
+                    isLoading: false,
+                    tags: this.props.editorData.tags,
+                    title: this.props.editorData.title
+                })
+            })
+        }else{
+            this.setState({ redirect: true })
+        }
+    }
+
+    componentWillUnMount() {
+        this.props.clearEditorState()
     }
 
     handleClose = (removedTag) => {
@@ -52,7 +73,6 @@ class CreateBlogPage extends Component {
             tags,
             inputVisible: false,
             inputValue: '',
-            redirectTo: '',
         })
     }
 
@@ -101,7 +121,7 @@ class CreateBlogPage extends Component {
     saveInputRef = input => this.input = input
 
     saveEditorData = () => {
-        return this.props.saveDataFromEditor(JSON.stringify(this.props.editorState), this.state.title, this.state.tags, this.props.user._id, this.props.user.username).then(response => {
+        return this.props.updateEditorData(this.props.editorData._id, JSON.stringify(this.props.editorState), this.state.title, this.state.tags).then(response => {
             this.setState({ redirectTo: response.data.editor._id })
             this.props.clearEditorState()
         })
@@ -109,11 +129,12 @@ class CreateBlogPage extends Component {
 
     render() {
         const { tags, inputValue, inputVisible, title } = this.state 
-    
+
         return (
             <div>
                 <NavBar location={this.props.location} />
                 <Row className={'editorBlock'} style={{background: '#f9f9f9'}}>
+                    { this.state.isLoading? <div className="spinLoader"><Spin /></div> :
                     <ReactCSSTransitionGroup
                         transitionName="page"
                         transitionAppear={true}
@@ -139,7 +160,7 @@ class CreateBlogPage extends Component {
                                     </Row>
                                     <Tabs size={'small'}>
                                         <Tabs.TabPane key={1} tab={<span><Icon type="edit" />Write</span>}>
-                                            <BlogEditor/>
+                                            <BlogEditor editorRaw={JSON.parse(this.props.editorData.editorRaw)}/>
                                         </Tabs.TabPane>
                                         <Tabs.TabPane className={'editor'} key={2} tab={<span><Icon type="desktop" />Preview</span>}>
                                             <BlogPreview editorRaw={this.props.editorState} />
@@ -152,8 +173,9 @@ class CreateBlogPage extends Component {
                                 </ReactCSSTransitionGroup>
                             </Col>
                         </Row>
-                    </ReactCSSTransitionGroup>
+                    </ReactCSSTransitionGroup>}
                 </Row>
+                {this.state.redirect?<Redirect to={`/list`}/>:''}
                 {this.state.redirectTo?<Redirect to={`/detail/${this.state.redirectTo}`}/>:''}
             </div>
         )
@@ -178,8 +200,9 @@ const page = {
 const mapStateToProps = state => {
     return {
         user: state.auth.get('user'),
-        editorState: state.editor.get('editorState')
+        editorData: state.editor.get('detailDisplay'),
+        editorState:  state.editor.get('editorState')
     }
 }
 
-export default connect(mapStateToProps, { saveDataFromEditor, clearEditorState })(CreateBlogPage)
+export default connect(mapStateToProps, { updateEditorData, clearEditorState, getEditorById })(EditBlogPage)

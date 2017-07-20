@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
-import { Redirect } from 'react-router-dom'
 import { Row, Col, Button, Input, Tooltip, Affix, Modal, Tag } from 'antd'
 import { 
     CompositeDecorator, 
@@ -40,11 +39,11 @@ class BlogEditor extends Component {
         this.state = {
             editorState: EditorState.createWithContent(convertFromRaw(this.props.editorState), decorator),
             showDesInput: false,
+            decorator: new CompositeDecorator(decorators),
             desValue: '',
             description: '',
             subDesButton: false,
             isActive: false,
-            redirectTo: '',
         }
 
         this.focus = () => this.refs.editor.focus()
@@ -65,6 +64,14 @@ class BlogEditor extends Component {
         ]
 
         this.onDesChange = (e) => this.setState({desValue: e.target.value})
+    }
+
+    componentWillMount() {
+        if(this.props.editorRaw) {
+            this.setState({
+                editorState: EditorState.createWithContent(convertFromRaw(this.props.editorRaw), this.state.decorator)
+            })
+        }
     }
 
     _promptForDescription = e => {
@@ -153,15 +160,7 @@ class BlogEditor extends Component {
 
     _onClickBlogType = event => this.onChange(RichUtils.toggleBlockType(this.state.editorState, event))
 
-    saveEditorData = () => {
-        return this.props.saveDataFromEditor(JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent())), this.props.title, this.props.tags, this.props.user._id, this.props.user.username).then(response => {
-            this.setState({ redirectTo: response.data.editor._id })
-            this.props.clearEditorState()
-        })
-    }
-
     render() {
-        let editorStateFromRedux = EditorState.createWithContent(convertFromRaw(this.props.editorState), this.state.decorator)
         const { showDesInput, editorState, desValue, isActive } = this.state
         const BlogType = editorState.getCurrentContent().getBlockForKey(editorState.getSelection().getStartKey()).getType()
         
@@ -235,11 +234,6 @@ class BlogEditor extends Component {
                         </Modal>
                     </Col>
                 </Row>
-                {this.props.children}
-                <Button type={'primary'} icon={'check'} onClick={this.saveEditorData}>
-                    Save
-                </Button>
-                {this.state.redirectTo?<Redirect to={`/detail/${this.state.redirectTo}`}/>:''}
             </div>
         )
     }
@@ -276,7 +270,6 @@ const changeBlogTypeElement = {
 
 const mapStateToProps = state => {
     return { 
-        user: state.auth.get('user'),
         editorState: state.editor.get('editorState'), 
         blockRender: state.editor.get('blockRender'), 
     }

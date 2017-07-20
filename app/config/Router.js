@@ -8,6 +8,7 @@ import SignUp from '../components/SignUpPage'
 import TopicList from '../components/TopicListPage'
 import Reading from '../components/ReadingPage'
 import CreateBlogPage from '../components/CreateBlogPage'
+import EditBlogPage from '../components/EditBlogPage'
 import BlogPreview from '../components/BlogPreview'
 import MyTopicView from '../components/HOC/MyTopicView'
 
@@ -57,6 +58,7 @@ class Router extends Component{
                     <Route path='/detail/:id' component={Reading} />
                     <Route path='/block' component={BlogPreview} />
                     <PrivateRoute path='/createBlog' component={CreateBlogPage}/>
+                    <Route path='/edit' component={EditBlogPage} />
                     <Route path='/test' component={MyTopicView} />
                 </div>
             </HashRouter>

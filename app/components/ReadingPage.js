@@ -20,7 +20,7 @@ class ReadingPage extends Component {
     }
 
     componentWillMount() {
-        this.props.getEditorById(this.props.match.params).then(() => {
+        this.props.getEditorById(this.props.match.params.id).then(() => {
             this.setState({ isLoading: false })
         })
     }
