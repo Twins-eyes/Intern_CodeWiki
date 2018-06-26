@@ -1,4 +1,4 @@
-let API_URL = 'http://localhost:3000'
+let API_URL = 'http://codewiki.fd.ise.shibaura-it.ac.jp'
 
 export const POST_DATA_EDITOR = `${API_URL}/api/saveEditor`
 export const GET_ALL_TOPIC = `${API_URL}/api/getAllTopic`
